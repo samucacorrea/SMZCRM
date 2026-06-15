@@ -148,6 +148,39 @@ Nesse caso, revise primeiro:
 - `PORT=3000` no compose
 - logs do serviço `app`
 
+## Logging de diagnóstico
+
+As rotas de auth agora geram logs estruturados em JSON com:
+
+- `event`
+- `requestId`
+- `method`
+- `path`
+- `status`
+- `durationMs`
+
+Eventos principais:
+
+```text
+http.request.started
+http.request.completed
+http.request.failed
+runtime.uncaught_exception
+runtime.unhandled_rejection
+```
+
+Quando uma rota `/api/auth/*` falhar, procure no log do serviço `app` pelo mesmo `requestId`
+retornado na resposta HTTP.
+
+Exemplo de resposta de erro:
+
+```json
+{
+  "error": "internal_server_error",
+  "requestId": "..."
+}
+```
+
 ## Pós-deploy
 
 Depois do primeiro deploy:

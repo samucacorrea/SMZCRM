@@ -1,10 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-import { auth } from "@/lib/auth";
 import { requiresMandatoryMfa, MFA_SETUP_PATH } from "@/lib/auth/mfa";
-import { ensureSessionWorkspace } from "@/lib/auth/workspace";
 import { PUBLIC_ROUTE_ALLOWLIST, PUBLIC_ROUTE_PREFIXES } from "@/lib/auth/public-routes";
-import { db } from "@/lib/db";
 
 const SUPER_ADMIN_PREFIX = "/super-admin";
 
@@ -29,6 +26,12 @@ export async function middleware(request: NextRequest) {
   if (isPublicRoute(pathname)) {
     return NextResponse.next();
   }
+
+  const [{ auth }, { ensureSessionWorkspace }, { db }] = await Promise.all([
+    import("@/lib/auth"),
+    import("@/lib/auth/workspace"),
+    import("@/lib/db"),
+  ]);
 
   let session = null;
 

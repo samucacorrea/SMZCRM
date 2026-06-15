@@ -30,9 +30,19 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const session = await auth.api.getSession({
-    headers: request.headers,
-  });
+  let session = null;
+
+  try {
+    session = await auth.api.getSession({
+      headers: request.headers,
+    });
+  } catch (error) {
+    console.error("Middleware session lookup failed", error);
+
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("redirectTo", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
 
   if (!session) {
     const loginUrl = new URL("/login", request.url);
@@ -61,18 +71,28 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (!isSuperAdmin) {
-    await ensureSessionWorkspace(session);
-  }
+  let membership = null;
 
-  const membership = !isSuperAdmin && session.session.activeStaffMemberId
-    ? await db.query.staffMembers.findFirst({
-        where: (table, { eq }) => eq(table.id, session.session.activeStaffMemberId ?? ""),
-        with: {
-          role: true,
-        },
-      })
-    : null;
+  try {
+    if (!isSuperAdmin) {
+      await ensureSessionWorkspace(session);
+    }
+
+    membership = !isSuperAdmin && session.session.activeStaffMemberId
+      ? await db.query.staffMembers.findFirst({
+          where: (table, { eq }) => eq(table.id, session.session.activeStaffMemberId ?? ""),
+          with: {
+            role: true,
+          },
+        })
+      : null;
+  } catch (error) {
+    console.error("Middleware workspace bootstrap failed", error);
+
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("redirectTo", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
 
   if (
     requiresMandatoryMfa({

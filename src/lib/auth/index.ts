@@ -70,9 +70,9 @@ export const auth = betterAuth({
     },
   },
   plugins: [
-    nextCookies(),
     twoFactor({
       issuer: "NucleoCRM",
     }),
+    nextCookies(),
   ],
 });

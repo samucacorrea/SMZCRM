@@ -20,6 +20,7 @@ Confirme que o repositório no GitHub está atualizado com:
 - `Dockerfile`
 - `.dockerignore`
 - `.env.example`
+- `.env.easypanel.example`
 
 ## Variáveis obrigatórias
 
@@ -28,6 +29,7 @@ Configure no EasyPanel, no mínimo:
 Observação:
 
 - `.env.example` é apenas referência
+- `.env.easypanel.example` é a referência recomendada para produção/EasyPanel
 - no EasyPanel, você precisa cadastrar as variáveis no painel
 - o deploy não deve depender da existência de um arquivo `.env` no repositório
 

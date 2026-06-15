@@ -38,6 +38,12 @@ docker/
 cp .env.example .env
 ```
 
+Para produção/EasyPanel, use como base:
+
+```bash
+cp .env.easypanel.example .env
+```
+
 2. Ajuste no `.env` pelo menos:
 
 - `BETTER_AUTH_SECRET`
@@ -108,6 +114,7 @@ Fluxo recomendado:
 2. No EasyPanel, crie um app a partir do repositório.
 3. Use `docker-compose.yml` como base do deploy.
 4. Configure todas as variáveis do `.env.example` no painel do EasyPanel.
+   Você pode usar `.env.easypanel.example` como referência pronta para produção.
 5. Mantenha `RUN_MIGRATIONS=true` no serviço `app`.
 6. Em produção, desative seed:
 

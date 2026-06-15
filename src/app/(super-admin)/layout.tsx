@@ -4,6 +4,8 @@ import type { ReactNode } from "react";
 import { LogoutButton } from "@/components/auth/logout-button";
 import { requireSuperAdminSession } from "@/lib/auth/super-admin";
 
+export const dynamic = "force-dynamic";
+
 const links = [
   { href: "/super-admin", label: "Dashboard" },
   { href: "/super-admin/tenants", label: "Tenants" },

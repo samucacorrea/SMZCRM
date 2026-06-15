@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Projeto: Gestão de Tráfego — TechSul Ltda - NúcleoCRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#e2e2eb",
+                        "background": "#f7f9fc",
+                        "surface-container": "#eceef1",
+                        "inverse-on-surface": "#eff1f4",
+                        "on-secondary-fixed": "#191b22",
+                        "on-surface": "#191c1e",
+                        "tertiary-container": "#b54e00",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-container": "#e2e2eb",
+                        "success-tint": "#EFF6FF",
+                        "on-primary-container": "#eeefff",
+                        "inverse-primary": "#b4c5ff",
+                        "card-background": "#FFFFFF",
+                        "on-tertiary-fixed": "#341100",
+                        "surface-tint": "#0053db",
+                        "warning-tint": "#FFF7ED",
+                        "surface-container-high": "#e6e8eb",
+                        "secondary": "#5d5e65",
+                        "inverse-surface": "#2d3133",
+                        "surface": "#f7f9fc",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "tertiary": "#8e3c00",
+                        "on-surface-variant": "#434655",
+                        "on-secondary-fixed-variant": "#45464e",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "error-container": "#ffdad6",
+                        "text-slate": "#4B5563",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-variant": "#e0e3e6",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "tertiary-fixed": "#ffdbca",
+                        "primary": "#004ac6",
+                        "surface-bright": "#f7f9fc",
+                        "on-primary-fixed": "#00174b",
+                        "on-error": "#ffffff",
+                        "sidebar-surface": "#1C2030",
+                        "outline": "#737686",
+                        "on-background": "#191c1e",
+                        "secondary-fixed-dim": "#c5c6ce",
+                        "on-secondary-container": "#63646c",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#d8dadd",
+                        "text-dark": "#111827",
+                        "surface-container-highest": "#e0e3e6",
+                        "border-subtle": "#E5E7EB",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#ffece5",
+                        "text-muted": "#9CA3AF",
+                        "on-tertiary-fixed-variant": "#783200",
+                        "surface-container-low": "#f2f4f7",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "nav-item-x": "12px",
+                        "topbar-height": "52px",
+                        "sidebar-width": "200px",
+                        "page-padding": "18px",
+                        "section-gap": "14px",
+                        "nav-item-y": "7px",
+                        "container-gap": "10px",
+                        "card-padding": "16px"
+                    },
+                    "fontFamily": {
+                        "title-card": ["Inter"],
+                        "display-kpi": ["Inter"],
+                        "body-main": ["Inter"],
+                        "headline-page": ["Inter"],
+                        "caption": ["Inter"],
+                        "body-secondary": ["Inter"],
+                        "tag": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-card": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                        "display-kpi": ["22px", {"lineHeight": "1.1", "letterSpacing": "-0.5px", "fontWeight": "500"}],
+                        "body-main": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-page": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "caption": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "body-secondary": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "tag": ["10.5px", {"lineHeight": "12px", "fontWeight": "500"}],
+                        "label-caps": ["9.5px", {"lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #F0F2F5; } /* Forced layer 0 background */
+    </style>
+</head>
+<body class="bg-[#F0F2F5] text-on-background font-body-main text-body-main min-h-screen flex antialiased">
+<!-- SideNavBar -->
+<aside class="w-sidebar h-screen fixed left-0 top-0 border-r border-outline-variant/10 bg-sidebar-surface flex flex-col gap-nav-item-y px-nav-item-x py-page-padding z-50">
+<div class="mb-6 flex items-center gap-3 px-2">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">N</div>
+<div>
+<h1 class="text-headline-page font-headline-page text-surface-lowest leading-none">NúcleoCRM</h1>
+<span class="text-[10px] text-surface-lowest/60 uppercase tracking-wider">CRM SaaS</span>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-fixed-variant hover:text-surface-lowest hover:bg-secondary-container/10 transition-colors scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-fixed-variant hover:text-surface-lowest hover:bg-secondary-container/10 transition-colors scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+<span>Leads</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-fixed-variant hover:text-surface-lowest hover:bg-secondary-container/10 transition-colors scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span>Clientes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-fixed-variant hover:text-surface-lowest hover:bg-secondary-container/10 transition-colors scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+<span>Faturas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">assignment</span>
+<span>Projetos</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-1 pt-4 border-t border-surface-lowest/10">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-fixed-variant hover:text-surface-lowest hover:bg-secondary-container/10 transition-colors scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span>Configurações</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-fixed-variant hover:text-surface-lowest hover:bg-secondary-container/10 transition-colors scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]">help_outline</span>
+<span>Suporte</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-[200px] flex flex-col min-w-0">
+<!-- TopNavBar -->
+<header class="h-topbar full-width sticky top-0 border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center px-page-padding z-40">
+<div class="flex items-center gap-4">
+<div class="relative hidden md:flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-text-muted text-[16px]">search</span>
+<input class="bg-[#F3F4F6] border-none rounded-lg text-[11px] py-1.5 pl-9 pr-4 focus:ring-1 focus:ring-primary w-64 h-8 transition-shadow" placeholder="Buscar no projeto..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">notifications</span>
+</button>
+<button class="w-8 h-8 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+</button>
+</div>
+<div class="h-5 w-px bg-border-subtle"></div>
+<div class="flex items-center gap-2 cursor-pointer opacity-80 active:opacity-100 hover:opacity-100 transition-opacity">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden border border-border-subtle">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a young male with short dark hair, wearing a dark grey t-shirt. The background is a clean, neutral studio setting with soft lighting. High resolution, corporate modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS4_eythy2seEOoIYK-I3evaP9nSoxEKvWco_L3DOT8lmwq15TE0HarOgE7QSD0fMUpVOqwMI8WVVogaUyuaCnviE7laMRWGkG3xoXJSGC34fnHtewVgUYeBwJI79u7sb0oceP68BOEH6cqFB7iPdREgAetwWZ_InbrSocabtBQQR2ukk8tikWoTQzsNkcOOlf-w1-lG6z9N3dQvEV6HgglNs5DYcC6MVxPhDylD6L_R7rqWUe5q2A0KFxdYbn3yjME2PGD6cOOqs"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Project Header & Content -->
+<main class="flex-1 p-page-padding flex flex-col gap-section-gap overflow-x-hidden">
+<!-- Project Header Container -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h2 class="text-display-kpi font-display-kpi text-text-dark">Gestão de Tráfego — TechSul Ltda</h2>
+<span class="px-2.5 py-1 rounded-full bg-success-tint text-primary font-tag text-tag whitespace-nowrap">Em andamento</span>
+</div>
+<p class="text-body-secondary font-body-secondary text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">business</span> TechSul Ltda
+                            <span class="mx-2 text-border-subtle">•</span>
+<span class="material-symbols-outlined text-[14px]">calendar_today</span> 10/05/2026 — 30/06/2026
+                        </p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2 mr-2">
+<img alt="Rafael" class="w-8 h-8 rounded-full border-2 border-white" data-alt="Professional avatar of a male project manager, smiling subtly, neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcE5XqRThXFXMhICi70Gwyu-KweSj4m3QhJUqo3NVEa35Ryy92qTLTzMS2R8t1jkJH20xlhiaI7sNNaXle6rfwfYrBzgH7NI2HC39dcEhyeBxmNeySDcU56FLQdb5A6_tDFzzjY0oMW9Xems8d0CS6Ei8maUtonOD81MmzcfuKky8NaXTaiKdZNdYg9P6BEvxHcOngPFLJA2uM4YnywpnmyE_fzj4gEpN3s4G8B5nOxb4BppDAldHibyAnQE3Sxvk4xK5BCPRW1yk"/>
+<img alt="Mariana" class="w-8 h-8 rounded-full border-2 border-white" data-alt="Professional avatar of a female designer, wearing glasses, soft light background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk8AckO6GgLVsZVwu5LhwUjzVGOt03xH_ITr-XqxlGRivLkMqWUk_vhAUms7iMY8uQj4zQgEKN9dJ9KTo-3I5d86CRYWQcezuXOVxSk1F7KALhjBEL8zCoSu38IgkdSUt1UdAvjqEd2wYzThpr6EZmvNDHExT0QeszB1KMRoUdHSH06-T5C8uECjKzgF-D8e1rSVkgqC-d4TLS1Ba6sG5NDeYgnc7GgMy_bCkR1kqM1WReZ4FhG8G8qx-YCCFTUv1zmRWjecyQ6uw"/>
+<img alt="Carlos" class="w-8 h-8 rounded-full border-2 border-white" data-alt="Professional avatar of a male developer, serious expression, bright office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANRxZTnAQAjoVK3LSt4t32gyejXgJ0yJnciOL6hVKidE9-xfox9V1UDT48HLbsyv4gV12eFDP3XCVMAgTtxrdb3CIJYdaNpKNgIk2LJ7aixvuS5Xr09vBq6i1aPioNiRJBmVFQbF8oEZuG3RLbo244pY5sG8SxvLRQfMO_Wf7rm0olMh5ZXtCIIM35eepyYzTMrh_atoyMBrVbC4QTcN4HG_d5wZ-tTVGFXFAwy4_Q7cMkpTX_INLQCjsRmpqvYFEbLyyVf_qTed8"/>
+</div>
+<button class="bg-primary text-white font-body-main text-[13px] font-medium px-4 py-2 rounded-lg hover:bg-on-primary-fixed-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">receipt</span>
+                            Faturar projeto
+                        </button>
+<button class="w-9 h-9 rounded-lg border-[0.5px] border-border-subtle flex items-center justify-center hover:bg-surface-container text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+<div class="w-full md:w-1/3 mt-2">
+<div class="flex justify-between text-body-secondary font-body-secondary mb-1">
+<span class="text-on-surface-variant">Progresso</span>
+<span class="font-medium text-text-dark">68%</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 68%"></div>
+</div>
+</div>
+</div>
+<!-- Tabs Navigation -->
+<div class="border-b-[0.5px] border-border-subtle">
+<nav class="flex gap-6 px-2">
+<button class="py-3 text-primary font-bold border-b-2 border-primary text-[13px] transition-colors">Visão geral</button>
+<button class="py-3 text-on-surface-variant hover:text-primary text-[13px] transition-colors">Tarefas</button>
+<button class="py-3 text-on-surface-variant hover:text-primary text-[13px] transition-colors">Timesheets</button>
+<button class="py-3 text-on-surface-variant hover:text-primary text-[13px] transition-colors">Marcos</button>
+<button class="py-3 text-on-surface-variant hover:text-primary text-[13px] transition-colors">Arquivos</button>
+<button class="py-3 text-on-surface-variant hover:text-primary text-[13px] transition-colors">Despesas</button>
+<button class="py-3 text-on-surface-variant hover:text-primary text-[13px] transition-colors">Discussões</button>
+<button class="py-3 text-on-surface-variant hover:text-primary text-[13px] transition-colors">Notas</button>
+</nav>
+</div>
+<!-- Two Column Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-container-gap">
+<!-- Left Column (65%) -->
+<div class="lg:col-span-8 flex flex-col gap-container-gap">
+<!-- Tarefas Recentes Card -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-title-card font-title-card text-text-dark">Tarefas recentes</h3>
+<button class="text-primary text-[12px] font-medium hover:underline">Ver todas as tarefas</button>
+</div>
+<div class="flex flex-col gap-0 border-[0.5px] border-border-subtle rounded-lg overflow-hidden">
+<!-- Task 1 -->
+<div class="flex items-center justify-between p-3 border-b-[0.5px] border-border-subtle hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-3">
+<input checked="" class="rounded border-border-subtle text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+<span class="text-on-surface line-through text-on-surface-variant">Configurar Pixel</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-2 py-0.5 rounded-full bg-success-tint text-primary font-tag text-tag">Concluído</span>
+<div class="flex items-center gap-2 w-24 justify-end">
+<span class="text-caption font-caption text-text-muted">12/05</span>
+<img alt="Resp" class="w-6 h-6 rounded-full" data-alt="Small avatar of team member." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBr09WczjZalASeyDYgu6_VbA1v0yySrgtFFmk-seOboESdhUtbo-9Ek5hk6e2-2C8IN3J4C77wGwtnOFQIAsgyYZ2A5HEoeCDedWQYyQw4EnTf5axci1g2P1m5t87x6hv7nW26FsyfU3oQqVLi5JC7sOZkTWhH-40x-4VrfYLSnsTeuUBqAv06ZumOs4CiTD625I78uaa_C-cByWWzCrscz0AR7zQ17fi0JOUcBqiLNPpKuLHqwerli2GWPT3OncDQJrCdOjPVvM"/>
+</div>
+</div>
+</div>
+<!-- Task 2 -->
+<div class="flex items-center justify-between p-3 border-b-[0.5px] border-border-subtle hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-3">
+<input class="rounded border-border-subtle text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+<span class="text-on-surface font-medium">Criar Públicos</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-2 py-0.5 rounded-full bg-success-tint text-primary font-tag text-tag">Em andamento</span>
+<div class="flex items-center gap-2 w-24 justify-end">
+<span class="text-caption font-caption text-text-muted">Hoje</span>
+<img alt="Resp" class="w-6 h-6 rounded-full" data-alt="Small avatar of team member." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7DBmptkO7hLWi15ZcquVzz-VLlAo4OFgu3q_leTaMYGEQCkf6hfhiBhQqeJSZKzGb_8YYrsDTsxUBkHBPgH0lxqlFc2so7ZNkIdYNOfAUmZH29VwPtalBcwTdgjw2xNSl1vzSl6AWSYC3VQJ9QY5Iy5EFWZl0v7x_DnGi9BxolSaUcgkcgl1FHHhfG4Ui8zqId-HxL6Rj7_DH8XYW5C1JLuqofctTI1tlMLlhDv0kmTaHeYrPsCt_aOwWSy5SCG7KkKUQXqkHvmk"/>
+</div>
+</div>
+</div>
+<!-- Task 3 -->
+<div class="flex items-center justify-between p-3 border-b-[0.5px] border-border-subtle hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-3">
+<input class="rounded border-border-subtle text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+<span class="text-on-surface font-medium">Design de Criativos</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-2 py-0.5 rounded-full bg-warning-tint text-[#F97316] font-tag text-tag">Atrasado</span>
+<div class="flex items-center gap-2 w-24 justify-end">
+<span class="text-caption font-caption text-[#F97316]">Ontem</span>
+<img alt="Resp" class="w-6 h-6 rounded-full" data-alt="Small avatar of team member." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4EjQ_-EWz5Z9eFmoIvYg7j_Kpl8T8MItX0npPB0Eay_J19vSWUYLgNSLQgveIp1yoHjj7rpdzUHYiNiWVcdN8XMpL-jSgyZ7i59uTQRZ2JoCh3FS_25U5AQjF4Ov5nUSu51QjNml2iyC7yNWlSBNxgwGT5732p_PO8E9U5r_88dSqbgyUDiyq9ewrp2Cll5GAYBPCTiM2m-GdipH4I-2WcRw3_nyarFihV4p3cqNWGL5izXyyVk5opxLHUFYJmsg_FQnLvAo4fmo"/>
+</div>
+</div>
+</div>
+<!-- Task 4 -->
+<div class="flex items-center justify-between p-3 hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-3">
+<input class="rounded border-border-subtle text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+<span class="text-on-surface">Relatório Semanal</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-tag text-tag">Pendente</span>
+<div class="flex items-center gap-2 w-24 justify-end">
+<span class="text-caption font-caption text-text-muted">18/05</span>
+<img alt="Resp" class="w-6 h-6 rounded-full" data-alt="Small avatar of team member." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHxcvMHZZmfx2rKkK7ESs27patsff53cv1hw1Il7Vr13SnLlCWQjNasE3snwk_50tnx5cxyBKd52WOamCiHNssjAR7zcUdj7ml1xx-R6D0fa93ZvtcWBjeMoY9FuABHZmQUG0lCocTpOh6Po1uXDYSFrRlomoXwVECbzzU680dmKDuhPo6Skry078e3wPTnRUXve2j6LyeOUuYp-2ttpElsylvj4K40YL1p9jps2mT6WtBM3L5GMdqgXhUc9necbq7hwANBs97BQo"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Marcos Card -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding">
+<h3 class="text-title-card font-title-card text-text-dark mb-4">Marcos do Projeto</h3>
+<div class="relative pl-6">
+<!-- Timeline line -->
+<div class="absolute left-[11px] top-2 bottom-2 w-[1px] bg-border-subtle"></div>
+<div class="flex flex-col gap-6">
+<!-- Marco 1 -->
+<div class="relative">
+<div class="absolute -left-[30px] top-0.5 w-6 h-6 rounded-full bg-success-tint border border-primary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[14px] text-primary">check</span>
+</div>
+<div>
+<h4 class="text-[13px] font-medium text-text-dark">Configuração Inicial</h4>
+<p class="text-caption font-caption text-text-muted mt-0.5">Concluído em 12/05/2026</p>
+</div>
+</div>
+<!-- Marco 2 -->
+<div class="relative">
+<div class="absolute -left-[30px] top-0.5 w-6 h-6 rounded-full bg-card-background border-2 border-[#F97316] flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-[#F97316]"></div>
+</div>
+<div>
+<h4 class="text-[13px] font-medium text-text-dark">Lançamento da Campanha</h4>
+<p class="text-caption font-caption text-text-muted mt-0.5">Previsão: 20/05/2026</p>
+</div>
+</div>
+<!-- Marco 3 -->
+<div class="relative">
+<div class="absolute -left-[30px] top-0.5 w-6 h-6 rounded-full bg-card-background border border-border-subtle z-10"></div>
+<div>
+<h4 class="text-[13px] text-on-surface-variant">Otimização de Escala</h4>
+<p class="text-caption font-caption text-text-muted mt-0.5">Previsão: 15/06/2026</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (35%) -->
+<div class="lg:col-span-4 flex flex-col gap-container-gap">
+<!-- Resumo Financeiro Card (Left-accent border indicating importance) -->
+<div class="bg-card-background border-[0.5px] border-border-subtle border-l-[3px] border-l-primary rounded-xl p-card-padding">
+<h3 class="text-title-card font-title-card text-text-dark mb-4">Resumo financeiro</h3>
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center py-1 border-b border-border-subtle border-dashed">
+<span class="text-on-surface-variant text-[12px]">Valor do projeto</span>
+<span class="font-medium text-[13px]">R$ 12.000,00</span>
+</div>
+<div class="flex justify-between items-center py-1 border-b border-border-subtle border-dashed">
+<span class="text-on-surface-variant text-[12px]">Horas registradas</span>
+<span class="font-medium text-[13px]">42h</span>
+</div>
+<div class="flex justify-between items-center py-1 border-b border-border-subtle border-dashed">
+<span class="text-on-surface-variant text-[12px]">Valor faturável</span>
+<span class="font-medium text-[13px]">R$ 8.400,00</span>
+</div>
+<div class="flex justify-between items-center py-1 border-b border-border-subtle border-dashed">
+<span class="text-on-surface-variant text-[12px]">Faturado</span>
+<span class="font-medium text-[13px] text-text-muted">R$ 4.200,00</span>
+</div>
+<div class="flex justify-between items-center pt-2 mt-1">
+<span class="text-primary font-medium text-[13px]">A faturar</span>
+<span class="text-primary font-bold text-[16px]">R$ 4.200,00</span>
+</div>
+</div>
+</div>
+<!-- Equipe Card -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding">
+<h3 class="text-title-card font-title-card text-text-dark mb-4">Equipe</h3>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="Rafael A." class="w-8 h-8 rounded-full" data-alt="Small avatar of team member." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKbtk5_QmXW6aV3vJDKXKtxdKzS5RibGDxzzack7XZuh5nQqeXpJQ3v-Iu5ivPYgP-c2o-pcFECWtqus8DrPL9gZr7d12h6xPPMQgiQRC5zKqOnjwGImysJjVpZvBWKhAkgdCg33_FKxW5hqiaER0h7X2OEJiFk3SotuUo8hhO0lrlA83Ez3SzcZSUVqE7TSvobB7mI3POvCOLSu8ApGdk6ABwhT7FNXD3zmfUGf1bUQjIVu4N4QdLhX-2YzVevgG5M4xNX3dKKQw"/>
+<div>
+<p class="text-[13px] font-medium text-on-surface leading-none mb-1">Rafael A.</p>
+<p class="text-caption font-caption text-text-muted leading-none">Gestor</p>
+</div>
+</div>
+<span class="text-[12px] font-medium text-on-surface-variant bg-surface-container px-2 py-0.5 rounded">20h</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="Mariana Silva" class="w-8 h-8 rounded-full" data-alt="Small avatar of team member." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_JiqKHuy2MCgU55b2NTzCZdl9W5PQIgJhdpVMZORVP40LPeyW-Qvj-hnmPVT_h_gmEuNs3f0Y5kzaGI__zBc_55is_ZyS-TWdRJLXZlBeykIwyI3auaxBnYnIGpt8Dfaw_S3aDOhnfeLVg4MTbZudrdCRDDjJwqYEn8QG7Muoc4MtnXM4IwRUADGPpS3iZaRp_NWKUO36L9BDbahY9fr1ji3kF36c1NKEe2eKy6r2XB8gRN7YBCf3kYNT3Dw8_KdG4dxovorBcxM"/>
+<div>
+<p class="text-[13px] font-medium text-on-surface leading-none mb-1">Mariana S.</p>
+<p class="text-caption font-caption text-text-muted leading-none">Design</p>
+</div>
+</div>
+<span class="text-[12px] font-medium text-on-surface-variant bg-surface-container px-2 py-0.5 rounded">12h</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="Carlos B." class="w-8 h-8 rounded-full" data-alt="Small avatar of team member." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC03N2EnIdVkb-tGsGJDFK_1zWCRz9cDEpPm_qfK87zPxEAyFf_fd2semV19qU00ppQ2oonOM2bf2XftQvHM_JZtoI0iZzTCDD8iMwSUAg2W1WAA9Lb92L62sRDF5C7vYt4ptysiDHLcghQIrBA8dyn_1wbXC3Kkey-jKdjuCCPdtVv5u5oaWyoJu0POcjM1mLzb_inYmIw-3iN9mjzyG-6buomdbEPox-GxcDRJ0jV15f9chuGu1LN5_gcAAztyXHNSN7JZgZQb2k"/>
+<div>
+<p class="text-[13px] font-medium text-on-surface leading-none mb-1">Carlos B.</p>
+<p class="text-caption font-caption text-text-muted leading-none">Tráfego</p>
+</div>
+</div>
+<span class="text-[12px] font-medium text-on-surface-variant bg-surface-container px-2 py-0.5 rounded">10h</span>
+</div>
+</div>
+</div>
+<!-- Últimos Arquivos Card -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-title-card font-title-card text-text-dark">Últimos arquivos</h3>
+<button class="w-6 h-6 rounded hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container-low border border-transparent hover:border-border-subtle transition-all group" href="#">
+<div class="w-8 h-8 rounded bg-error-container text-[#ba1a1a] flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-[12px] font-medium text-on-surface truncate">estrategia_trafego.pdf</p>
+<p class="text-caption font-caption text-text-muted">Hoje, 10:42 • 2.4 MB</p>
+</div>
+</a>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container-low border border-transparent hover:border-border-subtle transition-all group" href="#">
+<div class="w-8 h-8 rounded bg-primary-fixed-dim text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">image</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-[12px] font-medium text-on-surface truncate">banner_v1.png</p>
+<p class="text-caption font-caption text-text-muted">Ontem • 850 KB</p>
+</div>
+</a>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-container-low border border-transparent hover:border-border-subtle transition-all group" href="#">
+<div class="w-8 h-8 rounded bg-primary-fixed-dim text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">image</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-[12px] font-medium text-on-surface truncate">print_ads.png</p>
+<p class="text-caption font-caption text-text-muted">12/05 • 1.2 MB</p>
+</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-width=1.0" name="viewport"/>
+<title>NúcleoCRM - Atribuição de conversões</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f7f9fc",
+                    "surface-dim": "#d8dadd",
+                    "secondary-fixed": "#e2e2eb",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#ffb690",
+                    "primary": "#004ac6",
+                    "text-slate": "#4B5563",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-bright": "#f7f9fc",
+                    "on-secondary-fixed-variant": "#45464e",
+                    "warning-tint": "#FFF7ED",
+                    "inverse-on-surface": "#eff1f4",
+                    "tertiary-fixed": "#ffdbca",
+                    "surface-container-highest": "#e0e3e6",
+                    "on-tertiary-fixed-variant": "#783200",
+                    "surface-container": "#eceef1",
+                    "secondary": "#5d5e65",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#434655",
+                    "tertiary-container": "#b54e00",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-secondary-container": "#63646c",
+                    "outline-variant": "#c3c6d7",
+                    "card-background": "#FFFFFF",
+                    "surface": "#f7f9fc",
+                    "surface-tint": "#0053db",
+                    "inverse-primary": "#b4c5ff",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#191c1e",
+                    "outline": "#737686",
+                    "success-tint": "#EFF6FF",
+                    "text-muted": "#9CA3AF",
+                    "on-tertiary-fixed": "#341100",
+                    "secondary-fixed-dim": "#c5c6ce",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary-container": "#ffece5",
+                    "on-secondary-fixed": "#191b22",
+                    "on-background": "#191c1e",
+                    "text-dark": "#111827",
+                    "primary-fixed": "#dbe1ff",
+                    "surface-variant": "#e0e3e6",
+                    "on-primary-container": "#eeefff",
+                    "surface-container-high": "#e6e8eb",
+                    "secondary-container": "#e2e2eb",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed": "#00174b",
+                    "sidebar-surface": "#1C2030",
+                    "primary-container": "#2563eb",
+                    "surface-container-low": "#f2f4f7",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "border-subtle": "#E5E7EB",
+                    "tertiary": "#8e3c00",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "14px",
+                    "container-gap": "10px",
+                    "sidebar-width": "200px",
+                    "nav-item-x": "12px",
+                    "card-padding": "16px",
+                    "topbar-height": "52px",
+                    "nav-item-y": "7px",
+                    "page-padding": "18px"
+            },
+            "fontFamily": {
+                    "label-caps": [
+                            "Inter"
+                    ],
+                    "display-kpi": [
+                            "Inter"
+                    ],
+                    "body-main": [
+                            "Inter"
+                    ],
+                    "title-card": [
+                            "Inter"
+                    ],
+                    "headline-page": [
+                            "Inter"
+                    ],
+                    "tag": [
+                            "Inter"
+                    ],
+                    "body-secondary": [
+                            "Inter"
+                    ],
+                    "caption": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "label-caps": [
+                            "9.5px",
+                            {
+                                    "lineHeight": "12px",
+                                    "letterSpacing": "0.08em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-kpi": [
+                            "22px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.5px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-main": [
+                            "13px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "title-card": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-page": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "tag": [
+                            "10.5px",
+                            {
+                                    "lineHeight": "12px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-secondary": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "caption": [
+                            "11px",
+                            {
+                                    "lineHeight": "14px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        body {
+            background-color: #f7f9fc;
+        }
+
+        .chart-bar-light {
+            background-color: #60a5fa; /* Light Blue */
+        }
+        .chart-bar-dark {
+            background-color: #2563EB; /* Primary Blue */
+        }
+    </style>
+</head>
+<body class="text-on-surface font-body-main antialiased bg-background h-screen overflow-hidden flex">
+<!-- Sidebar (Shared Component Anchor) -->
+<aside class="hidden md:flex flex-col h-full py-section-gap px-nav-item-x bg-sidebar-surface w-sidebar-width fixed left-0 top-0 border-r border-[#1a1f2e] z-20">
+<!-- Brand Header -->
+<div class="flex items-center gap-3 px-3 mb-8">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center font-bold text-white text-lg">N</div>
+<div>
+<div class="font-headline-page text-headline-page font-bold text-on-primary">NúcleoCRM</div>
+<div class="font-caption text-caption text-text-muted">Marketing Intel</div>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors cursor-pointer active:scale-95 group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:text-primary transition-colors" data-icon="dashboard">dashboard</span>
+<span class="font-body-main text-body-main">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors cursor-pointer active:scale-95 group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:text-primary transition-colors" data-icon="analytics">analytics</span>
+<span class="font-body-main text-body-main">Platforms</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-secondary-container text-primary font-medium rounded-lg cursor-pointer active:scale-95 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="hub">hub</span>
+<span class="font-body-main text-body-main">Attribution</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors cursor-pointer active:scale-95 group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:text-primary transition-colors" data-icon="ads_click">ads_click</span>
+<span class="font-body-main text-body-main">Campaigns</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors cursor-pointer active:scale-95 group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:text-primary transition-colors" data-icon="settings">settings</span>
+<span class="font-body-main text-body-main">Settings</span>
+</a>
+</nav>
+<!-- CTA & Footer -->
+<div class="mt-auto space-y-4">
+<button class="w-full bg-primary-container text-white text-[13px] font-medium py-2 px-4 rounded-lg hover:bg-primary transition-colors shadow-sm">
+                Connect Platform
+            </button>
+<div class="pt-4 border-t border-[#1a1f2e] space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors cursor-pointer active:scale-95 group" href="#">
+<span class="material-symbols-outlined text-[16px] group-hover:text-primary transition-colors" data-icon="help">help</span>
+<span class="font-body-main text-body-main">Help</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors cursor-pointer active:scale-95 group" href="#">
+<span class="material-symbols-outlined text-[16px] group-hover:text-primary transition-colors" data-icon="contact_support">contact_support</span>
+<span class="font-body-main text-body-main">Support</span>
+</a>
+</div>
+<div class="flex items-center gap-3 px-3 mt-4">
+<img alt="CRM Admin" class="w-8 h-8 rounded-full border border-border-subtle" data-alt="A small, professional portrait photograph of an office worker, used as a user profile avatar. Bright and clear, realistic style, standard corporate headshot with a neutral expression. Clean white background. High resolution, high detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7UhWlUv-MqmqoMwy9f_pMwCcqX6lLeAxpW4Y-V5VzIxruw89DOYIo8s0LUkd36D3RDdqww7tRazwA_kdKRfxTkEQPV9VeeprzOfajy7NsTiUbbWAI4_7staN_ZeYKL299qA_0Onu9cdi8mwiYWeU7uq15ftnanrhI5Oj-4F2aBSYZSufrIaYd1pB4diiTqqABUZB2yto2tEJVwXYeR7k0s9qkESQEengVuOlDTKJR_3u3SsN1wyIQXLLhCpheAmGPUku0U5MjZO4"/>
+<div>
+<div class="font-body-main text-[12px] font-medium text-on-primary">Admin User</div>
+<div class="font-caption text-caption text-text-muted">Pro Plan</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col ml-0 md:ml-sidebar-width h-screen overflow-hidden">
+<!-- TopAppBar (Shared Component Anchor) -->
+<header class="bg-surface-container-lowest h-topbar-height flex justify-between items-center px-page-padding border-b border-border-subtle z-10 shrink-0">
+<!-- Left Side: Title & Mobile Menu -->
+<div class="flex items-center gap-4">
+<button class="md:hidden text-text-slate hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-xl" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-page text-headline-page font-bold text-text-dark">Atribuição de conversões</h1>
+<!-- Page specific Navigation / Filters -->
+<nav class="hidden lg:flex items-center ml-8 gap-1 h-full">
+<button class="h-full px-4 text-primary border-b-2 border-primary font-bold font-label-caps text-label-caps uppercase tracking-wider hover:bg-surface-container-lowest transition-colors cursor-pointer">
+                        Visão Geral
+                    </button>
+<button class="h-full px-4 text-text-slate font-label-caps text-label-caps uppercase tracking-wider hover:text-primary transition-opacity cursor-pointer">
+                        Detalhes
+                    </button>
+</nav>
+</div>
+<!-- Right Side: Actions & Global Search -->
+<div class="flex items-center gap-4">
+<!-- Search -->
+<div class="hidden sm:flex relative items-center">
+<span class="material-symbols-outlined absolute left-2 text-text-muted text-[16px]" data-icon="search">search</span>
+<input class="pl-8 pr-3 py-1.5 bg-surface-container text-on-surface font-body-main text-[11px] rounded-lg border-none focus:ring-1 focus:ring-primary w-48 transition-all" placeholder="Buscar..." type="text"/>
+</div>
+<!-- Trailing Icon Actions -->
+<div class="flex items-center gap-2 text-text-slate">
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]" data-icon="filter_list">filter_list</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+<!-- Trailing Primary Action -->
+<button class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-primary-container text-white font-label-caps text-label-caps rounded-lg hover:bg-primary transition-colors cursor-pointer active:opacity-80 font-medium">
+<span class="material-symbols-outlined text-[14px]" data-icon="download">download</span>
+                    Exportar
+                </button>
+</div>
+</header>
+<!-- Scrollable Page Content -->
+<div class="flex-1 overflow-y-auto p-page-padding space-y-container-gap pb-20 md:pb-page-padding bg-background">
+<!-- Context & Filters Row -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
+<!-- Period Filter Dropdown Mock -->
+<div class="relative">
+<button class="flex items-center gap-2 px-3 py-1.5 bg-white border border-border-subtle rounded-lg text-text-dark font-body-main text-body-main shadow-sm hover:border-outline-variant transition-colors">
+<span class="material-symbols-outlined text-[16px] text-text-slate" data-icon="calendar_today">calendar_today</span>
+                        Últimos 30 dias
+                        <span class="material-symbols-outlined text-[16px] text-text-slate ml-2" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+<!-- Platform Filter Chips -->
+<div class="flex flex-wrap items-center gap-2">
+<button class="px-3 py-1 rounded-full bg-secondary-container text-primary font-tag text-tag border border-transparent shadow-sm">
+                        Todas
+                    </button>
+<button class="px-3 py-1 rounded-full bg-white text-text-slate font-tag text-tag border border-border-subtle hover:bg-surface-container-low transition-colors shadow-sm">
+                        Meta
+                    </button>
+<button class="px-3 py-1 rounded-full bg-white text-text-slate font-tag text-tag border border-border-subtle hover:bg-surface-container-low transition-colors shadow-sm">
+                        Google Ads
+                    </button>
+<button class="px-3 py-1 rounded-full bg-white text-text-slate font-tag text-tag border border-border-subtle hover:bg-surface-container-low transition-colors shadow-sm">
+                        TikTok
+                    </button>
+</div>
+</div>
+<!-- Error Alert Banner -->
+<div class="bg-warning-tint border-[0.5px] border-[#fdbf74] rounded-xl p-3 flex items-start gap-3 shadow-sm">
+<span class="material-symbols-outlined text-[#F97316] mt-0.5" data-icon="warning">warning</span>
+<div class="flex-1 flex items-center justify-between">
+<div>
+<h4 class="font-title-card text-[13px] font-semibold text-[#9a3412]">Erro de Sincronização</h4>
+<p class="font-body-secondary text-[12px] text-[#c2410c] mt-0.5">3 conversões com erro de envio ao Meta</p>
+</div>
+<button class="text-[#F97316] hover:text-[#c2410c] font-body-secondary text-[12px] font-medium flex items-center gap-1 transition-colors">
+                        Ver detalhes <span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- 1. KPI Row (4 cards) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-container-gap">
+<!-- KPI 1 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding shadow-sm border-l-[3px] border-l-primary-container relative overflow-hidden group">
+<div class="absolute right-0 top-0 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[80px] -mt-4 -mr-4" data-icon="payments">payments</span>
+</div>
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-body-secondary text-text-slate uppercase tracking-wider text-[11px] font-semibold">Receita atribuída</h3>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-kpi text-display-kpi text-text-dark font-bold">R$ 42.800</span>
+<span class="font-tag text-tag bg-success-tint text-[#16a34a] px-1.5 py-0.5 rounded-full flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[10px]" data-icon="trending_up">trending_up</span>
+                            +18%
+                        </span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-body-secondary text-text-slate uppercase tracking-wider text-[11px] font-semibold">Conversões enviadas</h3>
+<span class="material-symbols-outlined text-text-muted text-[16px]" data-icon="sync_alt">sync_alt</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-kpi text-display-kpi text-text-dark font-bold">89</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-1">Leads qualificados + Vendas</p>
+</div>
+<!-- KPI 3 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-body-secondary text-text-slate uppercase tracking-wider text-[11px] font-semibold">Taxa de correspondência</h3>
+<span class="material-symbols-outlined text-text-muted text-[16px]" data-icon="link">link</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-kpi text-display-kpi text-text-dark font-bold">76%</span>
+<span class="font-tag text-tag bg-[#EFF6FF] text-primary px-1.5 py-0.5 rounded-full">
+                            Média
+                        </span>
+</div>
+<!-- Micro Progress Bar -->
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-2.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 76%"></div>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-body-secondary text-text-slate uppercase tracking-wider text-[11px] font-semibold">ROAS estimado</h3>
+<span class="material-symbols-outlined text-text-muted text-[16px]" data-icon="rocket_launch">rocket_launch</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-kpi text-display-kpi text-text-dark font-bold">4.2×</span>
+<span class="font-tag text-tag bg-warning-tint text-[#F97316] px-1.5 py-0.5 rounded-full flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[10px]" data-icon="warning">warning</span>
+                            Atenção
+                        </span>
+</div>
+</div>
+</div>
+<!-- 2. Main Card: Grouped Bar Chart -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding shadow-sm flex flex-col h-[340px]">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-title-card text-title-card text-text-dark font-semibold">Desempenho de Atribuição por Plataforma</h2>
+<!-- Legend -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<div class="w-3 h-3 rounded-sm chart-bar-light"></div>
+<span class="font-caption text-caption text-text-slate">Leads qualificados</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-3 h-3 rounded-sm chart-bar-dark"></div>
+<span class="font-caption text-caption text-text-slate">Clientes fechados</span>
+</div>
+</div>
+</div>
+<!-- CSS Grid Based Bar Chart Mockup -->
+<div class="flex-1 relative flex items-end pt-4 pr-4 pb-8 pl-10 border-l border-b border-border-subtle ml-4">
+<!-- Y-Axis Labels -->
+<div class="absolute left-[-40px] top-0 bottom-8 flex flex-col justify-between text-right text-[10px] text-text-muted font-caption w-8">
+<span>R$ 20k</span>
+<span>R$ 15k</span>
+<span>R$ 10k</span>
+<span>R$ 5k</span>
+<span>0</span>
+</div>
+<!-- Grid Lines -->
+<div class="absolute inset-0 left-10 bottom-8 border-t border-border-subtle opacity-50 top-[0%]"></div>
+<div class="absolute inset-0 left-10 bottom-8 border-t border-border-subtle opacity-50 top-[25%]"></div>
+<div class="absolute inset-0 left-10 bottom-8 border-t border-border-subtle opacity-50 top-[50%]"></div>
+<div class="absolute inset-0 left-10 bottom-8 border-t border-border-subtle opacity-50 top-[75%]"></div>
+<!-- Chart Bars Container -->
+<div class="relative w-full h-full flex justify-around items-end z-10 px-4">
+<!-- Group 1: Meta -->
+<div class="flex flex-col items-center justify-end h-full w-24 group relative">
+<div class="flex items-end gap-1 w-full justify-center h-full">
+<div class="chart-bar-light w-8 rounded-t-sm hover:opacity-80 transition-opacity relative group-hover:bg-blue-400 cursor-pointer" style="height: 65%;"></div>
+<div class="chart-bar-dark w-8 rounded-t-sm hover:opacity-80 transition-opacity relative group-hover:bg-blue-700 cursor-pointer" style="height: 45%;"></div>
+</div>
+<span class="absolute -bottom-6 font-caption text-[11px] font-medium text-text-dark whitespace-nowrap">Meta</span>
+</div>
+<!-- Group 2: Google Ads -->
+<div class="flex flex-col items-center justify-end h-full w-24 group relative">
+<div class="flex items-end gap-1 w-full justify-center h-full">
+<div class="chart-bar-light w-8 rounded-t-sm hover:opacity-80 transition-opacity relative group-hover:bg-blue-400 cursor-pointer" style="height: 85%;"></div>
+<div class="chart-bar-dark w-8 rounded-t-sm hover:opacity-80 transition-opacity relative group-hover:bg-blue-700 cursor-pointer" style="height: 70%;"></div>
+</div>
+<span class="absolute -bottom-6 font-caption text-[11px] font-medium text-text-dark whitespace-nowrap">Google Ads</span>
+</div>
+<!-- Group 3: TikTok -->
+<div class="flex flex-col items-center justify-end h-full w-24 group relative">
+<div class="flex items-end gap-1 w-full justify-center h-full">
+<div class="chart-bar-light w-8 rounded-t-sm hover:opacity-80 transition-opacity relative group-hover:bg-blue-400 cursor-pointer" style="height: 40%;"></div>
+<div class="chart-bar-dark w-8 rounded-t-sm hover:opacity-80 transition-opacity relative group-hover:bg-blue-700 cursor-pointer" style="height: 25%;"></div>
+</div>
+<span class="absolute -bottom-6 font-caption text-[11px] font-medium text-text-dark whitespace-nowrap">TikTok</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. Two-Column Bottom Row -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-container-gap">
+<!-- Left Card: Conversões por campanha (Span 2) -->
+<div class="lg:col-span-2 bg-card-background border-[0.5px] border-border-subtle rounded-xl shadow-sm flex flex-col overflow-hidden">
+<div class="p-card-padding border-b border-border-subtle flex justify-between items-center bg-surface-container-lowest">
+<h2 class="font-title-card text-title-card text-text-dark font-semibold">Conversões por campanha</h2>
+<button class="text-text-muted hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_horiz">more_horiz</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface border-b border-border-subtle font-label-caps text-label-caps text-text-slate uppercase tracking-wider">
+<th class="px-4 py-3 font-semibold">Plataforma</th>
+<th class="px-4 py-3 font-semibold">Campanha</th>
+<th class="px-4 py-3 font-semibold text-right">Leads</th>
+<th class="px-4 py-3 font-semibold text-right">Fechamentos</th>
+<th class="px-4 py-3 font-semibold text-right">Receita</th>
+<th class="px-4 py-3 font-semibold text-center">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-secondary text-body-secondary divide-y divide-border-subtle">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-4 py-3 align-middle">
+<div class="w-6 h-6 rounded bg-surface-container flex items-center justify-center text-text-dark font-bold text-[10px]">G</div>
+</td>
+<td class="px-4 py-3 align-middle font-medium text-text-dark">Search_Branded_Q3</td>
+<td class="px-4 py-3 align-middle text-right text-text-slate">145</td>
+<td class="px-4 py-3 align-middle text-right text-text-slate">22</td>
+<td class="px-4 py-3 align-middle text-right text-text-dark font-medium">R$ 15.400</td>
+<td class="px-4 py-3 align-middle text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-success-tint text-[#16a34a] font-tag text-[10px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="check_circle">check_circle</span> Enviado
+                                        </span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-4 py-3 align-middle">
+<div class="w-6 h-6 rounded bg-surface-container flex items-center justify-center text-text-dark font-bold text-[10px]">M</div>
+</td>
+<td class="px-4 py-3 align-middle font-medium text-text-dark">Retargeting_Leads_Quentes</td>
+<td class="px-4 py-3 align-middle text-right text-text-slate">89</td>
+<td class="px-4 py-3 align-middle text-right text-text-slate">14</td>
+<td class="px-4 py-3 align-middle text-right text-text-dark font-medium">R$ 8.950</td>
+<td class="px-4 py-3 align-middle text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-highest text-text-slate font-tag text-[10px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="pending">pending</span> Pendente
+                                        </span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-4 py-3 align-middle">
+<div class="w-6 h-6 rounded bg-surface-container flex items-center justify-center text-text-dark font-bold text-[10px]">M</div>
+</td>
+<td class="px-4 py-3 align-middle font-medium text-text-dark">LAL_1%_ClientesVIP</td>
+<td class="px-4 py-3 align-middle text-right text-text-slate">210</td>
+<td class="px-4 py-3 align-middle text-right text-text-slate">35</td>
+<td class="px-4 py-3 align-middle text-right text-text-dark font-medium">R$ 24.100</td>
+<td class="px-4 py-3 align-middle text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#fef2f2] text-[#dc2626] font-tag text-[10px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="error">error</span> Erro
+                                        </span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-4 py-3 align-middle">
+<div class="w-6 h-6 rounded bg-surface-container flex items-center justify-center text-text-dark font-bold text-[10px]">T</div>
+</td>
+<td class="px-4 py-3 align-middle font-medium text-text-dark">Video_UGC_TopoFunil</td>
+<td class="px-4 py-3 align-middle text-right text-text-slate">340</td>
+<td class="px-4 py-3 align-middle text-right text-text-slate">8</td>
+<td class="px-4 py-3 align-middle text-right text-text-dark font-medium">R$ 2.400</td>
+<td class="px-4 py-3 align-middle text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-success-tint text-[#16a34a] font-tag text-[10px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="check_circle">check_circle</span> Enviado
+                                        </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Card: Qualidade dos dados -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding shadow-sm flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-title-card text-title-card text-text-dark font-semibold">Qualidade dos dados</h2>
+<span class="material-symbols-outlined text-text-muted text-[18px]" data-icon="health_and_safety">health_and_safety</span>
+</div>
+<div class="space-y-5 flex-1">
+<!-- Progress 1 -->
+<div>
+<div class="flex justify-between items-end mb-1.5">
+<span class="font-body-secondary text-[12px] text-text-slate font-medium">Leads com e-mail</span>
+<span class="font-tag text-[11px] font-bold text-text-dark">88%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 88%"></div>
+</div>
+</div>
+<!-- Progress 2 -->
+<div>
+<div class="flex justify-between items-end mb-1.5">
+<span class="font-body-secondary text-[12px] text-text-slate font-medium">Leads com telefone</span>
+<span class="font-tag text-[11px] font-bold text-text-dark">94%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 94%"></div>
+</div>
+</div>
+<!-- Progress 3 (Warning) -->
+<div>
+<div class="flex justify-between items-end mb-1.5">
+<span class="font-body-secondary text-[12px] text-[#9a3412] font-medium">Consentimento LGPD</span>
+<span class="font-tag text-[11px] font-bold text-[#f97316]">71%</span>
+</div>
+<div class="w-full bg-warning-tint h-2 rounded-full overflow-hidden border border-[#fdba74]">
+<div class="bg-[#f97316] h-full rounded-full" style="width: 71%"></div>
+</div>
+<p class="font-caption text-[10px] text-text-muted mt-1.5 leading-tight">Melhore a taxa de aceite para otimizar correspondência no Meta CAPI.</p>
+</div>
+</div>
+<button class="mt-4 w-full py-2 border border-border-subtle rounded-lg text-text-slate font-body-secondary text-[12px] font-medium hover:bg-surface-container-low transition-colors">
+                        Ver relatório completo
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom NavBar (Shared Component Logic) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-border-subtle flex justify-around items-center h-16 px-2 z-20 pb-safe">
+<a class="flex flex-col items-center justify-center w-16 h-full text-text-slate hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-[9px] mt-1">Dash</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 h-full text-text-slate hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-[9px] mt-1">Plat</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 h-full text-primary font-bold" href="#">
+<div class="bg-primary-container/10 px-4 py-1 rounded-full mb-1">
+<span class="material-symbols-outlined text-[24px]" data-icon="hub">hub</span>
+</div>
+<span class="font-label-caps text-[9px]">Atrib</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 h-full text-text-slate hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="ads_click">ads_click</span>
+<span class="font-label-caps text-[9px] mt-1">Camp</span>
+</a>
+</nav>
+</body></html>

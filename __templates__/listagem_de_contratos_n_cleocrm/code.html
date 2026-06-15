@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contratos - NúcleoCRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#d8dadd",
+                      "inverse-on-surface": "#eff1f4",
+                      "tertiary-container": "#b54e00",
+                      "on-secondary-fixed": "#191b22",
+                      "on-error": "#ffffff",
+                      "warning-tint": "#FFF7ED",
+                      "on-secondary-fixed-variant": "#45464e",
+                      "secondary": "#5d5e65",
+                      "text-muted": "#9CA3AF",
+                      "primary-container": "#2563eb",
+                      "inverse-primary": "#b4c5ff",
+                      "background": "#f7f9fc",
+                      "surface-container-highest": "#e0e3e6",
+                      "success-tint": "#EFF6FF",
+                      "tertiary-fixed-dim": "#ffb690",
+                      "tertiary-fixed": "#ffdbca",
+                      "secondary-fixed": "#e2e2eb",
+                      "sidebar-surface": "#1C2030",
+                      "on-tertiary-fixed-variant": "#783200",
+                      "text-dark": "#111827",
+                      "surface-bright": "#f7f9fc",
+                      "on-primary": "#ffffff",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "on-background": "#191c1e",
+                      "error-container": "#ffdad6",
+                      "surface-tint": "#0053db",
+                      "text-slate": "#4B5563",
+                      "surface-variant": "#e0e3e6",
+                      "secondary-container": "#e2e2eb",
+                      "primary-fixed": "#dbe1ff",
+                      "on-tertiary-container": "#ffece5",
+                      "secondary-fixed-dim": "#c5c6ce",
+                      "on-secondary-container": "#63646c",
+                      "on-surface-variant": "#434655",
+                      "on-secondary": "#ffffff",
+                      "border-subtle": "#E5E7EB",
+                      "outline-variant": "#c3c6d7",
+                      "on-tertiary-fixed": "#341100",
+                      "on-primary-container": "#eeefff",
+                      "surface-container": "#eceef1",
+                      "on-primary-fixed": "#00174b",
+                      "surface-container-high": "#e6e8eb",
+                      "error": "#ba1a1a",
+                      "on-error-container": "#93000a",
+                      "on-tertiary": "#ffffff",
+                      "primary": "#004ac6",
+                      "surface": "#f7f9fc",
+                      "surface-container-low": "#f2f4f7",
+                      "inverse-surface": "#2d3133",
+                      "card-background": "#FFFFFF",
+                      "outline": "#737686",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary": "#8e3c00",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "on-surface": "#191c1e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "nav-item-y": "7px",
+                      "section-gap": "14px",
+                      "page-padding": "18px",
+                      "nav-item-x": "12px",
+                      "container-gap": "10px",
+                      "card-padding": "16px",
+                      "topbar-height": "52px",
+                      "sidebar-width": "200px"
+              },
+              "fontFamily": {
+                      "tag": [
+                              "Inter"
+                      ],
+                      "display-kpi": [
+                              "Inter"
+                      ],
+                      "headline-page": [
+                              "Inter"
+                      ],
+                      "body-secondary": [
+                              "Inter"
+                      ],
+                      "body-main": [
+                              "Inter"
+                      ],
+                      "title-card": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "caption": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "tag": [
+                              "10.5px",
+                              {
+                                      "lineHeight": "12px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-kpi": [
+                              "22px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.5px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-page": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-secondary": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-main": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "title-card": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "9.5px",
+                              {
+                                      "lineHeight": "12px",
+                                      "letterSpacing": "0.08em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "caption": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        body { background-color: #F0F2F5; color: #111827; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20; font-size: 15px; }
+        .sidebar-bg { background-color: #0F1117; }
+        .hairline-border { border: 0.5px solid #E5E7EB; }
+        .hairline-border-dark { border-right: 0.5px solid #1a1f2e; }
+    </style>
+</head>
+<body class="font-body-main text-body-main antialiased overflow-hidden">
+<!-- SideNavBar -->
+<nav class="sidebar-bg fixed left-0 top-0 h-full w-sidebar-width hairline-border-dark flex flex-col py-section-gap z-20">
+<div class="px-nav-item-x mb-6">
+<h1 class="font-headline-page text-headline-page font-bold text-white tracking-tight">NúcleoCRM</h1>
+<p class="font-caption text-caption text-text-muted">SaaS CRM</p>
+</div>
+<div class="px-nav-item-x mb-6">
+<button class="w-full bg-primary-container text-white font-body-main text-body-main py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-primary-container/90 transition-colors">
+<span class="material-symbols-outlined">add</span>
+                Novo Negócio
+            </button>
+</div>
+<div class="flex-1 px-nav-item-x space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-muted hover:text-white hover:bg-inverse-surface/50 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-muted hover:text-white hover:bg-inverse-surface/50 transition-colors" href="#">
+<span class="material-symbols-outlined">groups</span>
+                Contatos
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-sidebar-surface text-primary-container font-medium" href="#">
+<span class="material-symbols-outlined">handshake</span>
+                Negócios
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-muted hover:text-white hover:bg-inverse-surface/50 transition-colors" href="#">
+<span class="material-symbols-outlined">task_alt</span>
+                Tarefas
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-muted hover:text-white hover:bg-inverse-surface/50 transition-colors" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+                Relatórios
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-muted hover:text-white hover:bg-inverse-surface/50 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Configurações
+            </a>
+</div>
+<div class="px-nav-item-x space-y-1 mt-auto">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-muted hover:text-white hover:bg-inverse-surface/50 transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+                Suporte
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-muted hover:text-white hover:bg-inverse-surface/50 transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Sair
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="ml-sidebar-width flex flex-col h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest border-b border-border-subtle h-topbar-height flex items-center justify-between px-page-padding w-full shrink-0 z-10">
+<div class="flex items-center gap-6">
+<h2 class="font-title-card text-title-card font-semibold text-text-dark">Contratos</h2>
+<div class="hidden md:flex items-center gap-4">
+<a class="font-body-secondary text-body-secondary text-on-surface-variant hover:text-primary transition-colors" href="#">Vendas</a>
+<a class="font-body-secondary text-body-secondary text-on-surface-variant hover:text-primary transition-colors" href="#">Marketing</a>
+<a class="font-body-secondary text-body-secondary text-on-surface-variant hover:text-primary transition-colors" href="#">Atendimento</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-text-muted" style="font-size: 14px;">search</span>
+<input class="bg-surface-container-low hairline-border rounded-lg pl-8 pr-3 py-1.5 font-body-secondary text-body-secondary w-48 focus:outline-none focus:border-primary-container focus:ring-0 transition-colors" placeholder="Buscar contratos..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-6 w-6 rounded-full bg-surface-variant overflow-hidden border border-border-subtle cursor-pointer">
+<img alt="Foto do Usuário" class="w-full h-full object-cover" data-alt="A small, circular avatar image showing a professional headshot of a person, suitable for a corporate dashboard user profile picture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE5GJ24ckP3q-0REYf0w3n9kCUOxmT3hxJYVCRFa5U7GrpwQNFEd6czzje0H-APx7-wgbk6cLQdPejTG-IBLN_hjTaZsdwfOzg54Ulya1MNavT0RBErpUYlVFO2HDlaeD42yTNOeH9XP9yjS-qaTRa7skuU4mbPO-XLUCZL6zFkhX1Rh8FoAAeXS_hQHj0EokcNwH_9adJ8-KiWYGG_WRhj0K8UFAF8hA1_mleCQG7-ZDtPxT_l75XE6uXzallLiaySOV2qmnNf7o"/>
+</div>
+<button class="bg-primary-container text-white font-body-main text-body-main px-3 py-1.5 rounded-lg hover:bg-primary-container/90 transition-colors ml-2">
+                    + Novo contrato
+                </button>
+</div>
+</header>
+<!-- Main Workspace Canvas -->
+<main class="flex-1 overflow-auto p-page-padding">
+<!-- Compact KPIs -->
+<div class="flex gap-container-gap mb-section-gap">
+<div class="bg-card-background hairline-border rounded-lg px-4 py-3 flex-1 flex items-center justify-between border-l-[3px] border-l-border-subtle">
+<span class="font-body-secondary text-body-secondary text-text-slate">Ativos</span>
+<span class="font-title-card text-title-card font-semibold">34</span>
+</div>
+<div class="bg-card-background hairline-border rounded-lg px-4 py-3 flex-1 flex items-center justify-between border-l-[3px] border-l-[#F97316]">
+<span class="font-body-secondary text-body-secondary text-text-slate">Expirando em 30 dias</span>
+<span class="bg-warning-tint text-[#F97316] font-tag text-tag px-2 py-0.5 rounded-full">5</span>
+</div>
+<div class="bg-card-background hairline-border rounded-lg px-4 py-3 flex-1 flex items-center justify-between border-l-[3px] border-l-primary-container">
+<span class="font-body-secondary text-body-secondary text-text-slate">Aguardando assinatura</span>
+<span class="bg-success-tint text-primary-container font-tag text-tag px-2 py-0.5 rounded-full">3</span>
+</div>
+</div>
+<!-- Contracts Table Card -->
+<div class="bg-card-background hairline-border rounded-lg overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-border-subtle bg-surface-container-lowest">
+<th class="font-label-caps text-label-caps text-text-muted uppercase px-4 py-3">Nº</th>
+<th class="font-label-caps text-label-caps text-text-muted uppercase px-4 py-3">Cliente</th>
+<th class="font-label-caps text-label-caps text-text-muted uppercase px-4 py-3">Tipo</th>
+<th class="font-label-caps text-label-caps text-text-muted uppercase px-4 py-3">Valor</th>
+<th class="font-label-caps text-label-caps text-text-muted uppercase px-4 py-3">Início</th>
+<th class="font-label-caps text-label-caps text-text-muted uppercase px-4 py-3">Fim</th>
+<th class="font-label-caps text-label-caps text-text-muted uppercase px-4 py-3">Status</th>
+<th class="font-label-caps text-label-caps text-text-muted uppercase px-4 py-3 text-center">Assinaturas</th>
+<th class="font-label-caps text-label-caps text-text-muted uppercase px-4 py-3 w-10"></th>
+</tr>
+</thead>
+<tbody class="font-body-main text-body-main divide-y divide-border-subtle">
+<!-- Row 1: Active -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-4 py-3 text-text-muted font-caption text-caption">#CT-1042</td>
+<td class="px-4 py-3 font-medium text-text-dark">Acme Corp</td>
+<td class="px-4 py-3">
+<span class="bg-surface-container-high text-on-surface-variant font-tag text-tag px-2 py-0.5 rounded-full">Retainer</span>
+</td>
+<td class="px-4 py-3 text-text-dark">R$ 15.000/mês</td>
+<td class="px-4 py-3 text-text-slate">01/Jan/2023</td>
+<td class="px-4 py-3 text-text-slate">31/Dez/2024</td>
+<td class="px-4 py-3">
+<span class="bg-[#ECFDF5] text-[#059669] font-tag text-tag px-2 py-0.5 rounded-full border border-[#D1FAE5]">Ativo</span>
+</td>
+<td class="px-4 py-3 text-center">
+<div class="flex items-center justify-center gap-1 text-[#059669]">
+<span class="material-symbols-outlined" style="font-size: 14px;" title="Cliente Assinou">check_circle</span>
+<span class="material-symbols-outlined" style="font-size: 14px;" title="Empresa Assinou">check_circle</span>
+</div>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-text-muted hover:text-text-dark"><span class="material-symbols-outlined">more_horiz</span></button>
+</td>
+</tr>
+<!-- Row 2: Expiring Soon (Highlight) -->
+<tr class="hover:bg-surface-container-lowest transition-colors bg-warning-tint/20">
+<td class="px-4 py-3 text-text-muted font-caption text-caption">#CT-1038</td>
+<td class="px-4 py-3 font-medium text-text-dark">Globex Inc</td>
+<td class="px-4 py-3">
+<span class="bg-surface-container-high text-on-surface-variant font-tag text-tag px-2 py-0.5 rounded-full">Licença</span>
+</td>
+<td class="px-4 py-3 text-text-dark">R$ 45.000/ano</td>
+<td class="px-4 py-3 text-text-slate">15/Nov/2022</td>
+<td class="px-4 py-3 text-[#B45309] font-medium bg-warning-tint/50 rounded">20/Nov/2023</td>
+<td class="px-4 py-3">
+<span class="bg-warning-tint text-[#F97316] font-tag text-tag px-2 py-0.5 rounded-full border border-[#FED7AA]">Expira em 5 dias</span>
+</td>
+<td class="px-4 py-3 text-center">
+<div class="flex items-center justify-center gap-1 text-[#059669]">
+<span class="material-symbols-outlined" style="font-size: 14px;">check_circle</span>
+<span class="material-symbols-outlined" style="font-size: 14px;">check_circle</span>
+</div>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-text-muted hover:text-text-dark"><span class="material-symbols-outlined">more_horiz</span></button>
+</td>
+</tr>
+<!-- Row 3: Awaiting Signature -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-4 py-3 text-text-muted font-caption text-caption">#CT-1045</td>
+<td class="px-4 py-3 font-medium text-text-dark">Stark Industries</td>
+<td class="px-4 py-3">
+<span class="bg-surface-container-high text-on-surface-variant font-tag text-tag px-2 py-0.5 rounded-full">Prestação de serviço</span>
+</td>
+<td class="px-4 py-3 text-text-dark">R$ 120.000</td>
+<td class="px-4 py-3 text-text-slate">--</td>
+<td class="px-4 py-3 text-text-slate">--</td>
+<td class="px-4 py-3">
+<span class="bg-success-tint text-primary-container font-tag text-tag px-2 py-0.5 rounded-full border border-inverse-primary">Aguardando assinatura</span>
+</td>
+<td class="px-4 py-3 text-center">
+<div class="flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-text-muted" style="font-size: 14px;" title="Pendente Cliente">schedule</span>
+<span class="material-symbols-outlined text-[#059669]" style="font-size: 14px;" title="Empresa Assinou">check_circle</span>
+</div>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="bg-surface-container-high hover:bg-border-subtle text-text-dark font-caption text-caption px-2 py-1 rounded border hairline-border whitespace-nowrap transition-colors">
+                                    Lembrar cliente
+                                </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+</div>
+</body></html>

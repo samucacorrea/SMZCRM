@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Plano e Assinatura - NúcleoCRM</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e0e3e6",
+                        "surface-container-high": "#e6e8eb",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "surface-bright": "#f7f9fc",
+                        "on-tertiary": "#ffffff",
+                        "text-dark": "#111827",
+                        "surface-container-low": "#f2f4f7",
+                        "on-secondary-fixed": "#191b22",
+                        "tertiary": "#8e3c00",
+                        "background": "#f7f9fc",
+                        "success-tint": "#EFF6FF",
+                        "text-muted": "#9CA3AF",
+                        "secondary": "#5d5e65",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#00174b",
+                        "primary": "#004ac6",
+                        "on-surface-variant": "#434655",
+                        "surface-container-highest": "#e0e3e6",
+                        "inverse-surface": "#2d3133",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container": "#eceef1",
+                        "tertiary-fixed": "#ffdbca",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f7f9fc",
+                        "text-slate": "#4B5563",
+                        "surface-container-lowest": "#ffffff",
+                        "sidebar-surface": "#1C2030",
+                        "tertiary-container": "#b54e00",
+                        "warning-tint": "#FFF7ED",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#ffece5",
+                        "card-background": "#FFFFFF",
+                        "surface-dim": "#d8dadd",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface-tint": "#0053db",
+                        "inverse-on-surface": "#eff1f4",
+                        "border-subtle": "#E5E7EB",
+                        "on-tertiary-fixed": "#341100",
+                        "on-secondary-container": "#63646c",
+                        "outline-variant": "#c3c6d7",
+                        "outline": "#737686",
+                        "secondary-container": "#e2e2eb",
+                        "secondary-fixed": "#e2e2eb",
+                        "primary-fixed": "#dbe1ff",
+                        "on-secondary-fixed-variant": "#45464e",
+                        "on-tertiary-fixed-variant": "#783200",
+                        "on-error": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "on-background": "#191c1e",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-primary-container": "#eeefff",
+                        "secondary-fixed-dim": "#c5c6ce"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "nav-item-y": "7px",
+                        "container-gap": "10px",
+                        "section-gap": "14px",
+                        "nav-item-x": "12px",
+                        "topbar-height": "52px",
+                        "sidebar-width": "200px",
+                        "page-padding": "18px",
+                        "card-padding": "16px"
+                    },
+                    "fontFamily": {
+                        "body-main": ["Inter"],
+                        "tag": ["Inter"],
+                        "title-card": ["Inter"],
+                        "caption": ["Inter"],
+                        "body-secondary": ["Inter"],
+                        "headline-page": ["Inter"],
+                        "display-kpi": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-main": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "tag": ["10.5px", {"lineHeight": "12px", "fontWeight": "500"}],
+                        "title-card": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                        "caption": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "body-secondary": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "headline-page": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "display-kpi": ["22px", {"lineHeight": "1.1", "letterSpacing": "-0.5px", "fontWeight": "500"}],
+                        "label-caps": ["9.5px", {"lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-main text-body-main min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen w-[200px] border-r-[0.5px] border-outline-variant bg-sidebar-surface dark:bg-sidebar-surface flex flex-col py-nav-item-y px-nav-item-x z-20">
+<div class="mb-6 px-3 pt-4">
+<h1 class="font-headline-page text-headline-page font-bold text-on-primary">NúcleoCRM</h1>
+<p class="font-caption text-caption text-on-surface-variant mt-1 opacity-70">Management Suite</p>
+</div>
+<div class="flex-1 overflow-y-auto flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">person_search</span>
+<span>Leads</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span>Clients</span>
+</a>
+<!-- Active State: Invoices (Closest to Billing/Subscription) -->
+<a class="flex items-center gap-3 px-3 py-2 bg-secondary-container text-primary font-medium rounded-lg active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span>Invoices</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">account_tree</span>
+<span>Projects</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+<span>WhatsApp</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">groups</span>
+<span>Audiences</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">trending_up</span>
+<span>Conversions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-200 active:scale-95 transition-transform rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">assessment</span>
+<span>Reports</span>
+</a>
+</div>
+</nav>
+<!-- Main Workspace -->
+<div class="ml-[200px] flex-1 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-200px)] h-[52px] border-b-[0.5px] border-border-subtle bg-surface-container-lowest dark:bg-surface-container-lowest flex justify-between items-center px-page-padding z-10">
+<div class="flex items-center gap-4">
+<h2 class="font-headline-page text-headline-page font-semibold text-text-dark">Plano e assinatura</h2>
+</div>
+<div class="flex items-center gap-container-gap">
+<div class="relative hidden md:block mr-2">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-[16px] text-text-muted">search</span>
+<input class="bg-surface-container-low border-none rounded-lg pl-8 pr-3 py-1.5 font-caption text-caption w-[200px] focus:ring-1 focus:ring-primary-container outline-none transition-all" placeholder="Buscar..." type="text"/>
+</div>
+<button class="p-1.5 text-text-slate hover:bg-surface-container-low transition-colors rounded-full active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-1.5 text-text-slate hover:bg-surface-container-low transition-colors rounded-full active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<button class="p-1.5 text-text-slate hover:bg-surface-container-low transition-colors rounded-full active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-border-subtle ml-2">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLwbdw6EJQsL5ILKuMrE72F3XJkmQ-jj6yjxgaHxbdIqoprcVm-cSTpfrtF9i8ijI7lcsdG1BdPvimrpOkhj1fgeBultmSIQr0fgPPU_0bdds0JqCO7xbj_aZGbjhNkirIbyduP0RSNvS6HslpFuF9f7eoaUFzyxvendq828yhKw5eqcaX3kkRe4Hu7mVQwLX0byBp33ILxdXhx4SyWjghkK4h-G-hJOi2R4vUFBycfcf7gtfy3X5XvsNYFjU4D1IQaCkXH5JYxWE"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="mt-[52px] p-page-padding flex flex-col gap-section-gap max-w-6xl w-full">
+<!-- Top Highlight Card -->
+<section class="bg-success-tint border border-primary-container rounded-xl p-card-padding flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<h3 class="font-title-card text-title-card text-text-dark">Seu plano atual: Pro — R$ 297/mês</h3>
+<span class="bg-surface-container-lowest border border-border-subtle px-2.5 py-1 rounded-full font-tag text-tag text-text-slate flex items-center gap-1.5 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                            Ativo · Renova em 15/07/2026
+                        </span>
+</div>
+<p class="font-body-secondary text-body-secondary text-text-slate">Você está aproveitando todos os recursos do plano Pro. Expanda seus limites a qualquer momento.</p>
+</div>
+<button class="bg-primary-container text-on-primary font-title-card text-title-card px-4 py-2 rounded-lg hover:bg-surface-tint transition-colors whitespace-nowrap">
+                    Fazer upgrade para Business
+                </button>
+</section>
+<!-- Usage Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-container-gap">
+<!-- Users -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2 text-text-slate">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<h4 class="font-title-card text-title-card">Usuários</h4>
+</div>
+<span class="font-caption text-caption text-text-muted">8 de 10</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 80%"></div>
+</div>
+</div>
+<!-- Leads -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2 text-text-slate">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<h4 class="font-title-card text-title-card">Leads/contatos</h4>
+</div>
+<span class="font-caption text-caption text-text-muted">4.230 de 10.000</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 42.3%"></div>
+</div>
+</div>
+<!-- Storage -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2 text-text-slate">
+<span class="material-symbols-outlined text-[18px]">cloud</span>
+<h4 class="font-title-card text-title-card">Armazenamento</h4>
+</div>
+<span class="font-caption text-caption text-text-muted">8,4 GB de 20 GB</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 42%"></div>
+</div>
+</div>
+</section>
+<!-- Features Comparison Table -->
+<section class="bg-card-background border-[0.5px] border-border-subtle rounded-xl overflow-hidden">
+<div class="p-card-padding border-b-[0.5px] border-border-subtle">
+<h3 class="font-title-card text-title-card text-text-dark">Recursos do seu plano</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b-[0.5px] border-border-subtle bg-surface-container-low font-title-card text-title-card text-text-slate">
+<th class="p-3 font-medium">Recurso</th>
+<th class="p-3 font-medium text-center">Starter</th>
+<th class="p-3 font-medium text-center bg-success-tint/50 text-primary-container">Pro (Atual)</th>
+<th class="p-3 font-medium text-center">Business</th>
+</tr>
+</thead>
+<tbody class="font-body-main text-body-main text-text-dark">
+<tr class="border-b-[0.5px] border-border-subtle hover:bg-surface-bright transition-colors">
+<td class="p-3">Integração WhatsApp</td>
+<td class="p-3 text-center"><span class="material-symbols-outlined text-[18px] text-text-muted">close</span></td>
+<td class="p-3 text-center bg-success-tint/30"><span class="material-symbols-outlined text-[18px] text-primary-container">check</span></td>
+<td class="p-3 text-center"><span class="material-symbols-outlined text-[18px] text-text-dark">check</span></td>
+</tr>
+<tr class="border-b-[0.5px] border-border-subtle hover:bg-surface-bright transition-colors">
+<td class="p-3">Gestão de Contratos</td>
+<td class="p-3 text-center"><span class="material-symbols-outlined text-[18px] text-text-muted">close</span></td>
+<td class="p-3 text-center bg-success-tint/30"><span class="material-symbols-outlined text-[18px] text-primary-container">check</span></td>
+<td class="p-3 text-center"><span class="material-symbols-outlined text-[18px] text-text-dark">check</span></td>
+</tr>
+<tr class="border-b-[0.5px] border-border-subtle hover:bg-surface-bright transition-colors">
+<td class="p-3">Públicos de mídia (Ads)</td>
+<td class="p-3 text-center"><span class="material-symbols-outlined text-[18px] text-text-muted">close</span></td>
+<td class="p-3 text-center bg-success-tint/30"><span class="material-symbols-outlined text-[18px] text-primary-container">check</span></td>
+<td class="p-3 text-center"><span class="material-symbols-outlined text-[18px] text-text-dark">check</span></td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="p-3">Domínio próprio</td>
+<td class="p-3 text-center"><span class="material-symbols-outlined text-[18px] text-text-muted">close</span></td>
+<td class="p-3 text-center bg-success-tint/30"><span class="material-symbols-outlined text-[18px] text-text-muted">close</span></td>
+<td class="p-3 text-center"><span class="material-symbols-outlined text-[18px] text-text-dark">check</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Invoice History -->
+<section class="bg-card-background border-[0.5px] border-border-subtle rounded-xl overflow-hidden flex flex-col">
+<div class="p-card-padding border-b-[0.5px] border-border-subtle flex justify-between items-center">
+<h3 class="font-title-card text-title-card text-text-dark">Histórico de faturas SaaS</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-lowest font-caption text-caption text-text-muted border-b-[0.5px] border-border-subtle uppercase">
+<tr>
+<th class="px-4 py-2 font-medium">Data</th>
+<th class="px-4 py-2 font-medium">Valor</th>
+<th class="px-4 py-2 font-medium">Status</th>
+<th class="px-4 py-2 font-medium text-right">Ação</th>
+</tr>
+</thead>
+<tbody class="font-body-main text-body-main text-text-dark">
+<tr class="border-b-[0.5px] border-border-subtle hover:bg-surface-bright transition-colors">
+<td class="px-4 py-3">15/06/2024</td>
+<td class="px-4 py-3">R$ 297,00</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-success-tint text-primary-container font-tag text-tag">Pago</span>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-text-slate hover:text-primary-container transition-colors flex items-center justify-end w-full gap-1 font-title-card text-title-card">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                                        Baixar PDF
+                                    </button>
+</td>
+</tr>
+<tr class="border-b-[0.5px] border-border-subtle hover:bg-surface-bright transition-colors">
+<td class="px-4 py-3">15/05/2024</td>
+<td class="px-4 py-3">R$ 297,00</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-success-tint text-primary-container font-tag text-tag">Pago</span>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-text-slate hover:text-primary-container transition-colors flex items-center justify-end w-full gap-1 font-title-card text-title-card">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                                        Baixar PDF
+                                    </button>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="px-4 py-3">15/04/2024</td>
+<td class="px-4 py-3">R$ 297,00</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-success-tint text-primary-container font-tag text-tag">Pago</span>
+</td>
+<td class="px-4 py-3 text-right">
+<button class="text-text-slate hover:text-primary-container transition-colors flex items-center justify-end w-full gap-1 font-title-card text-title-card">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                                        Baixar PDF
+                                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Cancellation Card -->
+<section class="bg-surface-container-lowest border border-border-subtle border-dashed rounded-xl p-card-padding flex flex-col sm:flex-row justify-between items-center gap-4 mt-4">
+<p class="font-body-secondary text-body-secondary text-text-muted">
+                    Precisa cancelar? Seus dados ficam disponíveis por 30 dias após o cancelamento.
+                </p>
+<button class="font-title-card text-title-card text-error/80 hover:text-error transition-colors px-3 py-1.5 rounded hover:bg-error-container/30">
+                    Cancelar assinatura
+                </button>
+</section>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Permissões de Equipe - NúcleoCRM</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#f7f9fc",
+                      "on-background": "#191c1e",
+                      "error": "#ba1a1a",
+                      "on-primary": "#ffffff",
+                      "surface-container-highest": "#e0e3e6",
+                      "on-tertiary-fixed-variant": "#783200",
+                      "inverse-on-surface": "#eff1f4",
+                      "on-error-container": "#93000a",
+                      "surface-container-low": "#f2f4f7",
+                      "secondary-fixed-dim": "#c5c6ce",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#63646c",
+                      "surface-dim": "#d8dadd",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-high": "#e6e8eb",
+                      "error-container": "#ffdad6",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed": "#e2e2eb",
+                      "inverse-surface": "#2d3133",
+                      "on-surface-variant": "#434655",
+                      "on-surface": "#191c1e",
+                      "primary-container": "#2563eb",
+                      "outline-variant": "#c3c6d7",
+                      "text-slate": "#4B5563",
+                      "on-tertiary-container": "#ffece5",
+                      "on-secondary-fixed-variant": "#45464e",
+                      "surface-bright": "#f7f9fc",
+                      "surface": "#f7f9fc",
+                      "secondary": "#5d5e65",
+                      "text-dark": "#111827",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#0053db",
+                      "card-background": "#FFFFFF",
+                      "border-subtle": "#E5E7EB",
+                      "sidebar-surface": "#1C2030",
+                      "outline": "#737686",
+                      "on-tertiary-fixed": "#341100",
+                      "on-primary-container": "#eeefff",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "surface-container": "#eceef1",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "tertiary-fixed": "#ffdbca",
+                      "tertiary-fixed-dim": "#ffb690",
+                      "primary-fixed": "#dbe1ff",
+                      "text-muted": "#9CA3AF",
+                      "warning-tint": "#FFF7ED",
+                      "on-primary-fixed": "#00174b",
+                      "primary": "#004ac6",
+                      "tertiary-container": "#b54e00",
+                      "success-tint": "#EFF6FF",
+                      "tertiary": "#8e3c00",
+                      "surface-variant": "#e0e3e6",
+                      "on-secondary-fixed": "#191b22",
+                      "secondary-container": "#e2e2eb",
+                      "inverse-primary": "#b4c5ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "topbar-height": "52px",
+                      "nav-item-x": "12px",
+                      "nav-item-y": "7px",
+                      "container-gap": "10px",
+                      "card-padding": "16px",
+                      "section-gap": "14px",
+                      "page-padding": "18px",
+                      "sidebar-width": "200px"
+              },
+              "fontFamily": {
+                      "body-secondary": [
+                              "Inter"
+                      ],
+                      "body-main": [
+                              "Inter"
+                      ],
+                      "tag": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "title-card": [
+                              "Inter"
+                      ],
+                      "display-kpi": [
+                              "Inter"
+                      ],
+                      "caption": [
+                              "Inter"
+                      ],
+                      "headline-page": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-secondary": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-main": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "tag": [
+                              "10.5px",
+                              {
+                                      "lineHeight": "12px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "9.5px",
+                              {
+                                      "lineHeight": "12px",
+                                      "letterSpacing": "0.08em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-card": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-kpi": [
+                              "22px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.5px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "caption": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-page": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>body { font-family: 'Inter', sans-serif; }
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }</style>
+</head>
+<body class="bg-background text-on-background h-screen flex overflow-hidden">
+<!-- Sidebar -->
+<aside class="fixed left-0 top-0 h-screen w-sidebar-width bg-sidebar-surface border-r-[0.5px] border-[#1a1f2e] flex flex-col py-4 px-3 z-20">
+<div class="flex items-center gap-2 px-nav-item-x py-2 mb-6">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">hexagon</span>
+<div class="flex flex-col">
+<span class="font-headline-page text-headline-page font-bold text-on-primary">NúcleoCRM</span>
+<span class="font-caption text-caption text-text-muted">Vendas &amp; CRM</span>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 rounded-lg font-body-main text-body-main active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 rounded-lg font-body-main text-body-main active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[18px]">group</span>
+                Contatos
+            </a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 rounded-lg font-body-main text-body-main active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+                Oportunidades
+            </a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 rounded-lg font-body-main text-body-main active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[18px]">assignment</span>
+                Tarefas
+            </a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 rounded-lg font-body-main text-body-main active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[18px]">leaderboard</span>
+                Relatórios
+            </a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y bg-[#1C2030] text-primary font-medium rounded-lg font-body-main text-body-main active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">settings</span>
+                Configurações
+            </a>
+</nav>
+<div class="mt-auto space-y-1 border-t-[0.5px] border-[#1a1f2e] pt-4">
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 rounded-lg font-body-main text-body-main" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+                Suporte
+            </a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 rounded-lg font-body-main text-body-main" href="#">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+                Sair
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="ml-sidebar-width flex-1 flex flex-col h-screen overflow-hidden">
+<!-- Topbar -->
+<header class="h-topbar-height bg-surface border-b-[0.5px] border-border-subtle flex items-center justify-between px-page-padding shrink-0 z-10">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-page text-headline-page font-bold text-on-surface">Permissões de Equipe</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-all active:opacity-80">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-[0.5px] border-border-subtle overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">person</span>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="flex-1 overflow-hidden flex flex-row p-page-padding gap-container-gap bg-background">
+<!-- Left Column: Roles List (30%) -->
+<div class="w-[30%] flex flex-col bg-card-background border-[0.5px] border-border-subtle rounded-xl overflow-hidden flex-shrink-0">
+<div class="p-card-padding border-b-[0.5px] border-border-subtle bg-surface-bright shrink-0">
+<h2 class="font-title-card text-title-card font-medium text-text-dark">Papéis do Sistema</h2>
+<p class="font-caption text-caption text-text-muted mt-1">Selecione um papel para editar.</p>
+</div>
+<div class="flex-1 overflow-y-auto p-2 space-y-1">
+<!-- Admin Role (Locked) -->
+<div class="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-surface-container-low transition-colors group cursor-not-allowed opacity-70">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[18px] text-text-muted">shield</span>
+<span class="font-body-main text-body-main text-text-muted font-medium">Admin</span>
+</div>
+<span class="material-symbols-outlined text-[16px] text-text-muted">lock</span>
+</div>
+<!-- Gerente Role -->
+<div class="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-surface-container-low cursor-pointer transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">manage_accounts</span>
+<span class="font-body-main text-body-main text-on-surface">Gerente</span>
+</div>
+</div>
+<!-- Vendedor Role (Selected) -->
+<div class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-success-tint border-[0.5px] border-primary-container cursor-pointer transition-colors relative">
+<div class="absolute left-0 top-0 bottom-0 w-[3px] bg-primary-container rounded-l-lg"></div>
+<div class="flex items-center gap-3 ml-1">
+<span class="material-symbols-outlined text-[18px] text-primary-container" style="font-variation-settings: 'FILL' 1;">sell</span>
+<span class="font-body-main text-body-main text-primary-container font-semibold">Vendedor</span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-primary-container">check</span>
+</div>
+<!-- Atendente Role -->
+<div class="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-surface-container-low cursor-pointer transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">support_agent</span>
+<span class="font-body-main text-body-main text-on-surface">Atendente</span>
+</div>
+</div>
+<!-- Financeiro Role -->
+<div class="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-surface-container-low cursor-pointer transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">account_balance_wallet</span>
+<span class="font-body-main text-body-main text-on-surface">Financeiro</span>
+</div>
+</div>
+</div>
+<div class="p-card-padding border-t-[0.5px] border-border-subtle bg-surface-bright shrink-0">
+<button class="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg border-[0.5px] border-border-subtle bg-card-background hover:bg-surface-container-low text-on-surface font-body-main text-body-main font-medium transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        Criar papel personalizado
+                    </button>
+</div>
+</div>
+<!-- Right Column: Permissions Editor (70%) -->
+<div class="w-[70%] flex flex-col bg-card-background border-[0.5px] border-border-subtle rounded-xl overflow-hidden flex-shrink-0">
+<!-- Header -->
+<div class="p-card-padding border-b-[0.5px] border-border-subtle bg-surface-bright shrink-0 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<h2 class="font-title-card text-title-card font-semibold text-text-dark">Permissões — Vendedor</h2>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-success-tint text-[#1D4ED8] font-tag text-tag">
+                                3 membros neste papel
+                            </span>
+</div>
+<div class="flex items-center gap-2 text-warning-tint bg-[#FFF7ED] text-[#F97316] px-3 py-1.5 rounded-lg border-[0.5px] border-[#FED7AA]">
+<span class="material-symbols-outlined text-[16px]">info</span>
+<span class="font-caption text-caption font-medium">Alterações afetarão 3 membros imediatamente</span>
+</div>
+</div>
+</div>
+<!-- Table Content -->
+<div class="flex-1 overflow-y-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low sticky top-0 z-10">
+<tr>
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted border-b-[0.5px] border-border-subtle uppercase tracking-wider w-[25%]">Módulo</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted border-b-[0.5px] border-border-subtle uppercase tracking-wider text-center w-[15%]">Ver tudo</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted border-b-[0.5px] border-border-subtle uppercase tracking-wider text-center w-[15%]">Ver próprios</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted border-b-[0.5px] border-border-subtle uppercase tracking-wider text-center w-[15%]">Criar</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted border-b-[0.5px] border-border-subtle uppercase tracking-wider text-center w-[15%]">Editar</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted border-b-[0.5px] border-border-subtle uppercase tracking-wider text-center w-[15%]">Excluir</th>
+</tr>
+</thead>
+<tbody class="divide-y-[0.5px] divide-border-subtle">
+<!-- Leads Row -->
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">person_add</span>
+<span class="font-body-main text-body-main font-medium text-text-dark">Leads</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none"><button aria-checked="true" class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none">
+<span class="bg-gray-300 group-aria-checked:bg-primary-container absolute mx-auto h-4 w-8 rounded-full transition-colors duration-200 ease-in-out"></span>
+<span class="translate-x-0 group-aria-checked:translate-x-4 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none"><button aria-checked="true" class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none">
+<span class="bg-gray-300 group-aria-checked:bg-primary-container absolute mx-auto h-4 w-8 rounded-full transition-colors duration-200 ease-in-out"></span>
+<span class="translate-x-0 group-aria-checked:translate-x-4 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none"><button aria-checked="true" class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none">
+<span class="bg-gray-300 group-aria-checked:bg-primary-container absolute mx-auto h-4 w-8 rounded-full transition-colors duration-200 ease-in-out"></span>
+<span class="translate-x-0 group-aria-checked:translate-x-4 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none"><button aria-checked="true" class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none">
+<span class="bg-gray-300 group-aria-checked:bg-primary-container absolute mx-auto h-4 w-8 rounded-full transition-colors duration-200 ease-in-out"></span>
+<span class="translate-x-0 group-aria-checked:translate-x-4 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none"><button class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none">
+<span class="bg-gray-300 group-aria-checked:bg-primary-container absolute mx-auto h-4 w-8 rounded-full transition-colors duration-200 ease-in-out"></span>
+<span class="translate-x-0 group-aria-checked:translate-x-4 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"></span>
+</button></div>
+</td>
+</tr>
+<!-- Clientes Row -->
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">business</span>
+<span class="font-body-main text-body-main font-medium text-text-dark">Clientes</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none"><button aria-checked="true" class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none">
+<span class="bg-gray-300 group-aria-checked:bg-primary-container absolute mx-auto h-4 w-8 rounded-full transition-colors duration-200 ease-in-out"></span>
+<span class="translate-x-0 group-aria-checked:translate-x-4 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center text-text-muted">
+<span class="font-body-main">—</span>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none"><button aria-checked="true" class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none">
+<span class="bg-gray-300 group-aria-checked:bg-primary-container absolute mx-auto h-4 w-8 rounded-full transition-colors duration-200 ease-in-out"></span>
+<span class="translate-x-0 group-aria-checked:translate-x-4 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none"><button aria-checked="true" class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none">
+<span class="bg-gray-300 group-aria-checked:bg-primary-container absolute mx-auto h-4 w-8 rounded-full transition-colors duration-200 ease-in-out"></span>
+<span class="translate-x-0 group-aria-checked:translate-x-4 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none"><button class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none">
+<span class="bg-gray-300 group-aria-checked:bg-primary-container absolute mx-auto h-4 w-8 rounded-full transition-colors duration-200 ease-in-out"></span>
+<span class="translate-x-0 group-aria-checked:translate-x-4 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"></span>
+</button></div>
+</td>
+</tr>
+<!-- Faturas Row (Disabled) -->
+<tr class="bg-surface-container-low opacity-60">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-text-muted">receipt_long</span>
+<span class="font-body-main text-body-main font-medium text-text-muted">Faturas</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none opacity-50 cursor-not-allowed"><button class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-not-allowed items-center justify-center rounded-full opacity-50" disabled="">
+<span class="bg-gray-300 absolute mx-auto h-4 w-8 rounded-full"></span>
+<span class="translate-x-0 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none opacity-50 cursor-not-allowed"><button class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-not-allowed items-center justify-center rounded-full opacity-50" disabled="">
+<span class="bg-gray-300 absolute mx-auto h-4 w-8 rounded-full"></span>
+<span class="translate-x-0 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none opacity-50 cursor-not-allowed"><button class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-not-allowed items-center justify-center rounded-full opacity-50" disabled="">
+<span class="bg-gray-300 absolute mx-auto h-4 w-8 rounded-full"></span>
+<span class="translate-x-0 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none opacity-50 cursor-not-allowed"><button class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-not-allowed items-center justify-center rounded-full opacity-50" disabled="">
+<span class="bg-gray-300 absolute mx-auto h-4 w-8 rounded-full"></span>
+<span class="translate-x-0 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none opacity-50 cursor-not-allowed"><button class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-not-allowed items-center justify-center rounded-full opacity-50" disabled="">
+<span class="bg-gray-300 absolute mx-auto h-4 w-8 rounded-full"></span>
+<span class="translate-x-0 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0"></span>
+</button></div>
+</td>
+</tr>
+<!-- Relatórios Row -->
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">bar_chart</span>
+<span class="font-body-main text-body-main font-medium text-text-dark">Relatórios</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none"><button class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none">
+<span class="bg-gray-300 group-aria-checked:bg-primary-container absolute mx-auto h-4 w-8 rounded-full transition-colors duration-200 ease-in-out"></span>
+<span class="translate-x-0 group-aria-checked:translate-x-4 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none"><button aria-checked="true" class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none">
+<span class="bg-gray-300 group-aria-checked:bg-primary-container absolute mx-auto h-4 w-8 rounded-full transition-colors duration-200 ease-in-out"></span>
+<span class="translate-x-0 group-aria-checked:translate-x-4 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none"><button class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none">
+<span class="bg-gray-300 group-aria-checked:bg-primary-container absolute mx-auto h-4 w-8 rounded-full transition-colors duration-200 ease-in-out"></span>
+<span class="translate-x-0 group-aria-checked:translate-x-4 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none"><button class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none">
+<span class="bg-gray-300 group-aria-checked:bg-primary-container absolute mx-auto h-4 w-8 rounded-full transition-colors duration-200 ease-in-out"></span>
+<span class="translate-x-0 group-aria-checked:translate-x-4 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"></span>
+</button></div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="flex justify-center relative inline-block w-full align-middle select-none"><button class="group relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none">
+<span class="bg-gray-300 group-aria-checked:bg-primary-container absolute mx-auto h-4 w-8 rounded-full transition-colors duration-200 ease-in-out"></span>
+<span class="translate-x-0 group-aria-checked:translate-x-4 pointer-events-none absolute left-0 inline-block h-4 w-4 transform rounded-full border border-gray-200 bg-white shadow ring-0 transition-transform duration-200 ease-in-out"></span>
+</button></div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer / Action -->
+<div class="p-card-padding border-t-[0.5px] border-border-subtle bg-surface-bright shrink-0 flex justify-end">
+<button class="bg-primary-container text-white px-5 py-2.5 rounded-lg font-body-main text-body-main font-medium hover:bg-[#1D4ED8] transition-colors flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">save</span>
+                        Salvar permissões
+                    </button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Proposta PRO-0048 - Agência Vetor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed": "#00174b",
+                      "on-secondary-container": "#63646c",
+                      "on-primary-container": "#eeefff",
+                      "outline-variant": "#c3c6d7",
+                      "on-surface-variant": "#434655",
+                      "on-tertiary-fixed": "#341100",
+                      "error-container": "#ffdad6",
+                      "inverse-surface": "#2d3133",
+                      "on-error-container": "#93000a",
+                      "text-slate": "#4B5563",
+                      "sidebar-surface": "#1C2030",
+                      "inverse-primary": "#b4c5ff",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "on-tertiary-fixed-variant": "#783200",
+                      "card-background": "#FFFFFF",
+                      "secondary": "#5d5e65",
+                      "secondary-fixed": "#e2e2eb",
+                      "tertiary-fixed-dim": "#ffb690",
+                      "surface-tint": "#0053db",
+                      "primary-container": "#2563eb",
+                      "secondary-fixed-dim": "#c5c6ce",
+                      "on-surface": "#191c1e",
+                      "on-error": "#ffffff",
+                      "secondary-container": "#e2e2eb",
+                      "on-secondary": "#ffffff",
+                      "surface-container-highest": "#e0e3e6",
+                      "on-background": "#191c1e",
+                      "on-tertiary-container": "#ffece5",
+                      "text-muted": "#9CA3AF",
+                      "background": "#f7f9fc",
+                      "on-secondary-fixed": "#191b22",
+                      "surface-container-high": "#e6e8eb",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "surface-container": "#eceef1",
+                      "success-tint": "#EFF6FF",
+                      "primary-fixed": "#dbe1ff",
+                      "tertiary-container": "#b54e00",
+                      "surface-container-low": "#f2f4f7",
+                      "on-secondary-fixed-variant": "#45464e",
+                      "surface-bright": "#f7f9fc",
+                      "surface": "#f7f9fc",
+                      "surface-container-lowest": "#ffffff",
+                      "border-subtle": "#E5E7EB",
+                      "surface-dim": "#d8dadd",
+                      "warning-tint": "#FFF7ED",
+                      "text-dark": "#111827",
+                      "inverse-on-surface": "#eff1f4",
+                      "tertiary-fixed": "#ffdbca",
+                      "surface-variant": "#e0e3e6",
+                      "primary": "#004ac6",
+                      "on-primary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "outline": "#737686",
+                      "tertiary": "#8e3c00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "nav-item-y": "7px",
+                      "topbar-height": "52px",
+                      "page-padding": "18px",
+                      "container-gap": "10px",
+                      "sidebar-width": "200px",
+                      "section-gap": "14px",
+                      "nav-item-x": "12px",
+                      "card-padding": "16px"
+              },
+              "fontFamily": {
+                      "title-card": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "display-kpi": ["Inter"],
+                      "body-secondary": ["Inter"],
+                      "tag": ["Inter"],
+                      "headline-page": ["Inter"],
+                      "caption": ["Inter"],
+                      "body-main": ["Inter"],
+                      "signature": ["Caveat", "cursive"]
+              },
+              "fontSize": {
+                      "title-card": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                      "label-caps": ["9.5px", {"lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                      "display-kpi": ["22px", {"lineHeight": "1.1", "letterSpacing": "-0.5px", "fontWeight": "500"}],
+                      "body-secondary": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "tag": ["10.5px", {"lineHeight": "12px", "fontWeight": "500"}],
+                      "headline-page": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                      "caption": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                      "body-main": ["13px", {"lineHeight": "20px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .handwritten { font-family: 'Caveat', cursive; font-size: 28px; line-height: 1; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-main antialiased pb-48">
+<!-- Standalone Proposal Navbar -->
+<header class="bg-surface-container-lowest border-b-[0.5px] border-border-subtle sticky top-0 z-40">
+<div class="max-w-[720px] mx-auto h-topbar-height px-page-padding flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="font-headline-page text-headline-page font-bold text-text-dark">Agência Vetor</span>
+<div class="hidden sm:flex items-center gap-2">
+<span class="bg-surface-container-highest text-secondary px-2 py-1 rounded-full font-tag text-tag">Proposta PRO-0048</span>
+<span class="bg-warning-tint text-tertiary-container px-2 py-1 rounded-full font-tag text-tag flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">schedule</span>
+                        Aguardando sua aprovação
+                    </span>
+</div>
+</div>
+<div class="flex sm:hidden">
+<span class="bg-warning-tint text-tertiary-container px-2 py-1 rounded-full font-tag text-tag flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">schedule</span>
+                        Pendente
+                 </span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-[720px] mx-auto mt-8 px-4 sm:px-0">
+<!-- Document Container -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-6 sm:p-10 shadow-sm">
+<!-- Document Header -->
+<div class="flex flex-col sm:flex-row justify-between items-start gap-6 border-b-[0.5px] border-border-subtle pb-8 mb-8">
+<div>
+<h1 class="font-headline-page text-headline-page text-text-dark mb-1">Proposta Comercial</h1>
+<p class="font-body-secondary text-body-secondary text-secondary">Referência: PRO-0048 • 03 de Julho, 2024</p>
+</div>
+<div class="flex flex-col gap-4 text-right">
+<div>
+<p class="font-label-caps text-label-caps text-text-muted mb-1 uppercase">Emitido por</p>
+<p class="font-title-card text-title-card text-text-dark">Agência Vetor</p>
+<p class="font-body-secondary text-body-secondary text-secondary">contato@agenciavetor.com.br</p>
+</div>
+</div>
+</div>
+<!-- Client Info -->
+<div class="bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg p-4 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">domain</span>
+</div>
+<div>
+<p class="font-body-secondary text-body-secondary text-secondary">Para:</p>
+<p class="font-title-card text-title-card text-text-dark">TechSul Ltda — Carlos Mendes</p>
+</div>
+</div>
+<!-- Body Text -->
+<div class="prose prose-sm max-w-none text-text-slate font-body-main text-body-main leading-relaxed mb-10 space-y-4">
+<p>Olá Carlos,</p>
+<p>Com base em nossa última reunião de alinhamento, preparamos esta proposta técnico-comercial visando estruturar e acelerar a captação de leads qualificados para a TechSul. Nosso objetivo é implementar uma máquina de vendas previsível através de estratégias validadas de tráfego pago e otimização de conversão.</p>
+<p>Abaixo detalhamos o escopo dos serviços, os investimentos necessários e as condições comerciais. Estamos à disposição para esclarecer qualquer dúvida.</p>
+</div>
+<!-- Items Table -->
+<div class="mb-8">
+<div class="w-full text-left border-[0.5px] border-border-subtle rounded-lg overflow-hidden">
+<div class="bg-surface-container-lowest grid grid-cols-12 gap-4 p-4 border-b-[0.5px] border-border-subtle font-label-caps text-label-caps text-secondary uppercase">
+<div class="col-span-6 sm:col-span-5">Serviço/Produto</div>
+<div class="col-span-2 hidden sm:block text-right">Qtd</div>
+<div class="col-span-3 sm:col-span-2 text-right">Preço Un.</div>
+<div class="col-span-3 text-right">Subtotal</div>
+</div>
+<div class="divide-y-[0.5px] divide-border-subtle">
+<!-- Row 1 -->
+<div class="grid grid-cols-12 gap-4 p-4 items-center">
+<div class="col-span-6 sm:col-span-5">
+<p class="font-title-card text-title-card text-text-dark">Consultoria Estratégica</p>
+<p class="font-caption text-caption text-secondary mt-1 hidden sm:block">Mapeamento de jornada e definição de ICP.</p>
+</div>
+<div class="col-span-2 hidden sm:block text-right font-body-secondary text-body-secondary text-secondary">1 un</div>
+<div class="col-span-3 sm:col-span-2 text-right font-body-secondary text-body-secondary text-secondary">R$ 2.500,00</div>
+<div class="col-span-3 text-right font-title-card text-title-card text-text-dark">R$ 2.500,00</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-12 gap-4 p-4 items-center">
+<div class="col-span-6 sm:col-span-5">
+<p class="font-title-card text-title-card text-text-dark">Gestão de Tráfego</p>
+<p class="font-caption text-caption text-secondary mt-1 hidden sm:block">Google Ads e Meta Ads (Mensal).</p>
+</div>
+<div class="col-span-2 hidden sm:block text-right font-body-secondary text-body-secondary text-secondary">3 meses</div>
+<div class="col-span-3 sm:col-span-2 text-right font-body-secondary text-body-secondary text-secondary">R$ 1.800,00</div>
+<div class="col-span-3 text-right font-title-card text-title-card text-text-dark">R$ 5.400,00</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-12 gap-4 p-4 items-center">
+<div class="col-span-6 sm:col-span-5">
+<p class="font-title-card text-title-card text-text-dark">Design de Landing Pages</p>
+<p class="font-caption text-caption text-secondary mt-1 hidden sm:block">Criação de 2 páginas de alta conversão.</p>
+</div>
+<div class="col-span-2 hidden sm:block text-right font-body-secondary text-body-secondary text-secondary">2 un</div>
+<div class="col-span-3 sm:col-span-2 text-right font-body-secondary text-body-secondary text-secondary">R$ 1.200,00</div>
+<div class="col-span-3 text-right font-title-card text-title-card text-text-dark">R$ 2.400,00</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Totals -->
+<div class="flex justify-end mb-10">
+<div class="w-full sm:w-64 space-y-3">
+<div class="flex justify-between items-center font-body-secondary text-body-secondary text-secondary">
+<span>Subtotal</span>
+<span>R$ 10.300,00</span>
+</div>
+<div class="flex justify-between items-center font-body-secondary text-body-secondary text-tertiary-container">
+<span>Desconto (10%)</span>
+<span>- R$ 1.030,00</span>
+</div>
+<div class="pt-3 border-t-[0.5px] border-border-subtle flex justify-between items-center">
+<span class="font-title-card text-title-card text-text-dark">Total</span>
+<span class="font-display-kpi text-display-kpi text-text-dark">R$ 9.270,00</span>
+</div>
+</div>
+</div>
+<!-- Expiration Card -->
+<div class="bg-warning-tint border-[0.5px] border-[#FDBA74] rounded-lg p-4 flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary-container">error</span>
+<div>
+<p class="font-title-card text-title-card text-tertiary-container">Esta proposta expira em 15/07/2026 — 12 dias restantes</p>
+<p class="font-caption text-caption text-tertiary-container opacity-80 mt-1">Após esta data, os valores e condições poderão ser reavaliados.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Action Footer -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t-[0.5px] border-border-subtle shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-50">
+<div class="max-w-[720px] mx-auto px-4 py-5 flex flex-col gap-5">
+<!-- Signature Area -->
+<div class="flex flex-col sm:flex-row gap-4 items-start sm:items-end bg-surface-container-low p-4 rounded-lg border-[0.5px] border-border-subtle">
+<div class="w-full sm:flex-1">
+<label class="block font-label-caps text-label-caps text-secondary mb-2 uppercase">Assinar com seu nome</label>
+<input class="w-full bg-card-background border-[0.5px] border-border-subtle rounded-md px-3 py-2 text-body-main font-body-main text-text-dark focus:outline-none focus:border-primary-container transition-colors" placeholder="Digite seu nome completo" type="text" value="Carlos Mendes"/>
+</div>
+<div class="w-full sm:w-64 h-12 bg-card-background border-[0.5px] border-border-subtle rounded-md flex items-center justify-center relative overflow-hidden">
+<span class="absolute top-1 left-2 font-label-caps text-[8px] text-text-muted">Assinatura Digital</span>
+<span class="handwritten text-text-dark mt-2">Carlos Mendes</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+<button class="w-full sm:w-auto px-4 py-2.5 rounded-lg border-[0.5px] border-error text-error font-title-card text-title-card hover:bg-error-container transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">close</span>
+                    Recusar proposta
+                </button>
+<div class="w-full sm:w-auto flex flex-col items-center sm:items-end">
+<button class="w-full sm:w-auto px-8 py-2.5 rounded-lg bg-primary-container text-on-primary-container font-title-card text-title-card hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">check</span>
+                        Aceitar proposta
+                    </button>
+<p class="font-caption text-caption text-text-muted mt-2 text-center sm:text-right">Ao aceitar, você concorda com os termos descritos.</p>
+</div>
+</div>
+</div>
+</div>
+</body></html>

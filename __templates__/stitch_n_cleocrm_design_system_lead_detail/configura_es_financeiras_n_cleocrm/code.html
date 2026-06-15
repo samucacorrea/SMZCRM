@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Financeiro · Configurações - NúcleoCRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#63646c",
+                        "surface-container-low": "#f2f4f7",
+                        "secondary-fixed-dim": "#c5c6ce",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#d8dadd",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e6e8eb",
+                        "on-tertiary-fixed-variant": "#783200",
+                        "inverse-on-surface": "#eff1f4",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1e",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e0e3e6",
+                        "background": "#f7f9fc",
+                        "secondary": "#5d5e65",
+                        "text-dark": "#111827",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "on-secondary-fixed-variant": "#45464e",
+                        "on-tertiary-container": "#ffece5",
+                        "surface-bright": "#f7f9fc",
+                        "surface": "#f7f9fc",
+                        "secondary-fixed": "#e2e2eb",
+                        "inverse-surface": "#2d3133",
+                        "on-surface": "#191c1e",
+                        "on-surface-variant": "#434655",
+                        "primary-container": "#2563eb",
+                        "text-slate": "#4B5563",
+                        "outline-variant": "#c3c6d7",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#dbe1ff",
+                        "text-muted": "#9CA3AF",
+                        "warning-tint": "#FFF7ED",
+                        "surface-container": "#eceef1",
+                        "tertiary-fixed": "#ffdbca",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "on-primary-container": "#eeefff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "border-subtle": "#E5E7EB",
+                        "card-background": "#FFFFFF",
+                        "sidebar-surface": "#1C2030",
+                        "outline": "#737686",
+                        "on-tertiary-fixed": "#341100",
+                        "secondary-container": "#e2e2eb",
+                        "inverse-primary": "#b4c5ff",
+                        "tertiary": "#8e3c00",
+                        "surface-variant": "#e0e3e6",
+                        "success-tint": "#EFF6FF",
+                        "on-secondary-fixed": "#191b22",
+                        "on-primary-fixed": "#00174b",
+                        "tertiary-container": "#b54e00",
+                        "primary": "#004ac6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "nav-item-x": "12px",
+                        "topbar-height": "52px",
+                        "section-gap": "14px",
+                        "page-padding": "18px",
+                        "sidebar-width": "200px",
+                        "nav-item-y": "7px",
+                        "container-gap": "10px",
+                        "card-padding": "16px"
+                    },
+                    "fontFamily": {
+                        "tag": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-main": ["Inter"],
+                        "body-secondary": ["Inter"],
+                        "headline-page": ["Inter"],
+                        "title-card": ["Inter"],
+                        "display-kpi": ["Inter"],
+                        "caption": ["Inter"]
+                    },
+                    "fontSize": {
+                        "tag": ["10.5px", { "lineHeight": "12px", "fontWeight": "500" }],
+                        "label-caps": ["9.5px", { "lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+                        "body-main": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-secondary": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-page": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "title-card": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "display-kpi": ["22px", { "lineHeight": "1.1", "letterSpacing": "-0.5px", "fontWeight": "500" }],
+                        "caption": ["11px", { "lineHeight": "14px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #F7F9FC; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+        .toggle-checkbox:checked { right: 0; border-color: #68D391; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #2563eb; }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen overflow-hidden flex font-body-main text-body-main">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col w-sidebar-width h-screen fixed left-0 top-0 bg-sidebar-surface border-r-[0.5px] border-outline-variant/10 py-page-padding px-nav-item-x shrink-0 z-50">
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center text-white font-bold text-lg">N</div>
+<div>
+<h1 class="text-headline-page font-headline-page font-bold text-white leading-tight">NúcleoCRM</h1>
+<p class="text-[10px] text-outline">Vendas e Operações</p>
+</div>
+</div>
+<button class="w-full bg-primary-container text-white py-2 rounded-lg font-medium text-sm mb-6 hover:bg-primary-container/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span> Novo Lead
+        </button>
+<div class="flex-1 flex flex-col gap-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-secondary-fixed-variant hover:text-white hover:bg-secondary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-secondary-fixed-variant hover:text-white hover:bg-secondary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">group</span> Leads
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-secondary-fixed-variant hover:text-white hover:bg-secondary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">person</span> Clientes
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-secondary-fixed-variant hover:text-white hover:bg-secondary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span> Faturas
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-secondary-fixed-variant hover:text-white hover:bg-secondary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">assignment</span> Projetos
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-secondary-fixed-variant hover:text-white hover:bg-secondary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">badge</span> Equipe
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary-container text-primary font-medium transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span> Configurações
+            </a>
+</div>
+<div class="mt-auto pt-4 border-t-[0.5px] border-outline-variant/10 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-secondary-fixed-variant hover:text-white hover:bg-secondary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span> Suporte
+            </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-secondary-fixed-variant hover:text-white hover:bg-secondary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">logout</span> Sair
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 ml-0 md:ml-sidebar-width flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="h-topbar-height bg-surface-container-lowest border-b-[0.5px] border-border-subtle flex justify-between items-center px-page-padding shrink-0 z-40 relative">
+<div class="flex items-center gap-2">
+<h2 class="font-title-card text-title-card text-text-dark font-medium">Financeiro · Configurações</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-3 text-secondary">
+<button class="hover:bg-surface-container-low p-1.5 rounded-full transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span></button>
+<button class="hover:bg-surface-container-low p-1.5 rounded-full transition-colors"><span class="material-symbols-outlined text-[20px]">history</span></button>
+</div>
+<div class="h-6 w-[0.5px] bg-border-subtle"></div>
+<button class="flex items-center gap-2 hover:bg-surface-container-low py-1 px-2 rounded-lg transition-colors">
+<div class="w-7 h-7 rounded-full bg-primary-container text-white flex items-center justify-center text-xs font-medium">US</div>
+<span class="text-sm font-medium text-text-dark">Perfil</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Content Canvas -->
+<main class="flex-1 overflow-y-auto p-page-padding bg-background pb-24">
+<div class="max-w-5xl mx-auto flex flex-col gap-section-gap">
+<!-- Section 1: Gateways -->
+<section>
+<h3 class="font-title-card text-title-card text-text-dark mb-3">Gateways de pagamento</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-container-gap">
+<!-- Asaas Card -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<img alt="Asaas Logo" class="h-6 object-contain" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAA8CAYAAAAjW/WRAAAK6ElEQVR4Aexce6wdRRn/faf3lkYaJQakklqqaQvU9nBaNCIBtNWYGEJVQORRFVoeGhNfCfiM0QiNwT+ExDdPURTUaLSJhpAISASR1J69ty01RUOkatIGmxiJqb33jL8523Pv7uzsnj3n7Mz22NnOtzvzzTff47f77c7s2dsGwhYQCAjkIhASJBea0BEQAEKChKsgIFCAQEiQAnBCV0AgJEi4BgICBQg4TJACq6ErIDAmCIQEGZMTFdysB4GQIPXgHqyOCQIhQcbkRAU360EgJEg9uAerY4LAeCbImIAb3Bx/BEKCjP85DBE4RCAkiENwg+rxRyAkyPifwxCBQwRCgjgEN6gefwRCghjn0GmzpU5CU52Bs9X5WKvOxGq10Km9cVd+DOBVT4KsVWvRUqqQtIyvE9xUr6Ivj1lo28guNNV66r2d9Dx1HUIDeyF4AgvwLBbiMPkHmDC/Z+JsBZRQZvjiMo6kVy7t+MQrGVNOvZ4EaWBzjj/z7DIy89Kj1Rr4IBW8xUI3Qd/F2DFwaanlvPB/xoTYwbEfI51OspVTmDBvotxdaOGPTJQLMOzmIg6bLy7s1IGXLTaDV0OCdO+SVxl+2JqU6cra+qrlKVyXo3ACCryz5/TmsVerJex6nBf+e3gcpLSYKL9lYg06LrZRdRyx1uy+ajt14ZWNLMPxnyDrcCEvnKUZT0yGYCm0rMmvut1UF0CwKlet4MbcvryOSfyEXctIwxXBfXySvBaDbC7isNl3YacOvGyxWXj+E0Sh//Sq5+ggsr0xgx4bfZ8QKznNemtptU21kQl3fkZe4Wk+jS7BDFZgAfTiXCfAuwFEJLO8HIKbTWZhu+o48oxVbacuvPLiM/h+E+QcNcmL5ArDh/ymwhXQY/IlRutpqhPpz/v6KlEDPEUE78roU3gAkZxL+jl2yZ+xQ46gLc+TfoE21gN4nJQugk1pRkHLRRw2cy7sSA142WLL4flNkBlcDMHiHF+ybC2rx2R7quEINtOfRSllCk+n2nHjEqxSJ8fVPnvBcphbB/chd5MO/gvbGug0vgo+J3dYssNFHEn9vboLO3Xg1YunxNFvggBceFu8UtgNhf2WHs26Wu+ckMC2AP8CfdmRsidYiEW4BmU2hf9kxAQtFG175DnavJu0nfQgRe/k8Ws86qkYD32KOIjDZtKFnTrwssWWw2vk8Ktnr1aLebe2TxuEi1rBU1ajwqeOHmvtHIG5Tp3N0W8kJctBRHiEjO+R0qWBG9KM3NYfMj2CW7iO2Yaz1KszfT1GJNchkk2kK9GWG3j8JKbFjgkSm7s4EkZYdWfHL14MZZDiL0EmoNcek1bndIKonAQBJhGPtQ4dmtmBbVrDxBCFDn5AvUdIybKSr183JBnWusIzGb7gBPI+w/1fmSiP8A3Vh7FGnUre6KUbR0bN6HGYKl3Z8Y2XGVefdqNPf3XdDeRNlfZhp+xBfoIA+WOH82+5WgTB+zODBfd2edNyCArbu/X0rv9TZAq/45DHSLYyQebbGc83sQB/R0s9SfosE2YN+YMXl3EkvXFpxydeyZhK1v0kSFMt5QWnf6m2ufXDLnMSet5v3rW7Xd2xWkfcGn1/Ei6lkleQkqWNnUzUHkfw/V517ii4rP9iXTpMvss55h+k/CJME+DNAG5lbZqJso90G5PlDPLKlZPgMI6EC07teMQrEVLZqp8EaXBxLrxsbF4Jftxl7+CrT9VNkm4ztdNjtY4Uc4SGwpbMaIV0QrTxS8ocJCXLBMos1nfKQU7T3gGFXSi/raDoTURpikmylfX+xXUcPQ9c2/GFVy+eAY5+EkTxdardqXh6Nd+XvyjN1zE/ukytqfQPdOZaYpYXs153JDTwzgbET7cEFw30n2Zp+SnZhQgtAJ+n7n/yWK4IFtLGXVzvFNvxFYcvO67xKod+RqqR4VTNWKdWQ7A2R236AhTkJ4jWoXXlKCrNbuB6+iOG/MOYkgMGD5jBdzI8oNxivTtQZtGWWxHhZMziDQA+x2R5gsdZUnERfAPxmyO7nK84fNnpRukQr67+wXfuE6QD/aWs3bPe9KrX2ylIEC1TpEv39yW1gCI2f3bzjr0hQwuwBAr7OcYsxXd3UxqiMC070JZtiORC/Buv5BTsvQBuB5C/oO/g07BuvuLwZccMsmq8TP3l244TROk7tf3HQe2jwm4uTNUcNfCCZhcQdXV1FogUdDVxEXtPI5lFz/1/A4GNlprClCuxWM+Mmmc8J//ClPwUbfkEaQM6OJOJ+BeYm34pYPvUxlccvuyYcZvtUfEy9Q3Qdpsg+mtcQfYCG8DBlKjWpXWmmAM0GtgygHSR6ARehmszAk11KZ9Cd5DuJj3ExP8Vj9nXyebAKfkTBB8w2WxP4IgFP9dx0HC3uLbjC69uMMPt3CaIwubh3CoYNazOdeoU3qUvLtA8aNf1mQENLOWF/lHSFtLl7H8nKZtIZGZKG09meDHj1PhwdO8jDm3Khx0feOlYRiB3CaKnBvpr3BGcsw7VOrVua2cBs4OtvGirjHclX8duTFmcxcOptm4INvApkv38XfclqYXzks25uiA97fQRhzbuwQ5fXLjHS8cyAlV5waTd0F/hChanmRW0tE6te1BVgq2WIffzqbKxFAEvZsYL0k+RadlLXQcscvcW/gcNK9QJHHMnKV0UDiOSv6WYPuLQBn3Y8YGXjmUEcpcgQN6nJSO4Ozd0MN0tpf/gSf8QN6egW5nBV3gBPlqKgPQPiVqBXkSvynwG/2XdZdAKLMQzfOKcO8fXf+u+RjX5dPkQTsQe8s8ipYvgoRTDVxy+7MTBucMr1j/S3k2CrFaLISia7+9BW6SQ0L1oYN20bm3D2mlhKmy1cNvYJc9a+HZWB9+2dOjF+pYUP5Kvs539AyigiQZfY/f+NxfgECYQQfAt0us4xiwzZNxCmi++4vBlR0fmEi+tf0RykyDx17f2L3djh/XfbMe1/H2RzCQvLv11cP7oXo++UwOX9ZpzR4X75+plKvpNE2D7IfMjluHXkJf9uxAySxeFa9GWfehtvuLwZacXV3ysHq9Y78h7NwnSQPEUSBB/f1Xkfj+ZfjbmdV8NwaL5ZremPy15oFsbZNfBPRbxZZw6vS3F139Oq3ARFPam+GUaCi9R7OOIxPj0Bb7i8GWHYR4t1eN1VPHoh+oTRH91q5D35a72eB+SX81qjo1imfk7qCmjbWhbJt9s26YLCr+G7dMSc2y2/SPEF3C6x1ys695IHkWE11P+RlJ24a5l0hSx+UUcxuloyx0wN19x+LJjxlc1Xqb+IdvVJ0gDV0H4L9+h9PdX+XK6J19W29C2tFQRRbIe5nonkqL1EXK3KXkJkSxGVl/OdE86lP8uIixBB6/BLM7j8UoAN5M+BX0xdrAJM1iGtrRIX8JeeRG2LfIUhy87thhRIV5W/YMzq08QheIfBwX9p1e9OPrJ9rPV01P7URSfWPsxLU/x+CDa8lXSbYjkHra3Y5e8gLAlEDh28Ko+QSJpwrzDJtvx1AmlNi2bHGvWta1SioJQQGA4BKpPkOH8CKMCAsckAtkEOSbdDE4FBOpBICRIPbgHq2OCQEiQMTlRwc16EAgJUg/uweqYIBASZExOVHCzHgS8Jkg9IQarAYHhEQgJMjx2YeRxgEBIkOPgJIcQh0cgJMjw2IWRxwECIUGOg5McQhwegf+XBBkegTAyIFCAQEiQAnBCV0AgJEi4BgICBQiEBCkAJ3QFBP4HAAD//2TYRssAAAAGSURBVAMA9Cy0tbWTeaUAAAAASUVORK5CYII="/>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-transparent right-0" id="toggle1" name="toggle1" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-primary-container cursor-pointer" for="toggle1"></label>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-3">
+<span class="bg-success-tint text-primary-container font-tag text-tag px-2.5 py-0.5 rounded-full flex items-center gap-1"><span class="material-symbols-outlined text-[12px] fill">check_circle</span> Conectado</span>
+<span class="text-caption font-caption text-text-muted border-[0.5px] border-border-subtle px-2 py-0.5 rounded">Ativo</span>
+</div>
+<div class="mb-4 flex-1">
+<p class="text-caption font-caption text-text-slate mb-1">Chave da API</p>
+<p class="font-mono text-sm text-text-dark bg-surface-container-low px-2 py-1 rounded border-[0.5px] border-border-subtle">•••••••a9f2</p>
+</div>
+<button class="w-full py-1.5 border-[0.5px] border-border-subtle rounded-lg text-text-slate font-medium text-sm hover:bg-surface-container-low transition-colors">Editar</button>
+</div>
+<!-- Stripe Card -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<img alt="Stripe Logo" class="h-6 object-contain" src="data:image/png;base64,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"/>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-transparent right-0" id="toggle2" name="toggle2" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-primary-container cursor-pointer" for="toggle2"></label>
+</div>
+</div>
+<div class="flex items-center gap-2 mb-3">
+<span class="bg-success-tint text-primary-container font-tag text-tag px-2.5 py-0.5 rounded-full flex items-center gap-1"><span class="material-symbols-outlined text-[12px] fill">check_circle</span> Conectado</span>
+<span class="bg-primary-fixed text-primary-fixed-dim font-tag text-tag px-2.5 py-0.5 rounded-full border-[0.5px] border-primary-fixed">Produção</span>
+</div>
+<div class="mb-4 flex-1">
+<p class="text-caption font-caption text-text-slate mb-1">Webhook Secret</p>
+<p class="font-mono text-sm text-text-dark bg-surface-container-low px-2 py-1 rounded border-[0.5px] border-border-subtle">•••••••k8m3</p>
+</div>
+<button class="w-full py-1.5 border-[0.5px] border-border-subtle rounded-lg text-text-slate font-medium text-sm hover:bg-surface-container-low transition-colors">Editar</button>
+</div>
+<!-- PayPal Card -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<img alt="PayPal Logo" class="h-6 object-contain opacity-60" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAA8CAYAAAAjW/WRAAANUElEQVR4Aexca5AU1RX+Ts8+5f0QLbRQHr5hZwCtPLQwQozRikmMqEhMUlGRRPgTK8nurFiuRmaWaJKqqBijKGolEEgqicaUEYwQ80ANMrsgvhAwIkQNICgs+5g5Od277E5PP7Znt7tnZrm9fbrvPff06XvO3G/7nnN7RoPalAeUBxw9oADi6BrVoDwAKICoUaA84OIBBRAX56gm5QEFEDUGlAdcPBAgQFzuqpqUB0rEAwogJfJBqW4WxgMKIIXxu7priXhAAaREPijVzcJ4QAGkMH5Xdy0RD/gPkFjyPcSSHBhFEy3Q7xFNbEY0+RxiicVCl+GMJUNKxOeqmyXkAf8BwvxKoPYTVYn+sSCaDMJMgOqFnkZ1Zi+iiccxNXE21KY84JMH/AcI8LJPfctXTTmIvgGmV+WJshrTG4flq0DJKw/keiAIgAT7BMm1wLZOs5HmZtQsnmzbrJjKAx494D9A2nijx3sHLTYOpG1AbHEs6Bsp/QPXA/4D5LVb94DxQVG4jDAIoLWYkpwAj5sSUx7I9oD/ADG080vGqSgONAoR/k2fuxJLXCYxzTp3Sq6R9j9KkmAFosllQvcKNcoUbw7A1Od7F8OFpWZ/TWK2+P6FHPpOX10ZDECIimWa1eUXOhc1ySu7KvmdmE4E6EJ3wuel/cuSJJgDwvVCC4VqoWk6YF7HlMRnUKpbqdlP8nkRLhD/9xBwKvq4BQMQ5n/3sT/BXabhR8Epd9FMdDo0PIupjVEXqYHbVOL2BwOQ4gnUswfeWQUbpESDwZk1OLthcHaHjplyCdsfDEDcAvXLZwBXfyE4mi2zHf0el3wWuPBcYMppwImjgUgEyHDfplmWkcwfgvlOgzJYLM1LhVaA8Yzw3peyzU7Ho7zyezYNJcg6duwPBiDGR+4QqO//2GgN7KCJSdWy2D5sMHDCSOCs8cCMacAVF0EAMxdL3+x/RovpAzTV325Qc3wRUvEFQnPRFL8U7W3jkEG9gIUtNhKutfBKkXEM2S+jKaBPyClQ338goBv2olYHzkmjTkJF2Sr88u0luP8DQVAv1/SleWtDG5rjSYCXWC5nPkOmWRUW/kBiDDD7gwOIU6C+72DhhgNzuXFzjWah8pOVeHjbJKMexCFDD1nUEmkoq54Gp21K4wxJT65ELNGEzhcyWxFNfIxYYhuiST11ea+UvyrgI4uKmsT3pW2diaKJOotcLiOafNB0TSwhOhplfpormGc9bPvz7J5X8eAA4hSoBz3FcrOcKXtgnQhoj2LZ9jPcLulzW7rVYbE0fbJFZ83dgxBLrpf1mvUgXANQDQD9hcwKkAT4oIkgI3W5EKDfI9q4FlMTx8O00RZY09E/tAUTurYzE6OkNA/Z1zGm46Mjr6C/W+j297fD9tcHBxCnQP1IK9DaZt+boLkatefcolpihfvx0C7roM0RzLtaXmn/X1jDHrOuhjJQx2+FJ9kLOXrZCTMlznkGk35e2Skux+a6v8hxt1DPThiBmsTMHkZOqYquAcmfiU2rsLPhiInVl0rY9veljx6uCQ4gxs0dAvW9hYpDLADRezkc1JbQC77R9IbjRJdVJ3MGLZFmaevZayrmyRD9Yg+ju9QiGbGX5AmQA6iudqJpqD6cNfhJTwo81tXacyLt6p5KTolhzeoRnsiRyr86vRD2599NL1cECxCnQL1QcUhZ2SEHp5yNR3ZmDTYHKVs2E2ruHmOssdQ0Xg593p+u2CqDfrpVnNbijdqsNJ5cq9EtOXJpSUdfhVTrUMmSfQqp+rE4wqNFZrWQedcynzMxMh3WuAe4ClgVMcnpFX16RbhQL3YT83tI1a3vrnsqiA3FYr+n/uYnFCxAnAL1QmWyqir2O7onnfmuY1tuA+EciRm4kxoz0Drel//2KWj8JIgkg0Wn5F5i1JnNA/jkn1XJdQmhH4PxtMjslPJP0FwvU66GDql37q/X70VG+2lnJetIOCGrBjTftkP0/N3E06dZ0bdnmXh6pRKz5WQGDtNygBi9bcVqf2/97kN7sAAppkA9orWi3PEJAhDGS/r3dAS3re4c+Fk32HVLizwlHhWqlTWULyEVH2+Us0S6i5F0T7xxlMkkCz1HK11nhnWaBbZOswjW6RXjkS4tQZzCsd/nngcLkGIK1I+rMgewto7U+jjNslWWzVyK1MT8Fgmjd52EWOJb0N8OjiXfAdO6bIVdZStoULZCnkI5QTZ9zTTN0qdXILOtzC9ic3x7l96ekz+lEO33p8NHtQQLEOMuRRCoR7QWVFfuM7rjdiCe7NacZ1u7DNSVYEyTJ8MC4Oq0+/WSzapp/KYAYiViyR2gyC6AlkN/OxgYB9uNrdOh5h8cAtEqk7g+zYptu6SbV0FXSDki1LMT9z8479Gmlwpjv35nHyl4gBQ6UNeQxrAhb3vyGWGMJzlgJzgz05bAFyDTMQGp1uNkunStTJ02obct2ngdopU7oPFjIFwj4qcK9b6T2GYnxZnlVjZd1c2zTq/akdZ+3d3ee6G47e+9/54lggdIIQN1kv/fQ4e8iTKJP7y4hMgbQBiH0HTr87aUqv+HESwjK8h2u3dN8i6Ji58QYNisxbAO7KXIkP5dk5hFDSNj4ekMvW86iPXyUWKJOaY/WG78PBLh4qNs48z4k0yvnBMYhlDWodjtz+pqf4vBA6RQgbqmtWH40NdQUXbYs5OYzdMOzxf2UTCanAoNt9pc/TCYJiNVP8mYnjXXPYV0+0GLHDkARBdkflQ/dRNhCDr2XoKqtE32Cr/qlguzEKT9PtkRPEA6A/X/Wvob5Ip6Rfl+jBy6FeWRFst93RiMvW7NvrcRz7Xq5HsEFPPQVPeqqS1SPtRUNypuKdnMMrD8GXJdByJ9miUBe1fdOPFHKB/5pFEM+SBPzgDt98eY4AFi9JPtv2Ho54o6yWCoqtiLkcO2YPjg7dCol6DY6Jj5oOF/ZkbANYY1+GZaY3tXZmsCwe2J17ToPYD/mqPrKyDqCdY7G1dg4/z2zmLIxyDt98mUcABCZA+Qvqyo60DQqB0RyUxVlB9EddUeDBv0FkaPSGHooJ2e4w07BzKb/2vbyfjJI8pJx4pywnlyNO96WpY5d8VdZKhCDm77YzmNw6Te+UazFIw9E3ncOBfiELz9/bYqHIAwb7TtqdOKOqEDY0ZstKXjR7yC0cObMWrYVgwf/BaGVO9GZcVBEOwDVtsbOzDTWOvQEhCbrRkuxm3QX13X10FqlpyMaGI+qvAG9Hevcnuhp29zedn1A22r5bl6KJtlKjPvQHPtBhMv1AoHa78PtoQDkHwD9bKI9T+rD8a6q6BdmD9xs7uMz60EPTjebdJKqJTp4d3Q10G0zLsCjF8ApL+WDsvGmGThZTP0t3IJK7JZ5jKZA3lzY/C1oO33wQLNBx29q+gM1K3fj3AK1CORlt6V+i4hA9F3ne4KN9V/KAJfB3ObnHvbl4rc/SYh/QnS66+lOIBAD+BZKyxAgrPf5Kb+VMIBiNFDfsk45R7sAvWysAFC23Dj+GdyuxZKPRVfh3Y6Rwb/8w73W4cMz5DM1gKZROpPHLMYZ+abGTm1VN0/RfebOVyAsF6mV7tQ6C1o+/tpX3gAIbKPQ+wC9YgW5hTrY4BrHf3YFH9EBieZqCluzSg5KvDQsDW+DU31M0FpWUHnKyRuqBMwzEVHepzc9yI0179gaNlc/y+pm/uSqr/ZaHM/2MRn7G3lvNTsb4rfZ/FRU7z3rx47+C88gDDbZ7LsAvWy8nCmWEStyKQX4sYJ7zj4J1z2pkXvyOLgH9AUX4Lm+ApsWfRuvzsQS5wPojPNergDkADezCx8LQj7+2lVeADxGqgT0ohQRz/t8nK5LF7y9bjptHBTu1565peM/moJ0z0WdUy/Q6rhIwtfMSweCA8gboG6Hqwf7VoY8UeGn0Pr4Dm4YcIbR287IM76r6JMabwUscUXCy1Aet/LIHzaYluGllp4imHrAStAbMX8YjoE6tlxSHAZrHYQPSWWXImbJtZiwZhPpDywdo3PQ4T/DGjPCt0nxll/D5j5eWyu+5u0qd2DB8IFiJdAvayfGSySuAKQ9CltE/tfBNMyoYVIV83CDePvKJp4Qzrn+074j7tO3gMtcp27jGrN9kC4APESqHvJYDH2y0A/15ZuGH++8C+VtO0cOS/AvPEPCG3A/LGHsw0fkGXWXJINvBUdkVnYVLt7QNoekFHhAsRLoO4lg6XR9oD8UdpqD7ToPyn0bTHiDln7uNOgDN8sU8uYpD4nY0vta9Km9jw8EC5A9EA9FSf5sMy04RbCmBFrhDZ6ymAxFEDsPmT91ZJUfLn4t0HWVW43qLn+AWyqawKIoba8PRAqQFx7x5RHupUVQFydqRr98kDxAATs/fHPEQUQv0aA0uPqgSICCLwDpF1NsVw/VdXomweKByCZKm8AITqAm0/x/gMDvrlKKToWPVA8AJk/Vv+66z4PH4K+vuFBTIkoD/TfA8UDEN0WL4G6fQZLv1qR8oDvHigugHgK1FUGy/dRoBQ6eqDIAOIhUFcZLMcPUzX474HiAoiXQF1lsPwfBUqjowf+DwAA//9q8MaNAAAABklEQVQDACZiug/2/d9hAAAAAElFTkSuQmCC"/>
+</div>
+<div class="flex items-center gap-2 mb-3">
+<span class="bg-surface-container-high text-secondary font-tag text-tag px-2.5 py-0.5 rounded-full flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">cancel</span> Não configurado</span>
+</div>
+<div class="mb-4 flex-1 flex flex-col justify-center">
+<p class="text-caption font-caption text-text-slate text-center">Conecte sua conta do PayPal para receber pagamentos internacionais.</p>
+</div>
+<button class="w-full py-1.5 bg-primary-container text-white rounded-lg font-medium text-sm hover:bg-primary-container/90 transition-colors">Conectar</button>
+</div>
+</div>
+</section>
+<!-- Section 2: Impostos -->
+<section>
+<div class="flex justify-between items-center mb-3">
+<h3 class="font-title-card text-title-card text-text-dark">Impostos cadastrados</h3>
+<button class="text-primary-container font-medium text-sm hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">add</span> Adicionar imposto
+                        </button>
+</div>
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest border-b-[0.5px] border-border-subtle">
+<th class="py-3 px-4 font-label-caps text-label-caps text-secondary uppercase">Nome</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-secondary uppercase">Percentual</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-secondary uppercase text-center">Aplicar por padrão</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-secondary uppercase text-right">Ações</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b-[0.5px] border-border-subtle last:border-b-0 hover:bg-surface-container-lowest transition-colors">
+<td class="py-3 px-4 font-medium text-text-dark">ISS</td>
+<td class="py-3 px-4 text-text-slate">5%</td>
+<td class="py-3 px-4 text-center">
+<div class="relative inline-block w-8 align-middle select-none">
+<input checked="" class="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-4 appearance-none cursor-pointer border-transparent right-0" style="top: 2px;" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-primary-container cursor-pointer"></label>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-secondary hover:text-primary-container p-1"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="text-secondary hover:text-error p-1 ml-1"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</td>
+</tr>
+<tr class="border-b-[0.5px] border-border-subtle last:border-b-0 hover:bg-surface-container-lowest transition-colors">
+<td class="py-3 px-4 font-medium text-text-dark">ICMS</td>
+<td class="py-3 px-4 text-text-slate">12%</td>
+<td class="py-3 px-4 text-center">
+<div class="relative inline-block w-8 align-middle select-none">
+<input class="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-4 appearance-none cursor-pointer border-transparent right-4" style="top: 2px;" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-container-high cursor-pointer"></label>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-secondary hover:text-primary-container p-1"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="text-secondary hover:text-error p-1 ml-1"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</td>
+</tr>
+<tr class="border-b-[0.5px] border-border-subtle last:border-b-0 hover:bg-surface-container-lowest transition-colors">
+<td class="py-3 px-4 font-medium text-text-dark">IR</td>
+<td class="py-3 px-4 text-text-slate">1,5%</td>
+<td class="py-3 px-4 text-center">
+<div class="relative inline-block w-8 align-middle select-none">
+<input class="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-4 appearance-none cursor-pointer border-transparent right-4" style="top: 2px;" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-container-high cursor-pointer"></label>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-secondary hover:text-primary-container p-1"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="text-secondary hover:text-error p-1 ml-1"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Section 3: Numeração -->
+<section>
+<h3 class="font-title-card text-title-card text-text-dark mb-3">Numeração de documentos</h3>
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+<div>
+<label class="block text-caption font-caption text-text-slate mb-1">Faturas</label>
+<div class="flex gap-2">
+<input class="w-1/3 bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg px-3 py-1.5 text-sm focus:border-primary-container focus:ring-0 outline-none" type="text" value="FAT-"/>
+<input class="w-2/3 bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg px-3 py-1.5 text-sm focus:border-primary-container focus:ring-0 outline-none" type="text" value="000124"/>
+</div>
+<p class="text-[10px] text-primary mt-1">Prévia: FAT-000124</p>
+</div>
+<div>
+<label class="block text-caption font-caption text-text-slate mb-1">Orçamentos</label>
+<div class="flex gap-2">
+<input class="w-1/3 bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg px-3 py-1.5 text-sm focus:border-primary-container focus:ring-0 outline-none" type="text" value="ORC-"/>
+<input class="w-2/3 bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg px-3 py-1.5 text-sm focus:border-primary-container focus:ring-0 outline-none" type="text" value="000089"/>
+</div>
+</div>
+<div>
+<label class="block text-caption font-caption text-text-slate mb-1">Propostas</label>
+<div class="flex gap-2">
+<input class="w-1/3 bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg px-3 py-1.5 text-sm focus:border-primary-container focus:ring-0 outline-none" type="text" value="PRO-"/>
+<input class="w-2/3 bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg px-3 py-1.5 text-sm focus:border-primary-container focus:ring-0 outline-none" type="text" value="000045"/>
+</div>
+</div>
+<div>
+<label class="block text-caption font-caption text-text-slate mb-1">Contratos</label>
+<div class="flex gap-2">
+<input class="w-1/3 bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg px-3 py-1.5 text-sm focus:border-primary-container focus:ring-0 outline-none" type="text" value="CON-"/>
+<input class="w-2/3 bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg px-3 py-1.5 text-sm focus:border-primary-container focus:ring-0 outline-none" type="text" value="000012"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Moeda & Local -->
+<section>
+<h3 class="font-title-card text-title-card text-text-dark mb-3">Moeda e localização</h3>
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div>
+<label class="block text-caption font-caption text-text-slate mb-1">Moeda padrão</label>
+<select class="w-full bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg px-3 py-1.5 text-sm focus:border-primary-container focus:ring-0 outline-none appearance-none">
+<option>BRL — Real brasileiro</option>
+<option>USD — Dólar americano</option>
+<option>EUR — Euro</option>
+</select>
+</div>
+<div>
+<label class="block text-caption font-caption text-text-slate mb-1">Formato de data</label>
+<select class="w-full bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg px-3 py-1.5 text-sm focus:border-primary-container focus:ring-0 outline-none appearance-none">
+<option>dd/mm/aaaa</option>
+<option>mm/dd/aaaa</option>
+<option>aaaa-mm-dd</option>
+</select>
+</div>
+<div>
+<label class="block text-caption font-caption text-text-slate mb-1">Fuso horário</label>
+<select class="w-full bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg px-3 py-1.5 text-sm focus:border-primary-container focus:ring-0 outline-none appearance-none">
+<option>America/Sao_Paulo (GMT-3)</option>
+<option>America/New_York (GMT-5)</option>
+</select>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 5: Vencimentos -->
+<section>
+<h3 class="font-title-card text-title-card text-text-dark mb-3">Vencimento e multas</h3>
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+<div>
+<label class="block text-caption font-caption text-text-slate mb-1">Prazo padrão de pagamento</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg px-3 py-1.5 text-sm pr-10 focus:border-primary-container focus:ring-0 outline-none" type="number" value="30"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-text-slate text-sm">dias</span>
+</div>
+</div>
+<div>
+<label class="block text-caption font-caption text-text-slate mb-1">Multa por atraso</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg px-3 py-1.5 text-sm pr-8 focus:border-primary-container focus:ring-0 outline-none" type="number" value="2"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-text-slate text-sm">%</span>
+</div>
+</div>
+<div>
+<label class="block text-caption font-caption text-text-slate mb-1">Juros diários</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-lg px-3 py-1.5 text-sm pr-8 focus:border-primary-container focus:ring-0 outline-none" type="text" value="0,033"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-text-slate text-sm">%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 pt-3 border-t-[0.5px] border-border-subtle">
+<div class="relative inline-block w-10 align-middle select-none">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-transparent right-0" id="toggleLink" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-primary-container cursor-pointer" for="toggleLink"></label>
+</div>
+<span class="text-sm text-text-dark">Aplicar automaticamente no link de pagamento</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Fixed Footer -->
+<footer class="fixed bottom-0 right-0 w-full md:w-[calc(100%-200px)] bg-card-background border-t-[0.5px] border-border-subtle py-3 px-page-padding flex justify-end z-40 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<button class="bg-primary-container text-white py-2 px-6 rounded-lg font-medium text-sm hover:bg-primary-container/90 transition-colors shadow-sm">
+                Salvar configurações
+            </button>
+</footer>
+</div>
+</body></html>

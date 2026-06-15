@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="antialiased" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Timesheets - NúcleoCRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#434655",
+                        "on-secondary-fixed": "#191b22",
+                        "surface-dim": "#d8dadd",
+                        "primary": "#004ac6",
+                        "secondary-container": "#e2e2eb",
+                        "on-primary-container": "#eeefff",
+                        "on-error": "#ffffff",
+                        "text-dark": "#111827",
+                        "surface-bright": "#f7f9fc",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#c5c6ce",
+                        "on-tertiary-fixed-variant": "#783200",
+                        "surface-tint": "#0053db",
+                        "on-background": "#191c1e",
+                        "on-error-container": "#93000a",
+                        "outline": "#737686",
+                        "secondary-fixed": "#e2e2eb",
+                        "card-background": "#FFFFFF",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container-low": "#f2f4f7",
+                        "surface-container": "#eceef1",
+                        "tertiary-fixed": "#ffdbca",
+                        "on-secondary-container": "#63646c",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#dbe1ff",
+                        "primary-container": "#2563eb",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#b54e00",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "sidebar-surface": "#1C2030",
+                        "secondary": "#5d5e65",
+                        "text-muted": "#9CA3AF",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "border-subtle": "#E5E7EB",
+                        "surface": "#f7f9fc",
+                        "on-tertiary-fixed": "#341100",
+                        "surface-container-highest": "#e0e3e6",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-primary-fixed": "#00174b",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "background": "#f7f9fc",
+                        "tertiary": "#8e3c00",
+                        "surface-container-high": "#e6e8eb",
+                        "success-tint": "#EFF6FF",
+                        "inverse-on-surface": "#eff1f4",
+                        "text-slate": "#4B5563",
+                        "inverse-primary": "#b4c5ff",
+                        "warning-tint": "#FFF7ED",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-container": "#ffece5",
+                        "on-secondary-fixed-variant": "#45464e",
+                        "surface-variant": "#e0e3e6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "14px",
+                        "card-padding": "16px",
+                        "topbar-height": "52px",
+                        "container-gap": "10px",
+                        "sidebar-width": "200px",
+                        "nav-item-y": "7px",
+                        "page-padding": "18px",
+                        "nav-item-x": "12px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "body-secondary": ["Inter"],
+                        "body-main": ["Inter"],
+                        "title-card": ["Inter"],
+                        "tag": ["Inter"],
+                        "headline-page": ["Inter"],
+                        "display-kpi": ["Inter"],
+                        "caption": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["9.5px", { "lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+                        "body-secondary": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-main": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "title-card": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "tag": ["10.5px", { "lineHeight": "12px", "fontWeight": "500" }],
+                        "headline-page": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "display-kpi": ["22px", { "lineHeight": "1.1", "letterSpacing": "-0.5px", "fontWeight": "500" }],
+                        "caption": ["11px", { "lineHeight": "14px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .pulse-border { animation: pulse-border 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse-border {
+            0%, 100% { border-color: rgba(249, 115, 22, 1); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4); }
+            50% { border-color: rgba(249, 115, 22, 0.5); box-shadow: 0 0 0 4px rgba(249, 115, 22, 0); }
+        }
+        .pulse-dot { animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .5; transform: scale(0.8); }
+        }
+    </style>
+</head>
+<body class="bg-surface-container-low text-text-dark font-body-main text-body-main min-h-screen flex selection:bg-primary-container selection:text-white">
+<!-- SideNavBar -->
+<nav aria-label="Sidebar" class="bg-sidebar-surface dark:bg-sidebar-surface docked fixed left-0 top-0 h-full w-[200px] border-r-[0.5px] border-on-secondary-fixed-variant flat no shadows flex flex-col py-page-padding px-nav-item-x z-20 hidden md:flex">
+<div class="mb-8 px-2 flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center shrink-0">
+<span class="font-headline-page text-headline-page font-bold text-on-primary">N</span>
+</div>
+<div class="flex flex-col overflow-hidden">
+<span class="font-title-card text-title-card text-white truncate">Nexus CRM</span>
+<span class="font-caption text-caption text-on-secondary-container truncate">Enterprise Plan</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-container hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 group" href="#">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+<span class="font-body-main text-body-main truncate">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-container hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 group" href="#">
+<span class="material-symbols-outlined text-[18px]">groups</span>
+<span class="font-body-main text-body-main truncate">Contatos</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-container hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 group" href="#">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+<span class="font-body-main text-body-main truncate">Vendas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-container hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 group" href="#">
+<span class="material-symbols-outlined text-[18px]">leaderboard</span>
+<span class="font-body-main text-body-main truncate">Relatórios</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-container hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 group" href="#">
+<span class="material-symbols-outlined text-[18px]">smart_toy</span>
+<span class="font-body-main text-body-main truncate">Automação</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-container hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 group" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span class="font-body-main text-body-main truncate">Configurações</span>
+</a>
+<!-- Implied semantic match for Timesheets -> likely under Reports or a generic active state fallback if none match perfectly. We will leave them inactive and style this page as a sub-view or standalone module. -->
+</div>
+<div class="mt-auto space-y-4 pt-4 border-t border-on-secondary-fixed-variant">
+<button class="w-full bg-primary-container text-white font-body-main text-body-main py-2 rounded-lg hover:bg-opacity-90 transition-colors font-medium">Novo Lead</button>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-container hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 group" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+<span class="font-body-main text-body-main truncate">Suporte</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-container hover:text-on-primary hover:bg-on-secondary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 group" href="#">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+<span class="font-body-main text-body-main truncate">Sair</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 md:ml-[200px] flex flex-col min-w-0">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-lowest text-primary font-body-main text-body-main docked fixed top-0 right-0 w-full md:w-[calc(100%-200px)] h-[52px] border-b-[0.5px] border-border-subtle flat no shadows flex justify-between items-center px-page-padding z-10">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-page text-headline-page font-bold text-text-dark">Timesheets</h1>
+</div>
+<div class="flex items-center gap-4">
+<!-- Global Timer Widget - Active -->
+<button class="hidden sm:flex items-center gap-2 bg-success-tint border border-[#F97316] rounded-full pl-3 pr-4 py-1.5 pulse-border hover:bg-blue-100 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[16px] text-[#F97316]" style="font-variation-settings: 'FILL' 1;">pause</span>
+<span class="font-body-main text-body-main font-medium text-primary-container tabular-nums">01:23:45</span>
+<span class="text-primary-container/40 px-1">·</span>
+<span class="font-body-secondary text-body-secondary text-primary-container truncate max-w-[150px]">Redesign logo · TechSul</span>
+</button>
+<!-- Global Timer Widget - Inactive (Reference) -->
+<!-- 
+                <button class="hidden sm:flex items-center gap-2 bg-surface-container border border-border-subtle rounded-full pl-3 pr-4 py-1.5 hover:bg-surface-container-high transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px] text-on-surface-variant">play_arrow</span>
+                    <span class="font-body-main text-body-main font-medium text-on-surface-variant">Iniciar timer</span>
+                </button>
+                -->
+<div class="h-5 w-[1px] bg-border-subtle mx-1"></div>
+<button class="text-on-surface-variant hover:text-primary transition-colors opacity-90 active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors opacity-90 active:scale-95">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="hidden lg:block text-primary font-medium hover:text-primary-container transition-colors opacity-90 active:scale-95">Upgrade</button>
+<img alt="User Avatar" class="w-8 h-8 rounded-full border border-border-subtle ml-2" data-alt="A small circular avatar image representing a user named Rafael A. It has a blue background with white initials RA." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsPSnX54zliCFT2kcfvR2yXgMjUbnquDI4OdleOsnqGQA5JDDb2U92xnZC_xcXdk1C56T1fOY_Zdvynf7su25jKGc3NXES-6RhvpTgsyYZ4Th0rYuTM8GovhWb6NAkQ4oOav1YUmizUnsBEgdn2exuthSUsThMbtDdItCGF9ndtzNfgDbeFnglbMaa3E1e7zkJBcXYqtp_22u-4ub21kLODNUjvE3wkESPFf35sJWJFvEvGh4rbpHzl5XnXobYuJQoRKXuuErcGPI"/>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 mt-[52px] p-page-padding space-y-section-gap overflow-x-hidden">
+<!-- Filters & Controls Bar -->
+<section class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-card-background border border-border-subtle rounded-lg p-3">
+<div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+<!-- Week Picker -->
+<div class="flex items-center bg-surface-container-low border border-border-subtle rounded-lg p-1">
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+<span class="font-body-secondary text-body-secondary font-medium px-3 text-text-dark">09 Jun – 15 Jun</span>
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</div>
+<!-- Member Filter -->
+<button class="flex items-center gap-2 border border-border-subtle rounded-lg px-3 py-1.5 hover:bg-surface-container-low transition-colors bg-white">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">person</span>
+<span class="font-body-secondary text-body-secondary text-text-dark">Todos membros</span>
+<span class="material-symbols-outlined text-[16px] text-text-muted">expand_more</span>
+</button>
+<!-- Project Filter -->
+<button class="flex items-center gap-2 border border-border-subtle rounded-lg px-3 py-1.5 hover:bg-surface-container-low transition-colors bg-white">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">work</span>
+<span class="font-body-secondary text-body-secondary text-text-dark">Todos projetos</span>
+<span class="material-symbols-outlined text-[16px] text-text-muted">expand_more</span>
+</button>
+</div>
+<button class="flex items-center gap-2 bg-primary-container text-white font-body-main text-body-main font-medium rounded-lg px-4 py-2 hover:bg-opacity-90 transition-colors w-full sm:w-auto justify-center">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    Registro manual
+                </button>
+</section>
+<!-- Summary KPI Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-container-gap">
+<div class="bg-card-background border border-border-subtle rounded-xl p-card-padding flex flex-col justify-center border-l-[3px] border-l-primary-container">
+<span class="font-body-secondary text-body-secondary text-on-surface-variant mb-1">Total da Semana</span>
+<span class="font-display-kpi text-display-kpi text-text-dark">28h30</span>
+</div>
+<div class="bg-card-background border border-border-subtle rounded-xl p-card-padding flex flex-col justify-center">
+<span class="font-body-secondary text-body-secondary text-on-surface-variant mb-1 flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                        Faturável
+                    </span>
+<div class="flex items-baseline gap-2">
+<span class="font-display-kpi text-display-kpi text-text-dark">22h00</span>
+<span class="font-body-secondary text-body-secondary text-on-surface-variant">(R$ 4.400,00)</span>
+</div>
+</div>
+<div class="bg-card-background border border-border-subtle rounded-xl p-card-padding flex flex-col justify-center">
+<span class="font-body-secondary text-body-secondary text-on-surface-variant mb-1 flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-surface-dim"></span>
+                        Não faturável
+                    </span>
+<span class="font-display-kpi text-display-kpi text-text-dark">6h30</span>
+</div>
+</section>
+<!-- Records Table Area -->
+<section class="bg-card-background border border-border-subtle rounded-xl overflow-hidden flex flex-col">
+<!-- Day Group: Segunda -->
+<div class="bg-surface-container-low border-b border-border-subtle px-4 py-3 flex justify-between items-center">
+<h3 class="font-title-card text-title-card text-text-dark">Segunda, 09/06 — <span class="font-normal text-on-surface-variant">6h45 total</span></h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-border-subtle bg-white">
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase px-4 py-3 font-semibold">Tarefa / Projeto</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase px-4 py-3 font-semibold w-40">Membro</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase px-4 py-3 font-semibold w-32">Horário</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase px-4 py-3 font-semibold w-24">Duração</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase px-4 py-3 font-semibold w-28">Tipo</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase px-4 py-3 font-semibold w-28">Valor</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase px-4 py-3 font-semibold w-28">Status</th>
+<th class="w-10"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle bg-white">
+<!-- Row 1: Active Timer -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-4 py-3 align-middle">
+<div class="flex items-center gap-2">
+<div class="font-body-main text-body-main text-text-dark font-medium">Redesign logo</div>
+</div>
+<div class="font-caption text-caption text-on-surface-variant mt-0.5 flex items-center gap-1">
+<span>TechSul</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span>Design</span>
+</div>
+</td>
+<td class="px-4 py-3 align-middle">
+<div class="flex items-center gap-2">
+<img alt="Rafael A." class="w-6 h-6 rounded-full" data-alt="A very small circular avatar image representing a user named Rafael A. It has a blue background with white initials RA." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB19QZJhKNqGpz59TsVKj2Td4lbw1BT65AHjl3Kxm4WHtUB4DyFqI9mQpN6lfp9wcs43qRkXoCmKeTkpVXUkcEX5BbWC2zIyVWmlpgfh8C8M1sJh9SllKoxnmY4PgjxXb46Nq6EJqD2fqDLtabKoQqUqWKzCSUuAzcJ5lurqEt7ux3l0LWIlRje7zz1PPIg9NOoh-z-FEWoPi7DU2S_jgW8zY9rwduk2bRSt5qD9tUBm_frtQ3S2bu7mDwBT6HAYLgOHlkvZ1Q0yTQ"/>
+<span class="font-body-secondary text-body-secondary text-text-dark">Rafael A.</span>
+</div>
+</td>
+<td class="px-4 py-3 align-middle">
+<div class="flex flex-col">
+<span class="font-body-secondary text-body-secondary text-text-dark tabular-nums">14:00 – <span class="text-[#F97316] italic flex items-center gap-1 mt-1">em andamento<span class="w-1.5 h-1.5 rounded-full bg-[#F97316] pulse-dot inline-block ml-0.5"></span></span></span>
+</div>
+</td>
+<td class="px-4 py-3 align-middle font-body-main text-body-main text-text-dark font-medium tabular-nums">01:23</td>
+<td class="px-4 py-3 align-middle">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-tag text-tag bg-success-tint text-primary-container">Faturável</span>
+</td>
+<td class="px-4 py-3 align-middle font-body-secondary text-body-secondary text-on-surface-variant tabular-nums">-</td>
+<td class="px-4 py-3 align-middle">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-tag text-tag bg-surface-container text-on-surface-variant border border-border-subtle">Em progresso</span>
+</td>
+<td class="px-4 py-3 align-middle text-right opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1 rounded hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Completed -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-4 py-3 align-middle">
+<div class="flex items-center gap-2">
+<div class="font-body-main text-body-main text-text-dark">Reunião de alinhamento</div>
+</div>
+<div class="font-caption text-caption text-on-surface-variant mt-0.5 flex items-center gap-1">
+<span>TechSul</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span>Gestão</span>
+</div>
+</td>
+<td class="px-4 py-3 align-middle">
+<div class="flex items-center gap-2">
+<img alt="Rafael A." class="w-6 h-6 rounded-full" data-alt="A very small circular avatar image representing a user named Rafael A. It has a blue background with white initials RA." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB2dZAkq2SkiCy5kpgdu3IRtwDfPMKTmqGEOWJofVVRZpUPFhv9A2h45aNmweNL4E1qH1g4D5qZ1DcBgC-Nmo11kYUMNUdFEC8OHsjABv4grT_tBInfb0bbS0mFLpxOyAPu5YxixpRY369At-JK1K7-w67cug3VsmSGgLYs0JuIXvNp8zxc-i4jSYlSa8HX87s_X88UyyBK_WSeUIqP7gDGjuw_xXsY76MDtqVhSNoQAoJSWkk5zIxQu15nZL_9gIJVfQQKzRNB7o"/>
+<span class="font-body-secondary text-body-secondary text-text-dark">Rafael A.</span>
+</div>
+</td>
+<td class="px-4 py-3 align-middle font-body-secondary text-body-secondary text-text-dark tabular-nums">09:00 – 11:30</td>
+<td class="px-4 py-3 align-middle font-body-main text-body-main text-text-dark tabular-nums">2h30</td>
+<td class="px-4 py-3 align-middle">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-tag text-tag bg-success-tint text-primary-container">Faturável</span>
+</td>
+<td class="px-4 py-3 align-middle font-body-secondary text-body-secondary text-text-dark tabular-nums">R$ 500,00</td>
+<td class="px-4 py-3 align-middle">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-tag text-tag bg-primary-fixed text-on-primary-fixed-variant">A faturar</span>
+</td>
+<td class="px-4 py-3 align-middle text-right opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1 rounded hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: Non-billable -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-4 py-3 align-middle">
+<div class="flex items-center gap-2">
+<div class="font-body-main text-body-main text-text-dark">Estudo de referências</div>
+</div>
+<div class="font-caption text-caption text-on-surface-variant mt-0.5 flex items-center gap-1">
+<span>TechSul</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span>Design</span>
+</div>
+</td>
+<td class="px-4 py-3 align-middle">
+<div class="flex items-center gap-2">
+<img alt="Rafael A." class="w-6 h-6 rounded-full" data-alt="A very small circular avatar image representing a user named Rafael A. It has a blue background with white initials RA." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB96ctNViAl4cn5k5KkluZS9HVKqHAI4H6RcoqPLRPzf2vlXBwa0SFY97AW0xvvQv04bJicCRvaiGgkEGqS3gZbVDtUVhMS0JU0MMVauAanYo62qI-4pqfsj_oDFszTNIwPZ6SY8flkUySbPidXxYb42-vzjuL-L41EdBw2b5YsLyke5Wzem2ewK_UtR5ysdOcLWeMJyCap9GFKk9NjVG-n6XpCM9DzMIa6vrpE9BDKG1iGTqm_b5apAexHYu4tf1tdqVyGX1j7OuE"/>
+<span class="font-body-secondary text-body-secondary text-text-dark">Rafael A.</span>
+</div>
+</td>
+<td class="px-4 py-3 align-middle font-body-secondary text-body-secondary text-text-dark tabular-nums">12:30 – 13:30</td>
+<td class="px-4 py-3 align-middle font-body-main text-body-main text-text-dark tabular-nums">1h00</td>
+<td class="px-4 py-3 align-middle">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-tag text-tag bg-surface-container text-on-surface-variant">Não faturável</span>
+</td>
+<td class="px-4 py-3 align-middle font-body-secondary text-body-secondary text-on-surface-variant tabular-nums">-</td>
+<td class="px-4 py-3 align-middle">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-tag text-tag bg-surface-container text-on-surface-variant border border-border-subtle">-</span>
+</td>
+<td class="px-4 py-3 align-middle text-right opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1 rounded hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Empty state or padding at bottom to ensure scrolling past FABs/Footers if any -->
+<div class="h-8"></div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tarefas - NúcleoCRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#191c1e",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "text-slate": "#4B5563",
+                        "on-primary-fixed": "#00174b",
+                        "on-background": "#191c1e",
+                        "surface-container-high": "#e6e8eb",
+                        "primary-container": "#2563eb",
+                        "inverse-primary": "#b4c5ff",
+                        "on-tertiary-container": "#ffece5",
+                        "success-tint": "#EFF6FF",
+                        "sidebar-surface": "#1C2030",
+                        "inverse-on-surface": "#eff1f4",
+                        "on-primary": "#ffffff",
+                        "primary": "#004ac6",
+                        "surface-container-low": "#f2f4f7",
+                        "surface-bright": "#f7f9fc",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-tertiary-fixed-variant": "#783200",
+                        "text-muted": "#9CA3AF",
+                        "on-surface-variant": "#434655",
+                        "on-secondary-fixed-variant": "#45464e",
+                        "primary-fixed": "#dbe1ff",
+                        "on-error": "#ffffff",
+                        "warning-tint": "#FFF7ED",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#63646c",
+                        "secondary-fixed": "#e2e2eb",
+                        "secondary-container": "#e2e2eb",
+                        "secondary-fixed-dim": "#c5c6ce",
+                        "secondary": "#5d5e65",
+                        "on-secondary-fixed": "#191b22",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#f7f9fc",
+                        "surface-tint": "#0053db",
+                        "on-tertiary-fixed": "#341100",
+                        "border-subtle": "#E5E7EB",
+                        "surface-container": "#eceef1",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container-highest": "#e0e3e6",
+                        "outline": "#737686",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#eeefff",
+                        "text-dark": "#111827",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#8e3c00",
+                        "surface": "#f7f9fc",
+                        "tertiary-fixed": "#ffdbca",
+                        "surface-dim": "#d8dadd",
+                        "inverse-surface": "#2d3133",
+                        "card-background": "#FFFFFF",
+                        "surface-variant": "#e0e3e6",
+                        "tertiary-container": "#b54e00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-gap": "10px",
+                        "topbar-height": "52px",
+                        "card-padding": "16px",
+                        "nav-item-y": "7px",
+                        "page-padding": "18px",
+                        "sidebar-width": "200px",
+                        "section-gap": "14px",
+                        "nav-item-x": "12px"
+                    },
+                    "fontFamily": {
+                        "tag": ["Inter"],
+                        "body-secondary": ["Inter"],
+                        "caption": ["Inter"],
+                        "body-main": ["Inter"],
+                        "headline-page": ["Inter"],
+                        "title-card": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-kpi": ["Inter"]
+                    },
+                    "fontSize": {
+                        "tag": ["10.5px", { "lineHeight": "12px", "fontWeight": "500" }],
+                        "body-secondary": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "caption": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+                        "body-main": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-page": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "title-card": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "label-caps": ["9.5px", { "lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+                        "display-kpi": ["22px", { "lineHeight": "1.1", "letterSpacing": "-0.5px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom scrollbar for Kanban board */
+        .kanban-scroll::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        .kanban-scroll::-webkit-scrollbar-track {
+            background: #F3F4F6;
+            border-radius: 4px;
+        }
+        .kanban-scroll::-webkit-scrollbar-thumb {
+            background: #D1D5DB;
+            border-radius: 4px;
+        }
+        .kanban-scroll::-webkit-scrollbar-thumb:hover {
+            background: #9CA3AF;
+        }
+        
+        .timer-pulse {
+            animation: pulse-border 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-border {
+            0%, 100% { border-left-color: #F97316; }
+            50% { border-left-color: #FED7AA; }
+        }
+        
+        .dragged-card {
+            transform: rotate(2deg);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            cursor: grabbing;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-main text-on-surface antialiased h-screen overflow-hidden flex">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full py-4 bg-sidebar-surface fixed left-0 top-0 w-sidebar-width border-r-[0.5px] border-[#1a1f2e] z-20">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary icon-fill text-sm">rocket_launch</span>
+</div>
+<div>
+<div class="font-headline-page text-[16px] leading-tight font-bold text-on-primary">NúcleoCRM</div>
+<div class="text-[10px] text-text-muted">CRM de Alta Performance</div>
+</div>
+</div>
+<div class="px-4 mb-6">
+<button class="w-full bg-primary-container text-on-primary text-body-main font-medium py-2 rounded-lg hover:bg-[#1d4ed8] transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Novo Registro
+            </button>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="space-y-1 px-2">
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-text-muted hover:text-on-primary hover:bg-[#1C2030] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+<span class="font-body-main text-[13px]">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-text-muted hover:text-on-primary hover:bg-[#1C2030] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">person_search</span>
+<span class="font-body-main text-[13px]">Leads</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-text-muted hover:text-on-primary hover:bg-[#1C2030] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span class="font-body-main text-[13px]">Clientes</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-text-muted hover:text-on-primary hover:bg-[#1C2030] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+<span class="font-body-main text-[13px]">Faturas</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y bg-[#1C2030] text-on-primary font-medium border-l-4 border-primary rounded-r-lg rounded-l-none" href="#">
+<span class="material-symbols-outlined text-[18px]">assignment</span>
+<span class="font-body-main text-[13px]">Projetos</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-text-muted hover:text-on-primary hover:bg-[#1C2030] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">hub</span>
+<span class="font-body-main text-[13px]">Canais</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-text-muted hover:text-on-primary hover:bg-[#1C2030] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">perm_media</span>
+<span class="font-body-main text-[13px]">Mídia</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="mt-auto px-2 pt-4 border-t-[0.5px] border-[#1a1f2e]">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-text-muted hover:text-on-primary hover:bg-[#1C2030] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span class="font-body-main text-[13px]">Configurações</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-text-muted hover:text-on-primary hover:bg-[#1C2030] transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+<span class="font-body-main text-[13px]">Sair</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 md:ml-sidebar-width flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="h-topbar-height bg-surface-container-lowest border-b-[0.5px] border-border-subtle flex justify-between items-center px-6 shrink-0 z-10 w-full">
+<div class="flex items-center gap-6">
+<!-- Mobile menu button -->
+<button class="md:hidden text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-page text-headline-page font-bold text-text-dark hidden sm:block">Tarefas</h1>
+<!-- Contextual Filters & Controls -->
+<div class="flex items-center gap-3 ml-4">
+<!-- Project Filter Chip -->
+<div class="flex items-center gap-2 bg-success-tint border border-primary-fixed-dim rounded-full pl-3 pr-2 py-1">
+<span class="font-body-secondary text-body-secondary text-primary-container font-medium">Projeto: Gestão de Tráfego</span>
+<button class="text-primary-container hover:bg-primary-fixed rounded-full p-0.5 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</div>
+<!-- View Switcher -->
+<div class="flex bg-surface-container-low p-0.5 rounded-lg border-[0.5px] border-border-subtle">
+<button class="px-3 py-1 bg-card-background rounded-md shadow-sm border-[0.5px] border-border-subtle flex items-center gap-1 text-text-dark font-medium transition-all">
+<span class="material-symbols-outlined text-[16px]">view_kanban</span>
+<span class="font-caption text-caption hidden sm:inline">Kanban</span>
+</button>
+<button class="px-3 py-1 rounded-md text-text-slate hover:text-text-dark flex items-center gap-1 transition-all">
+<span class="material-symbols-outlined text-[16px]">view_list</span>
+<span class="font-caption text-caption hidden sm:inline">Lista</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden sm:flex items-center gap-2 bg-primary-container hover:bg-[#1d4ed8] text-on-primary px-4 py-1.5 rounded-lg font-body-main text-[13px] font-medium transition-colors h-[32px]">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                    Nova tarefa
+                </button>
+<button class="sm:hidden bg-primary-container text-on-primary p-1.5 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+<div class="h-5 w-[1px] bg-border-subtle mx-1"></div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="hover:bg-surface-container-low p-1.5 rounded-full transition-colors relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full border-[1.5px] border-card-background"></span>
+</button>
+<button class="hover:bg-surface-container-low p-1.5 rounded-full transition-colors hidden sm:block">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+<img alt="Foto do Usuário" class="w-8 h-8 rounded-full border-[0.5px] border-border-subtle cursor-pointer ml-2" data-alt="A professional headshot of a young male software developer looking confident, well-lit studio lighting, modern minimalist background, clear and sharp focus, corporate tech style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO3HwA4Rju9i5NmffP15o941kj9cq0Gf8znMCixvwHmmoHZAynbom_bXbyUpMlg3g9U5OzU-2Le7qLEAatJNSomwIUp9_gvkIf0LvMNviKKq7zu5L3ci4V1bXWDH7_xJZErbmY_cmz-B0fVMWy9lbYyFIvesOxn1dgrTkI8lKTkBwXokYEsaO0JE4stg7rr_a1PyK-hemNDPMozWYgOrHl6gzBGbZ1tef7dyA6VWxq7Si1SvPEJ7BVLpg26qj82RP5bQfr3y6xm2U"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-hidden bg-background p-page-padding flex flex-col">
+<!-- Kanban Board -->
+<div class="flex-1 flex gap-section-gap overflow-x-auto kanban-scroll pb-4">
+<!-- Column 1: A Fazer -->
+<div class="flex-none w-[320px] flex flex-col bg-surface-bright border-[0.5px] border-border-subtle rounded-xl max-h-full">
+<div class="px-4 py-3 border-b-[0.5px] border-border-subtle flex justify-between items-center bg-card-background rounded-t-xl shrink-0">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-text-slate"></span>
+<h2 class="font-title-card text-title-card text-text-dark">A fazer</h2>
+<span class="font-caption text-caption text-text-muted bg-surface-container-low px-2 py-0.5 rounded-full">8</span>
+</div>
+<button class="text-text-muted hover:text-text-dark">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+<div class="p-3 flex-1 overflow-y-auto space-y-3">
+<!-- Standard Card -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg p-3 hover:border-primary-fixed-dim transition-colors cursor-grab">
+<div class="flex justify-between items-start mb-2">
+<div class="flex gap-1 flex-wrap">
+<span class="font-tag text-tag text-primary-container bg-success-tint px-2 py-0.5 rounded-full">Tráfego</span>
+</div>
+<span class="font-tag text-tag text-text-slate bg-surface-container-low px-2 py-0.5 rounded">Baixa</span>
+</div>
+<h3 class="font-body-main text-body-main text-text-dark font-medium mb-1 line-clamp-2">Criar campanha de remarketing Q3</h3>
+<p class="font-caption text-caption text-text-muted mb-3 line-clamp-1">Público alvo: visitantes últimos 30 dias</p>
+<div class="flex justify-between items-center pt-2 border-t-[0.5px] border-border-subtle">
+<img alt="Responsável" class="w-6 h-6 rounded-full border-[0.5px] border-border-subtle" data-alt="A professional headshot of a young male software developer looking confident, well-lit studio lighting, modern minimalist background, clear and sharp focus, corporate tech style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsRBXQC--RGKBs0v8sTD7_55Ce3nbSR5i6SkG16OEjteo-atgh1rREWrw0-99aUWQB95pNdCx-FP0Jg0v3TTFTcWPEb9EmyXBv55b5HViBFTceZQbJQEprC31pzMVthuePmxYDaTJfnuRvTVh1yzQ4puP5XF0aE54h0q5cVnfLQcYnFaGDvoUHCx1QyhptnecGODJUP1CXLzT0wrg8Q-56FwyVtdEXEJk3-x0UtyPTGF1GzXBMWT4A__Yd_XGuNvoMng5imygSB4U"/>
+<div class="flex items-center gap-3 text-text-muted">
+<div class="flex items-center gap-1 font-caption text-[10px]">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                                        -
+                                    </div>
+<div class="flex items-center gap-1 font-caption text-[10px]">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                                        15/06
+                                    </div>
+</div>
+</div>
+</div>
+<!-- Standard Card -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg p-3 hover:border-primary-fixed-dim transition-colors cursor-grab border-l-[3px] border-l-primary-container">
+<div class="flex justify-between items-start mb-2">
+<div class="flex gap-1 flex-wrap">
+<span class="font-tag text-tag text-[#9333EA] bg-[#F3E8FF] px-2 py-0.5 rounded-full">Design</span>
+</div>
+<span class="font-tag text-tag text-primary-container bg-success-tint px-2 py-0.5 rounded">Média</span>
+</div>
+<h3 class="font-body-main text-body-main text-text-dark font-medium mb-1 line-clamp-2">Revisar criativos da Black Friday</h3>
+<p class="font-caption text-caption text-text-muted mb-3 line-clamp-1">Verificar contraste nas peças de story</p>
+<div class="flex justify-between items-center pt-2 border-t-[0.5px] border-border-subtle">
+<img alt="Responsável" class="w-6 h-6 rounded-full border-[0.5px] border-border-subtle" data-alt="A portrait of a creative female designer with glasses, looking focused, bright minimalist office setting, natural light, contemporary professional aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSKRsP_zo1_QvsWRjlFDyNdGNVKWXBtLnkxi7JwIFuGiZIJUfTGoSbEFoq0HnWO4QxT7QG3Qqas3aB4AtlssendEqofek6NUzBrz6ZGZi5TiQtxQaHKSgqILOU3qvGCtrbuaxwrdyq61sEy_A-3xrVXy95S6bkbNRAOxhArhdOKav9K7iITOxAUSn5YgRY3yBFN-nrRhkFjeh2cLGn-ZV62bk-85n5X-lcUHwtLZ5oKbjozVLSScUMsBs26_0a-xSM_6n-otZgfzI"/>
+<div class="flex items-center gap-3 text-text-muted">
+<div class="flex items-center gap-1 font-caption text-[10px]">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                                        -
+                                    </div>
+<div class="flex items-center gap-1 font-caption text-[10px]">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                                        18/06
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 2: Em andamento -->
+<div class="flex-none w-[320px] flex flex-col bg-surface-bright border-[0.5px] border-border-subtle rounded-xl max-h-full">
+<div class="px-4 py-3 border-b-[0.5px] border-border-subtle flex justify-between items-center bg-card-background rounded-t-xl shrink-0">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<h2 class="font-title-card text-title-card text-text-dark">Em andamento</h2>
+<span class="font-caption text-caption text-text-muted bg-surface-container-low px-2 py-0.5 rounded-full">4</span>
+</div>
+<button class="text-text-muted hover:text-text-dark">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+<div class="p-3 flex-1 overflow-y-auto space-y-3 relative">
+<!-- Dragged Card (Visual State) -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg p-3 dragged-card absolute top-3 left-3 right-3 z-10 w-[calc(100%-24px)] pointer-events-none">
+<div class="flex justify-between items-start mb-2">
+<div class="flex gap-1 flex-wrap">
+<span class="font-tag text-tag text-[#16A34A] bg-[#DCFCE7] px-2 py-0.5 rounded-full">Copy</span>
+</div>
+<span class="font-tag text-tag text-[#F97316] bg-warning-tint px-2 py-0.5 rounded">Alta</span>
+</div>
+<h3 class="font-body-main text-body-main text-text-dark font-medium mb-1 line-clamp-2">Roteiro VSL Lançamento Semente</h3>
+<p class="font-caption text-caption text-text-muted mb-3 line-clamp-1">Foco na dor principal do avatar</p>
+<div class="flex justify-between items-center pt-2 border-t-[0.5px] border-border-subtle">
+<img alt="Responsável" class="w-6 h-6 rounded-full border-[0.5px] border-border-subtle" data-alt="A professional headshot of a young male software developer looking confident, well-lit studio lighting, modern minimalist background, clear and sharp focus, corporate tech style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6GLR34HpjoijOO9mt5-SY0wNHMCmw1CKHaFgIt3CTXzsxhXQUqmSQhUxDu6Ru2axk1KD2EEPlo52F-gg6wLfa_78_zS7hnKcfG66NNsQ2p3DqupwcXn9q4jQ31ZsfHdWR5iv3ukbsBmqUVWAK9bmVVPF3eedur71W70OnNN9_wtC_AlLIJgMKY2TVy0rDqCDAYsQiZt_pLU9BtWSeqhEv6yVpwvLXa36mMX6UzUwqsWj43x31sU9N7nJKJ3f8KDlIvIgD6n6AIAQ"/>
+<div class="flex items-center gap-3 text-text-muted">
+<div class="flex items-center gap-1 font-caption text-[10px]">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                                        1h15
+                                    </div>
+<div class="flex items-center gap-1 font-caption text-[10px] text-error">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                                        10/06
+                                    </div>
+</div>
+</div>
+</div>
+<!-- Drop Placeholder -->
+<div class="border-2 border-dashed border-primary-fixed-dim bg-success-tint/30 rounded-lg h-[130px] w-full transition-all mt-[142px]"></div>
+<!-- Active Timer Card -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg p-3 border-l-[3px] border-l-[#F97316] timer-pulse cursor-grab">
+<div class="flex justify-between items-center mb-2 bg-[#FFF7ED] -mx-3 -mt-3 p-2 px-3 border-b-[0.5px] border-border-subtle rounded-t-lg">
+<div class="flex items-center gap-1 text-[#F97316] font-caption text-caption font-medium">
+<span class="material-symbols-outlined text-[14px] animate-spin" style="animation-duration: 3s;">hourglass_top</span>
+<span>01:23:45 rodando</span>
+</div>
+<button class="w-5 h-5 rounded-full bg-[#F97316] text-on-primary flex items-center justify-center hover:bg-[#EA580C]">
+<span class="material-symbols-outlined text-[12px]">pause</span>
+</button>
+</div>
+<div class="flex justify-between items-start mb-2 mt-2">
+<div class="flex gap-1 flex-wrap">
+<span class="font-tag text-tag text-primary-container bg-success-tint px-2 py-0.5 rounded-full">Tráfego</span>
+</div>
+<span class="font-tag text-tag text-[#F97316] bg-warning-tint px-2 py-0.5 rounded">Alta</span>
+</div>
+<h3 class="font-body-main text-body-main text-text-dark font-medium mb-1 line-clamp-2">Otimização Campanha Meta Ads</h3>
+<p class="font-caption text-caption text-text-muted mb-3 line-clamp-1">CPA acima da meta (R$ 45,00)</p>
+<div class="flex justify-between items-center pt-2 border-t-[0.5px] border-border-subtle">
+<img alt="Responsável" class="w-6 h-6 rounded-full border-[0.5px] border-border-subtle" data-alt="A professional headshot of a young male software developer looking confident, well-lit studio lighting, modern minimalist background, clear and sharp focus, corporate tech style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdQocL6gexwtl9YE39HA16p9EiRs_6k4nDHJGQPserTGU_QQh5sGKBBDeopAIEFMEbzN0xr6He7GJJAtw0JYjQDQaq3LuHq_YqAFs71Atbv-tMnPSsH9F3ts9JuFUq0o6x6RaqiYHnsFkZTkrM_pNO0H8zuZtDkGHFOuzTk1Tq15QHtkNCesQxLbPRyhyfjMx05uidjyLgheP3zqJE5xhA0R6XcieS1QGNnzYBrRxAb6ZppniExKu-7bt_j09K3mJlc0ruQpiKHsI"/>
+<div class="flex items-center gap-3 text-text-muted">
+<div class="flex items-center gap-1 font-caption text-[10px] text-[#F97316] font-medium">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                                        2h30
+                                    </div>
+<div class="flex items-center gap-1 font-caption text-[10px]">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                                        15/06
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 3: Em revisão -->
+<div class="flex-none w-[320px] flex flex-col bg-surface-bright border-[0.5px] border-border-subtle rounded-xl max-h-full">
+<div class="px-4 py-3 border-b-[0.5px] border-border-subtle flex justify-between items-center bg-card-background rounded-t-xl shrink-0">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#EAB308]"></span>
+<h2 class="font-title-card text-title-card text-text-dark">Em revisão</h2>
+<span class="font-caption text-caption text-text-muted bg-surface-container-low px-2 py-0.5 rounded-full">2</span>
+</div>
+<button class="text-text-muted hover:text-text-dark">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+<div class="p-3 flex-1 overflow-y-auto space-y-3">
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg p-3 hover:border-primary-fixed-dim transition-colors cursor-grab opacity-80">
+<div class="flex justify-between items-start mb-2">
+<div class="flex gap-1 flex-wrap">
+<span class="font-tag text-tag text-[#9333EA] bg-[#F3E8FF] px-2 py-0.5 rounded-full">Design</span>
+</div>
+<span class="font-tag text-tag text-text-slate bg-surface-container-low px-2 py-0.5 rounded">Baixa</span>
+</div>
+<h3 class="font-body-main text-body-main text-text-dark font-medium mb-1 line-clamp-2">Banners Display Google</h3>
+<p class="font-caption text-caption text-text-muted mb-3 line-clamp-1">Formatos 300x250 e 728x90</p>
+<div class="flex justify-between items-center pt-2 border-t-[0.5px] border-border-subtle">
+<img alt="Responsável" class="w-6 h-6 rounded-full border-[0.5px] border-border-subtle grayscale" data-alt="A portrait of a creative female designer with glasses, looking focused, bright minimalist office setting, natural light, contemporary professional aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa4wCLPSwZB9FSrUgS5KxErlDvI_XVFV45jTJC7aZqYLPoaMJog4-FsoMvJYYA-evx7x7uHstBTSpu21D54NeT40RTKyk2o-O2OsP3hE1mg2vPH6MzKRXZUYSpkgBKMLaHbl2Cs6NQpovIdTVq7ubR-96GvaMwzVv6ehIQzdaQm-giJjID13cFKIYLe5O_GaDlXlzBt8upw5AogJHutJDjjBGwb1uK0PCNiiy1ADRqfF2aOVAYGNiqCFxCDOc8c-3-0X7qe4aRuk0"/>
+<div class="flex items-center gap-3 text-text-muted">
+<div class="flex items-center gap-1 font-caption text-[10px]">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                                        4h00
+                                    </div>
+<div class="flex items-center gap-1 font-caption text-[10px]">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                                        14/06
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 4: Aguardando -->
+<div class="flex-none w-[320px] flex flex-col bg-surface-bright border-[0.5px] border-border-subtle rounded-xl max-h-full">
+<div class="px-4 py-3 border-b-[0.5px] border-border-subtle flex justify-between items-center bg-card-background rounded-t-xl shrink-0">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#EF4444]"></span>
+<h2 class="font-title-card text-title-card text-text-dark">Aguardando</h2>
+<span class="font-caption text-caption text-text-muted bg-surface-container-low px-2 py-0.5 rounded-full">1</span>
+</div>
+<button class="text-text-muted hover:text-text-dark">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+<div class="p-3 flex-1 overflow-y-auto space-y-3">
+<div class="bg-[#FFF1F2] border-[0.5px] border-[#FECDD3] rounded-lg p-3 hover:border-[#FDA4AF] transition-colors cursor-grab border-l-[3px] border-l-[#EF4444]">
+<div class="flex justify-between items-start mb-2">
+<div class="flex gap-1 flex-wrap">
+<span class="font-tag text-tag text-[#16A34A] bg-[#DCFCE7] px-2 py-0.5 rounded-full">Copy</span>
+</div>
+<span class="font-tag text-tag text-primary-container bg-success-tint px-2 py-0.5 rounded">Média</span>
+</div>
+<h3 class="font-body-main text-body-main text-text-dark font-medium mb-1 line-clamp-2">Aprovação textos Landing Page</h3>
+<p class="font-caption text-caption text-[#BE123C] mb-3 line-clamp-1 font-medium">Aguardando feedback do cliente (3 dias)</p>
+<div class="flex justify-between items-center pt-2 border-t-[0.5px] border-[#FECDD3]">
+<img alt="Responsável" class="w-6 h-6 rounded-full border-[0.5px] border-border-subtle opacity-70" data-alt="A professional headshot of a young male software developer looking confident, well-lit studio lighting, modern minimalist background, clear and sharp focus, corporate tech style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-kpEH4P8hlAwjU4QrSHHxKAt9EqWBOIdbVzx058lrBKF68kdhIHpeDyShV_zdWvgNbMBLNR26QSBuG1dCXf6VRMei14mE_1YRbDcm1JrNYB4Vh0e0JFxUPSrtJg9hk62nhP7el7Y2NiFOEjRFClikljPgvp60WZHNYAV7Ft-EaRAnSbmP9J7hBDdpy7Ei-jsdNKvNp2HRYKDHAMXFVDynOQAhqtt9fFwCYDBYlRakMPRHfD__2j6E7SzEcQjV498XVItRwwFvgXk"/>
+<div class="flex items-center gap-3 text-text-muted">
+<div class="flex items-center gap-1 font-caption text-[10px]">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                                        0h30
+                                    </div>
+<div class="flex items-center gap-1 font-caption text-[10px] text-error">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                                        12/06
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 5: Concluída (Collapsed) -->
+<div class="flex-none w-[64px] flex flex-col bg-surface-container-low border-[0.5px] border-border-subtle rounded-xl max-h-full cursor-pointer hover:bg-surface-container-high transition-colors group">
+<div class="h-full flex flex-col items-center py-4">
+<div class="flex flex-col items-center gap-4 writing-vertical w-full">
+<span class="material-symbols-outlined text-[18px] text-text-muted group-hover:text-text-dark transition-colors rotate-90 mb-2">chevron_right</span>
+<div class="flex items-center gap-2 transform -rotate-90 origin-center whitespace-nowrap translate-y-[80px]">
+<h2 class="font-title-card text-title-card text-text-dark tracking-wide">Concluída</h2>
+<span class="font-caption text-caption text-text-muted bg-surface-container-high px-2 py-0.5 rounded-full">12</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

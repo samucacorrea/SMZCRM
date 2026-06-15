@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nova Fatura - Nexu CRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "sidebar-surface": "#1C2030",
+                        "primary-container": "#2563eb",
+                        "on-surface-variant": "#434655",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e0e3e6",
+                        "primary": "#004ac6",
+                        "success-tint": "#EFF6FF",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#e2e2eb",
+                        "on-secondary-fixed-variant": "#45464e",
+                        "secondary-fixed-dim": "#c5c6ce",
+                        "on-surface": "#191c1e",
+                        "on-secondary-container": "#63646c",
+                        "tertiary": "#8e3c00",
+                        "primary-fixed": "#dbe1ff",
+                        "on-primary-container": "#eeefff",
+                        "surface-container-highest": "#e0e3e6",
+                        "on-primary-fixed": "#00174b",
+                        "on-tertiary-fixed": "#341100",
+                        "text-slate": "#4B5563",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f7f9fc",
+                        "border-subtle": "#E5E7EB",
+                        "surface-tint": "#0053db",
+                        "inverse-surface": "#2d3133",
+                        "on-error-container": "#93000a",
+                        "card-background": "#FFFFFF",
+                        "inverse-on-surface": "#eff1f4",
+                        "secondary-container": "#e2e2eb",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "on-tertiary-container": "#ffece5",
+                        "on-background": "#191c1e",
+                        "surface-dim": "#d8dadd",
+                        "on-tertiary-fixed-variant": "#783200",
+                        "error": "#ba1a1a",
+                        "background": "#f7f9fc",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "tertiary-container": "#b54e00",
+                        "surface-container-high": "#e6e8eb",
+                        "outline": "#737686",
+                        "on-secondary": "#ffffff",
+                        "text-muted": "#9CA3AF",
+                        "secondary": "#5d5e65",
+                        "on-secondary-fixed": "#191b22",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f2f4f7",
+                        "warning-tint": "#FFF7ED",
+                        "tertiary-fixed": "#ffdbca",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c3c6d7",
+                        "inverse-primary": "#b4c5ff",
+                        "text-dark": "#111827",
+                        "surface-container": "#eceef1",
+                        "surface": "#f7f9fc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "card-padding": "16px",
+                        "topbar-height": "52px",
+                        "section-gap": "14px",
+                        "nav-item-y": "7px",
+                        "nav-item-x": "12px",
+                        "page-padding": "18px",
+                        "sidebar-width": "200px",
+                        "container-gap": "10px"
+                    },
+                    "fontFamily": {
+                        "title-card": ["Inter"],
+                        "headline-page": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-kpi": ["Inter"],
+                        "caption": ["Inter"],
+                        "tag": ["Inter"],
+                        "body-secondary": ["Inter"],
+                        "body-main": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-card": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                        "headline-page": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "label-caps": ["9.5px", {"lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "display-kpi": ["22px", {"lineHeight": "1.1", "letterSpacing": "-0.5px", "fontWeight": "500"}],
+                        "caption": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "tag": ["10.5px", {"lineHeight": "12px", "fontWeight": "500"}],
+                        "body-secondary": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "body-main": ["13px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #F0F2F5; }
+        .sidebar { background-color: #0F1117; }
+        .lucide { width: 15px; height: 15px; stroke-width: 1.5; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #E5E7EB; border-radius: 10px; }
+        
+        /* Toggle Switch CSS */
+        .toggle-checkbox:checked { right: 0; border-color: #2563eb; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #2563eb; }
+        .toggle-checkbox { right: 0; z-index: 1; border-color: #e2e8f0; transition: all 0.3s; }
+        .toggle-label { width: 32px; height: 18px; background-color: #e2e8f0; border-radius: 9999px; transition: all 0.3s; }
+        .toggle-dot { width: 14px; height: 14px; background-color: white; border-radius: 50%; position: absolute; left: 2px; top: 2px; transition: all 0.3s; }
+        .toggle-checkbox:checked ~ .toggle-dot { transform: translateX(14px); }
+    </style>
+</head>
+<body class="font-body-main text-on-surface antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="sidebar fixed left-0 top-0 h-full w-sidebar-width flex flex-col py-4 px-3 border-r border-on-surface-variant/10 z-20">
+<div class="mb-8 px-nav-item-x flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-sm">hub</span>
+</div>
+<div>
+<h1 class="text-headline-page font-headline-page font-bold text-on-primary text-base">Nexu CRM</h1>
+<p class="font-caption text-caption text-on-secondary-fixed-variant">Gestão Comercial</p>
+</div>
+</div>
+<button class="mb-6 mx-nav-item-x bg-primary-container text-on-primary rounded-lg py-2 px-3 text-sm font-medium flex items-center justify-center gap-2 hover:bg-primary transition-colors active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-sm">add</span>
+            Novo Lead
+        </button>
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-secondary-fixed-variant hover:text-on-primary hover:bg-on-surface-variant/20 rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-secondary-fixed-variant hover:text-on-primary hover:bg-on-surface-variant/20 rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span>Leads</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-secondary-fixed-variant hover:text-on-primary hover:bg-on-surface-variant/20 rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Clientes</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y bg-primary-container text-on-primary rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>Faturamento</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-secondary-fixed-variant hover:text-on-primary hover:bg-on-surface-variant/20 rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Relatórios</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-secondary-fixed-variant hover:text-on-primary hover:bg-on-surface-variant/20 rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Configurações</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="mt-auto pt-4 border-t border-on-surface-variant/10">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-secondary-fixed-variant hover:text-on-primary hover:bg-on-surface-variant/20 rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>Ajuda</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-secondary-fixed-variant hover:text-on-primary hover:bg-on-surface-variant/20 rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Sair</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 ml-[200px] flex flex-col h-full bg-[#F0F2F5]">
+<!-- TopNavBar Customizado para Edição -->
+<header class="bg-surface-container-lowest h-topbar-height flex justify-between items-center px-page-padding border-b border-border-subtle sticky top-0 z-10">
+<div class="flex items-center gap-2 text-sm">
+<a class="text-text-muted hover:text-primary transition-colors" href="#">Faturas</a>
+<span class="text-border-subtle">/</span>
+<span class="text-text-dark font-medium">Nova fatura</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-3 py-1.5 text-sm font-medium text-text-slate bg-surface hover:bg-surface-container-high border border-border-subtle rounded-md transition-colors">
+                    Salvar rascunho
+                </button>
+<button class="px-4 py-1.5 text-sm font-medium text-white bg-primary-container hover:bg-primary rounded-md transition-colors shadow-sm">
+                    Emitir fatura
+                </button>
+<div class="h-6 w-[1px] bg-border-subtle mx-2"></div>
+<button class="text-text-muted hover:text-text-dark transition-colors">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Canvas -->
+<main class="flex-1 overflow-y-auto p-page-padding custom-scrollbar">
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-container-gap">
+<!-- Coluna Esquerda (Documento) 65% -->
+<div class="w-full lg:w-[65%] flex flex-col gap-section-gap">
+<!-- Dados do Cliente -->
+<div class="bg-card-background border border-border-subtle rounded-xl p-card-padding">
+<h2 class="font-title-card text-title-card text-text-dark mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">person</span>
+                            Dados do Cliente
+                        </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+<div>
+<label class="block font-caption text-caption text-text-slate mb-1">Cliente</label>
+<div class="relative">
+<select class="w-full h-9 pl-3 pr-8 text-sm bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-md focus:border-primary-container focus:ring-0 appearance-none text-text-dark">
+<option>TechSul Ltda</option>
+<option>InovaCorp S.A.</option>
+<option>NexGen Systems</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2 text-text-muted text-[16px] pointer-events-none">expand_more</span>
+</div>
+</div>
+<div>
+<label class="block font-caption text-caption text-text-slate mb-1">Contato</label>
+<div class="relative">
+<select class="w-full h-9 pl-3 pr-8 text-sm bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-md focus:border-primary-container focus:ring-0 appearance-none text-text-dark">
+<option>Mariana Costa</option>
+<option>Roberto Silva</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2 text-text-muted text-[16px] pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-border-subtle pt-4">
+<div>
+<label class="block font-caption text-caption text-text-slate mb-1">Data de emissão</label>
+<div class="relative">
+<input class="w-full h-9 pl-3 pr-8 text-sm bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-md focus:border-primary-container focus:ring-0 text-text-dark" type="text" value="12/06/2026"/>
+<span class="material-symbols-outlined absolute right-2 top-2 text-text-muted text-[16px] pointer-events-none">calendar_today</span>
+</div>
+</div>
+<div>
+<label class="block font-caption text-caption text-text-slate mb-1">Data de vencimento</label>
+<div class="relative">
+<input class="w-full h-9 pl-3 pr-8 text-sm bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-md focus:border-primary-container focus:ring-0 text-text-dark" type="text" value="12/07/2026"/>
+<span class="material-symbols-outlined absolute right-2 top-2 text-text-muted text-[16px] pointer-events-none">calendar_month</span>
+</div>
+</div>
+<div>
+<label class="block font-caption text-caption text-text-slate mb-1">Condição de pagamento</label>
+<div class="relative">
+<select class="w-full h-9 pl-3 pr-8 text-sm bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-md focus:border-primary-container focus:ring-0 appearance-none text-text-dark">
+<option>À vista</option>
+<option selected="">Parcelado</option>
+<option>Assinatura Mensal</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2 text-text-muted text-[16px] pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Campos Condicionais Parcelado -->
+<div class="mt-4 p-3 bg-surface-container-low rounded-lg border border-border-subtle">
+<div class="flex items-center gap-4 mb-3">
+<div class="w-1/3">
+<label class="block font-caption text-caption text-text-slate mb-1">Nº de parcelas</label>
+<input class="w-full h-8 px-2 text-sm bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-md focus:border-primary-container focus:ring-0 text-text-dark" type="number" value="3"/>
+</div>
+<div class="flex-1">
+<p class="font-caption text-caption text-text-slate mb-1">Previsão de vencimentos gerados</p>
+<div class="flex gap-2">
+<span class="inline-flex items-center px-2 py-1 rounded bg-white border border-border-subtle text-xs text-text-dark">1ª: 12/07</span>
+<span class="inline-flex items-center px-2 py-1 rounded bg-white border border-border-subtle text-xs text-text-dark">2ª: 12/08</span>
+<span class="inline-flex items-center px-2 py-1 rounded bg-white border border-border-subtle text-xs text-text-dark">3ª: 12/09</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Tabela de Itens -->
+<div class="bg-card-background border border-border-subtle rounded-xl p-card-padding">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-title-card text-title-card text-text-dark flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">list_alt</span>
+                                Itens da Fatura
+                            </h2>
+</div>
+<div class="overflow-x-auto border-[0.5px] border-border-subtle rounded-lg mb-4">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-border-subtle text-xs text-text-slate font-medium">
+<th class="p-3 w-1/2">Serviço/Produto</th>
+<th class="p-3 w-16 text-center">Qtd</th>
+<th class="p-3 w-32 text-right">Preço Un.</th>
+<th class="p-3 w-32 text-right">Subtotal</th>
+<th class="p-3 w-10 text-center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-border-subtle group hover:bg-surface-bright transition-colors">
+<td class="p-2">
+<input class="w-full h-8 px-2 text-sm bg-transparent border-transparent hover:border-border-subtle focus:border-primary-container focus:bg-white rounded transition-colors text-text-dark" type="text" value="Consultoria Estratégica"/>
+</td>
+<td class="p-2">
+<input class="w-full h-8 px-1 text-center text-sm bg-transparent border-transparent hover:border-border-subtle focus:border-primary-container focus:bg-white rounded transition-colors text-text-dark" type="number" value="1"/>
+</td>
+<td class="p-2">
+<input class="w-full h-8 px-2 text-right text-sm bg-transparent border-transparent hover:border-border-subtle focus:border-primary-container focus:bg-white rounded transition-colors text-text-dark" type="text" value="R$ 4.500,00"/>
+</td>
+<td class="p-3 text-right text-sm text-text-dark font-medium">R$ 4.500,00</td>
+<td class="p-2 text-center">
+<button class="text-text-muted hover:text-error opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</td>
+</tr>
+<tr class="border-b border-border-subtle group hover:bg-surface-bright transition-colors">
+<td class="p-2">
+<input class="w-full h-8 px-2 text-sm bg-transparent border-transparent hover:border-border-subtle focus:border-primary-container focus:bg-white rounded transition-colors text-text-dark" type="text" value="Licença de Software (Mensal)"/>
+</td>
+<td class="p-2">
+<input class="w-full h-8 px-1 text-center text-sm bg-transparent border-transparent hover:border-border-subtle focus:border-primary-container focus:bg-white rounded transition-colors text-text-dark" type="number" value="3"/>
+</td>
+<td class="p-2">
+<input class="w-full h-8 px-2 text-right text-sm bg-transparent border-transparent hover:border-border-subtle focus:border-primary-container focus:bg-white rounded transition-colors text-text-dark" type="text" value="R$ 300,00"/>
+</td>
+<td class="p-3 text-right text-sm text-text-dark font-medium">R$ 900,00</td>
+<td class="p-2 text-center">
+<button class="text-text-muted hover:text-error opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-2 bg-surface-container-lowest border-t border-border-subtle">
+<button class="text-sm font-medium text-primary-container hover:text-primary flex items-center gap-1 px-2 py-1 rounded hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                                    Adicionar item
+                                </button>
+</div>
+</div>
+<!-- Totais -->
+<div class="flex flex-col items-end gap-2 border-t border-border-subtle pt-4">
+<div class="w-full md:w-64 flex justify-between text-sm text-text-slate">
+<span>Subtotal</span>
+<span>R$ 5.400,00</span>
+</div>
+<div class="w-full md:w-64 flex justify-between text-sm text-text-slate items-center">
+<span class="flex items-center gap-1">
+                                    Impostos
+                                    <span class="text-xs bg-surface-container-high px-1 rounded">ISS 5%</span>
+</span>
+<span class="text-error">+ R$ 270,00</span>
+</div>
+<div class="w-full md:w-64 flex justify-between text-sm text-text-slate items-center">
+<span>Desconto</span>
+<input class="w-24 h-7 px-2 text-right text-sm bg-surface-container-lowest border-[0.5px] border-border-subtle rounded text-text-dark focus:border-primary-container focus:ring-0" type="text" value="R$ 0,00"/>
+</div>
+<div class="w-full md:w-64 flex justify-between text-base font-semibold text-text-dark mt-2 pt-2 border-t border-border-subtle">
+<span>Total</span>
+<span>R$ 5.670,00</span>
+</div>
+</div>
+</div>
+<!-- Observações e Info Bancária -->
+<div class="bg-card-background border border-border-subtle rounded-xl p-card-padding">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<h2 class="font-title-card text-title-card text-text-dark mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted text-[18px]">notes</span>
+                                    Observações
+                                </h2>
+<textarea class="w-full h-24 p-2 text-sm bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-md focus:border-primary-container focus:ring-0 text-text-dark resize-none" placeholder="Notas internas ou visíveis para o cliente..."></textarea>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<h2 class="font-title-card text-title-card text-text-dark flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted text-[18px]">account_balance</span>
+                                        Informações de Pagamento
+                                    </h2>
+<div class="flex items-center gap-2">
+<span class="text-xs text-text-slate">Exibir no PDF</span>
+<div class="relative inline-block w-8 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-4 appearance-none cursor-pointer opacity-0" id="toggle_pdf" name="toggle_pdf" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-4 rounded-full bg-gray-300 cursor-pointer" for="toggle_pdf"></label>
+<div class="toggle-dot absolute block w-3 h-3 rounded-full bg-white shadow inset-y-0.5 left-0.5"></div>
+</div>
+</div>
+</div>
+<textarea class="w-full h-24 p-2 text-sm bg-surface-container-lowest border-[0.5px] border-border-subtle rounded-md focus:border-primary-container focus:ring-0 text-text-dark resize-none">Banco: Itaú (341)
+Ag: 1234 / CC: 56789-0
+Pix CNPJ: 12.345.678/0001-90</textarea>
+</div>
+</div>
+</div>
+</div>
+<!-- Coluna Direita (Apoio) 35% -->
+<div class="w-full lg:w-[35%] flex flex-col gap-section-gap">
+<!-- Configurações -->
+<div class="bg-card-background border border-border-subtle rounded-xl p-card-padding">
+<h3 class="font-title-card text-title-card text-text-dark mb-4 border-b border-border-subtle pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted text-[16px]">settings</span>
+                            Configurações da Fatura
+                        </h3>
+<div class="mb-4">
+<label class="block font-caption text-caption text-text-slate mb-1">Numeração</label>
+<input class="w-full h-8 px-3 text-sm bg-surface-container-low border-[0.5px] border-border-subtle rounded-md text-text-dark focus:border-primary-container focus:ring-0" type="text" value="FAT-000124"/>
+<p class="text-[10px] text-text-muted mt-1">Gerado sequencialmente.</p>
+</div>
+<div class="pt-2">
+<div class="flex justify-between items-start mb-2">
+<div>
+<label class="font-medium text-sm text-text-dark block">Fatura Recorrente</label>
+<p class="text-xs text-text-muted mt-0.5 leading-tight">Ative para configurar faturamento automático mensal, trimestral ou anual.</p>
+</div>
+<div class="relative inline-block w-8 ml-2 mt-1 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-4 appearance-none cursor-pointer opacity-0" id="toggle_recurrente" name="toggle_recurrente" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-4 rounded-full bg-gray-300 cursor-pointer" for="toggle_recurrente"></label>
+<div class="toggle-dot absolute block w-3 h-3 rounded-full bg-white shadow inset-y-0.5 left-0.5"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Automação -->
+<div class="bg-card-background border border-border-subtle rounded-xl p-card-padding">
+<h3 class="font-title-card text-title-card text-text-dark mb-4 border-b border-border-subtle pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted text-[16px]">bolt</span>
+                            Automação e Envio
+                        </h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<label class="text-sm text-text-dark block">Enviar por e-mail ao emitir</label>
+<div class="relative inline-block w-8 ml-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-4 appearance-none cursor-pointer opacity-0" id="toggle_email" name="toggle_email" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-4 rounded-full bg-gray-300 cursor-pointer" for="toggle_email"></label>
+<div class="toggle-dot absolute block w-3 h-3 rounded-full bg-white shadow inset-y-0.5 left-0.5"></div>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div>
+<label class="text-sm text-text-dark block">Lembretes de vencimento</label>
+</div>
+<div class="relative inline-block w-8 ml-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-4 appearance-none cursor-pointer opacity-0" id="toggle_reminders" name="toggle_reminders" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-4 rounded-full bg-gray-300 cursor-pointer" for="toggle_reminders"></label>
+<div class="toggle-dot absolute block w-3 h-3 rounded-full bg-white shadow inset-y-0.5 left-0.5"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Catálogo -->
+<div class="bg-card-background border border-border-subtle rounded-xl p-card-padding">
+<h3 class="font-title-card text-title-card text-text-dark mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted text-[16px]">inventory_2</span>
+                            Itens do Catálogo
+                        </h3>
+<div class="relative mb-3">
+<span class="material-symbols-outlined absolute left-2 top-2 text-text-muted text-[16px]">search</span>
+<input class="w-full h-8 pl-8 pr-3 text-xs bg-surface-container-low border-[0.5px] border-border-subtle rounded-md focus:border-primary-container focus:ring-0 text-text-dark placeholder-text-muted" placeholder="Buscar item no catálogo..." type="text"/>
+</div>
+<div class="space-y-2">
+<div class="group flex justify-between items-center p-2 rounded hover:bg-surface-bright border border-transparent hover:border-border-subtle transition-all cursor-pointer">
+<div>
+<p class="text-xs font-medium text-text-dark">Consultoria Estratégica</p>
+<p class="text-[10px] text-text-muted">R$ 4.500,00</p>
+</div>
+<button class="w-6 h-6 rounded bg-surface-container-high flex items-center justify-center text-text-slate group-hover:bg-primary-container group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[14px]">add</span>
+</button>
+</div>
+<div class="group flex justify-between items-center p-2 rounded hover:bg-surface-bright border border-transparent hover:border-border-subtle transition-all cursor-pointer">
+<div>
+<p class="text-xs font-medium text-text-dark">Gestão de Tráfego</p>
+<p class="text-[10px] text-text-muted">R$ 2.800,00</p>
+</div>
+<button class="w-6 h-6 rounded bg-surface-container-high flex items-center justify-center text-text-slate group-hover:bg-primary-container group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[14px]">add</span>
+</button>
+</div>
+<div class="group flex justify-between items-center p-2 rounded hover:bg-surface-bright border border-transparent hover:border-border-subtle transition-all cursor-pointer">
+<div>
+<p class="text-xs font-medium text-text-dark">Design Landing Page</p>
+<p class="text-[10px] text-text-muted">R$ 1.500,00</p>
+</div>
+<button class="w-6 h-6 rounded bg-surface-container-high flex items-center justify-center text-text-slate group-hover:bg-primary-container group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[14px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

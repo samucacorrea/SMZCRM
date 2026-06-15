@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NúcleoCRM - Super Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline": "#737686",
+                      "surface-container-highest": "#e0e3e6",
+                      "outline-variant": "#c3c6d7",
+                      "surface-container": "#eceef1",
+                      "border-subtle": "#E5E7EB",
+                      "surface-tint": "#0053db",
+                      "on-tertiary-fixed": "#341100",
+                      "surface-container-lowest": "#ffffff",
+                      "background": "#f7f9fc",
+                      "error": "#ba1a1a",
+                      "on-secondary-fixed": "#191b22",
+                      "secondary": "#5d5e65",
+                      "secondary-fixed-dim": "#c5c6ce",
+                      "tertiary-container": "#b54e00",
+                      "surface-variant": "#e0e3e6",
+                      "inverse-surface": "#2d3133",
+                      "card-background": "#FFFFFF",
+                      "surface-dim": "#d8dadd",
+                      "tertiary-fixed": "#ffdbca",
+                      "tertiary": "#8e3c00",
+                      "surface": "#f7f9fc",
+                      "text-dark": "#111827",
+                      "tertiary-fixed-dim": "#ffb690",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-container": "#eeefff",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#eff1f4",
+                      "sidebar-surface": "#1C2030",
+                      "on-tertiary-container": "#ffece5",
+                      "success-tint": "#EFF6FF",
+                      "primary-container": "#2563eb",
+                      "inverse-primary": "#b4c5ff",
+                      "surface-container-high": "#e6e8eb",
+                      "text-slate": "#4B5563",
+                      "on-primary-fixed": "#00174b",
+                      "on-background": "#191c1e",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "on-surface": "#191c1e",
+                      "secondary-container": "#e2e2eb",
+                      "secondary-fixed": "#e2e2eb",
+                      "on-secondary-container": "#63646c",
+                      "warning-tint": "#FFF7ED",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#dbe1ff",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed-variant": "#45464e",
+                      "on-surface-variant": "#434655",
+                      "on-tertiary-fixed-variant": "#783200",
+                      "text-muted": "#9CA3AF",
+                      "surface-bright": "#f7f9fc",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "surface-container-low": "#f2f4f7",
+                      "primary": "#004ac6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "nav-item-x": "12px",
+                      "sidebar-width": "200px",
+                      "section-gap": "14px",
+                      "page-padding": "18px",
+                      "nav-item-y": "7px",
+                      "topbar-height": "52px",
+                      "card-padding": "16px",
+                      "container-gap": "10px"
+              },
+              "fontFamily": {
+                      "caption": [
+                              "Inter"
+                      ],
+                      "tag": [
+                              "Inter"
+                      ],
+                      "body-secondary": [
+                              "Inter"
+                      ],
+                      "headline-page": [
+                              "Inter"
+                      ],
+                      "body-main": [
+                              "Inter"
+                      ],
+                      "title-card": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "display-kpi": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "caption": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "tag": [
+                              "10.5px",
+                              {
+                                      "lineHeight": "12px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-secondary": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-page": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-main": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "title-card": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "9.5px",
+                              {
+                                      "lineHeight": "12px",
+                                      "letterSpacing": "0.08em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-kpi": [
+                              "22px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.5px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased">
+<!-- Sidebar -->
+<aside class="w-sidebar-width h-screen fixed left-0 top-0 bg-[#0F1117] flex flex-col py-page-padding px-nav-item-x border-r-[0.5px] border-outline-variant/10 z-50 overflow-y-auto">
+<div class="flex items-center gap-2 mb-8 px-2">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold text-lg">N</div>
+<div>
+<h1 class="text-white font-headline-page text-headline-page leading-none">NúcleoCRM</h1>
+</div>
+</div>
+<div class="mb-6 px-2">
+<span class="bg-error/20 text-error px-2 py-1 rounded text-tag font-tag uppercase tracking-wider">Super Admin</span>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 bg-[#1C2030] text-white rounded-lg group transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-primary">dashboard</span>
+<span class="font-body-main text-body-main font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-secondary-fixed-variant hover:text-white hover:bg-[#1C2030]/50 rounded-lg group transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">business</span>
+<span class="font-body-main text-body-main">Tenants</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-secondary-fixed-variant hover:text-white hover:bg-[#1C2030]/50 rounded-lg group transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">subscriptions</span>
+<span class="font-body-main text-body-main">Subscriptions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-secondary-fixed-variant hover:text-white hover:bg-[#1C2030]/50 rounded-lg group transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">support_agent</span>
+<span class="font-body-main text-body-main">Support</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-secondary-fixed-variant hover:text-white hover:bg-[#1C2030]/50 rounded-lg group transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-main text-body-main">Settings</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1 border-t-[0.5px] border-outline-variant/10 pt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-on-secondary-fixed-variant hover:text-white hover:bg-[#1C2030]/50 rounded-lg group transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-body-main text-body-main">Sair</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="ml-sidebar-width min-h-screen flex flex-col relative">
+<!-- TopBar -->
+<header class="h-topbar-height bg-surface-container-lowest flex justify-between items-center px-page-padding border-b-[0.5px] border-border-subtle sticky top-0 z-40">
+<div class="flex items-center gap-4">
+<h2 class="font-headline-page text-headline-page text-text-dark font-medium">Super Admin Dashboard</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[16px]">search</span>
+<input class="w-full bg-[#F3F4F6] border-none rounded-lg pl-9 pr-3 py-1.5 text-caption font-caption text-text-dark focus:ring-1 focus:ring-primary focus:bg-white transition-all" placeholder="Buscar tenants..." type="text"/>
+</div>
+<div class="flex items-center gap-2 border-l-[0.5px] border-border-subtle pl-4 ml-2">
+<div class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-sm">
+                        A
+                    </div>
+<span class="font-body-main text-body-main text-text-dark hidden sm:block">Admin</span>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 p-page-padding bg-background space-y-section-gap">
+<!-- Row 1: Business KPIs -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-container-gap">
+<!-- KPI 1 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg p-card-padding relative overflow-hidden border-l-[3px] border-l-primary">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-card text-title-card text-text-slate">MRR</h3>
+<span class="material-symbols-outlined text-secondary">payments</span>
+</div>
+<div class="flex items-baseline gap-2 mb-1">
+<span class="font-display-kpi text-display-kpi text-text-dark">R$ 48.300</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="bg-success-tint text-primary-container px-2 py-0.5 rounded-full font-tag text-tag flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span>
+                            +8% este mês
+                        </span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg p-card-padding">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-card text-title-card text-text-slate">Tenants ativos</h3>
+<span class="material-symbols-outlined text-secondary">domain</span>
+</div>
+<div class="flex items-baseline gap-2 mb-1">
+<span class="font-display-kpi text-display-kpi text-text-dark">162</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg p-card-padding">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-card text-title-card text-text-slate">Trial ativos</h3>
+<span class="material-symbols-outlined text-secondary">schedule</span>
+</div>
+<div class="flex items-baseline gap-2 mb-1">
+<span class="font-display-kpi text-display-kpi text-text-dark">23</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="bg-warning-tint text-[#F97316] px-2 py-0.5 rounded-full font-tag text-tag">
+                            Atenção
+                        </span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg p-card-padding">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-card text-title-card text-text-slate">Churn este mês</h3>
+<span class="material-symbols-outlined text-secondary">person_remove</span>
+</div>
+<div class="flex items-baseline gap-2 mb-1">
+<span class="font-display-kpi text-display-kpi text-text-dark">4</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded-full font-tag text-tag">
+                            Soft alert
+                        </span>
+</div>
+</div>
+</div>
+<!-- Row 2: Operational KPIs -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-container-gap">
+<!-- Op KPI 1 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg p-card-padding">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-card text-title-card text-text-slate">Novos tenants hoje</h3>
+<span class="material-symbols-outlined text-secondary">add_business</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-kpi text-display-kpi text-text-dark">3</span>
+</div>
+</div>
+<!-- Op KPI 2 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg p-card-padding">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-card text-title-card text-text-slate">Tickets de suporte abertos</h3>
+<span class="material-symbols-outlined text-secondary">confirmation_number</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-kpi text-display-kpi text-text-dark">7</span>
+</div>
+</div>
+<!-- Op KPI 3 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg p-card-padding">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-card text-title-card text-text-slate">Erros críticos (Sentry)</h3>
+<span class="material-symbols-outlined text-secondary">bug_report</span>
+</div>
+<div class="flex items-baseline gap-2 mb-1">
+<span class="font-display-kpi text-display-kpi text-text-dark">0</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="bg-[#ECFDF5] text-[#059669] px-2 py-0.5 rounded-full font-tag text-tag flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">check_circle</span>
+                            Saudável
+                        </span>
+</div>
+</div>
+<!-- Op KPI 4 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg p-card-padding">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-title-card text-title-card text-text-slate">Uso de armazenamento</h3>
+<span class="material-symbols-outlined text-secondary">database</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-kpi text-display-kpi text-text-dark">1,2 TB</span>
+</div>
+</div>
+</div>
+<!-- Main Chart Card -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg p-card-padding">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-title-card text-title-card text-text-dark">MRR - Últimos 12 meses</h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-primary rounded-sm"></div>
+<span class="font-caption text-caption text-text-slate">Realizado</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-0 border-t-2 border-dashed border-[#F97316]"></div>
+<span class="font-caption text-caption text-text-slate">Meta</span>
+</div>
+</div>
+</div>
+<div class="h-[250px] w-full flex items-end relative border-b border-border-subtle pb-4">
+<!-- Placeholder for Chart -->
+<div class="absolute left-0 top-0 h-full w-full flex flex-col justify-between text-text-muted font-caption text-caption pointer-events-none pb-4">
+<div>R$ 50k</div>
+<div>R$ 40k</div>
+<div>R$ 30k</div>
+<div>R$ 20k</div>
+<div>R$ 10k</div>
+</div>
+<div class="w-full pl-12 flex items-end justify-between h-[200px] relative">
+<!-- Decorative line representation -->
+<svg class="absolute inset-0 w-full h-full pl-12" preserveaspectratio="none" viewbox="0 0 100 100">
+<!-- Target Line -->
+<path d="M0,80 L10,75 L20,70 L30,65 L40,60 L50,55 L60,50 L70,45 L80,40 L90,35 L100,30" fill="none" stroke="#F97316" stroke-dasharray="2,2" stroke-width="1"></path>
+<!-- Actual Line -->
+<path d="M0,90 L10,85 L20,80 L30,70 L40,65 L50,50 L60,45 L70,30 L80,25 L90,15 L100,10" fill="none" stroke="#004ac6" stroke-width="2"></path>
+<!-- Gradient under actual line -->
+<path d="M0,90 L10,85 L20,80 L30,70 L40,65 L50,50 L60,45 L70,30 L80,25 L90,15 L100,10 L100,100 L0,100 Z" fill="url(#blue-gradient)" opacity="0.1"></path>
+<defs>
+<lineargradient id="blue-gradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#004ac6"></stop>
+<stop offset="100%" stop-color="transparent"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="w-full flex justify-between absolute -bottom-6 pl-12 text-text-muted font-caption text-caption">
+<span>Jan</span>
+<span>Fev</span>
+<span>Mar</span>
+<span>Abr</span>
+<span>Mai</span>
+<span>Jun</span>
+<span>Jul</span>
+<span>Ago</span>
+<span>Set</span>
+<span>Out</span>
+<span>Nov</span>
+<span>Dez</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Row: Two Cards -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-container-gap">
+<!-- Table Card -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg overflow-hidden flex flex-col">
+<div class="p-card-padding border-b-[0.5px] border-border-subtle">
+<h3 class="font-title-card text-title-card text-text-dark">Últimos tenants cadastrados</h3>
+</div>
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b-[0.5px] border-border-subtle bg-surface-container-lowest">
+<th class="py-2 px-4 font-label-caps text-label-caps text-text-slate font-medium">Empresa</th>
+<th class="py-2 px-4 font-label-caps text-label-caps text-text-slate font-medium">Plano</th>
+<th class="py-2 px-4 font-label-caps text-label-caps text-text-slate font-medium">Data</th>
+<th class="py-2 px-4 font-label-caps text-label-caps text-text-slate font-medium">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-main text-body-main text-text-dark divide-y-[0.5px] divide-border-subtle">
+<tr>
+<td class="py-3 px-4 font-medium">TechSul Soluções</td>
+<td class="py-3 px-4 text-text-slate">Pro</td>
+<td class="py-3 px-4 text-text-slate">Hoje, 14:30</td>
+<td class="py-3 px-4">
+<span class="bg-surface-container-high text-text-dark px-2 py-0.5 rounded-full font-tag text-tag">Trial</span>
+</td>
+</tr>
+<tr>
+<td class="py-3 px-4 font-medium">Agência Vetor</td>
+<td class="py-3 px-4 text-text-slate">Business</td>
+<td class="py-3 px-4 text-text-slate">Hoje, 09:15</td>
+<td class="py-3 px-4">
+<span class="bg-success-tint text-[#1D4ED8] px-2 py-0.5 rounded-full font-tag text-tag">Ativo</span>
+</td>
+</tr>
+<tr>
+<td class="py-3 px-4 font-medium">Nova Era Comércio</td>
+<td class="py-3 px-4 text-text-slate">Starter</td>
+<td class="py-3 px-4 text-text-slate">Ontem</td>
+<td class="py-3 px-4">
+<span class="bg-surface-container-high text-text-dark px-2 py-0.5 rounded-full font-tag text-tag">Trial</span>
+</td>
+</tr>
+<tr>
+<td class="py-3 px-4 font-medium">Grupo Aliança</td>
+<td class="py-3 px-4 text-text-slate">Pro</td>
+<td class="py-3 px-4 text-text-slate">Ontem</td>
+<td class="py-3 px-4">
+<span class="bg-success-tint text-[#1D4ED8] px-2 py-0.5 rounded-full font-tag text-tag">Ativo</span>
+</td>
+</tr>
+<tr>
+<td class="py-3 px-4 font-medium">Lumina Marketing</td>
+<td class="py-3 px-4 text-text-slate">Starter</td>
+<td class="py-3 px-4 text-text-slate">2 dias atrás</td>
+<td class="py-3 px-4">
+<span class="bg-success-tint text-[#1D4ED8] px-2 py-0.5 rounded-full font-tag text-tag">Ativo</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Risk List Card -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-lg flex flex-col">
+<div class="p-card-padding border-b-[0.5px] border-border-subtle flex justify-between items-center">
+<h3 class="font-title-card text-title-card text-text-dark">Tenants em risco</h3>
+<span class="bg-warning-tint text-[#F97316] px-2 py-0.5 rounded-full font-tag text-tag">3 Requerem atenção</span>
+</div>
+<div class="p-card-padding flex-1 flex flex-col gap-3">
+<!-- List Item 1 -->
+<div class="flex items-center justify-between p-3 border-[0.5px] border-border-subtle rounded-lg hover:bg-surface-container-lowest transition-colors">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-text-slate">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+</div>
+<div>
+<h4 class="font-body-main text-body-main font-medium text-text-dark">ConectaRH</h4>
+<p class="font-caption text-caption text-text-slate">Assinatura vencendo (3 dias)</p>
+</div>
+</div>
+<button class="px-3 py-1.5 text-primary border-[0.5px] border-border-subtle rounded-md font-body-main text-body-main hover:bg-surface-container transition-colors">Ver</button>
+</div>
+<!-- List Item 2 -->
+<div class="flex items-center justify-between p-3 border-[0.5px] border-border-subtle rounded-lg hover:bg-surface-container-lowest transition-colors border-l-[2px] border-l-[#F97316]">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-error-container/30 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[16px]">credit_card_off</span>
+</div>
+<div>
+<h4 class="font-body-main text-body-main font-medium text-text-dark">Construtora Base</h4>
+<p class="font-caption text-caption text-error">Pagamento falhou</p>
+</div>
+</div>
+<button class="px-3 py-1.5 text-primary border-[0.5px] border-border-subtle rounded-md font-body-main text-body-main hover:bg-surface-container transition-colors">Ver</button>
+</div>
+<!-- List Item 3 -->
+<div class="flex items-center justify-between p-3 border-[0.5px] border-border-subtle rounded-lg hover:bg-surface-container-lowest transition-colors">
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-text-slate">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+</div>
+<div>
+<h4 class="font-body-main text-body-main font-medium text-text-dark">Logística Rápida</h4>
+<p class="font-caption text-caption text-text-slate">Assinatura vencendo (7 dias)</p>
+</div>
+</div>
+<button class="px-3 py-1.5 text-primary border-[0.5px] border-border-subtle rounded-md font-body-main text-body-main hover:bg-surface-container transition-colors">Ver</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

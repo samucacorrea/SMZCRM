@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Configurações de E-mail - NúcleoCRM</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "warning-tint": "#FFF7ED",
+                        "surface-container": "#eceef1",
+                        "on-background": "#191c1e",
+                        "card-background": "#FFFFFF",
+                        "surface-variant": "#e0e3e6",
+                        "sidebar-surface": "#1C2030",
+                        "on-tertiary-container": "#ffece5",
+                        "primary-fixed": "#dbe1ff",
+                        "secondary-fixed-dim": "#c5c6ce",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "tertiary": "#8e3c00",
+                        "on-tertiary-fixed-variant": "#783200",
+                        "background": "#f7f9fc",
+                        "outline-variant": "#c3c6d7",
+                        "on-secondary": "#ffffff",
+                        "text-slate": "#4B5563",
+                        "on-secondary-fixed-variant": "#45464e",
+                        "success-tint": "#EFF6FF",
+                        "tertiary-container": "#b54e00",
+                        "secondary-fixed": "#e2e2eb",
+                        "text-muted": "#9CA3AF",
+                        "on-primary-container": "#eeefff",
+                        "on-primary-fixed": "#00174b",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#434655",
+                        "surface-container-low": "#f2f4f7",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-fixed": "#191b22",
+                        "primary": "#004ac6",
+                        "secondary": "#5d5e65",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e0e3e6",
+                        "on-error": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eff1f4",
+                        "outline": "#737686",
+                        "border-subtle": "#E5E7EB",
+                        "inverse-primary": "#b4c5ff",
+                        "text-dark": "#111827",
+                        "surface": "#f7f9fc",
+                        "surface-container-high": "#e6e8eb",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#341100",
+                        "secondary-container": "#e2e2eb",
+                        "surface-bright": "#f7f9fc",
+                        "on-secondary-container": "#63646c",
+                        "surface-tint": "#0053db",
+                        "surface-dim": "#d8dadd",
+                        "primary-container": "#2563eb",
+                        "tertiary-fixed": "#ffdbca"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "topbar-height": "52px",
+                        "section-gap": "14px",
+                        "page-padding": "18px",
+                        "nav-item-x": "12px",
+                        "nav-item-y": "7px",
+                        "sidebar-width": "200px",
+                        "container-gap": "10px",
+                        "card-padding": "16px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "display-kpi": ["Inter"],
+                        "tag": ["Inter"],
+                        "body-main": ["Inter"],
+                        "caption": ["Inter"],
+                        "body-secondary": ["Inter"],
+                        "title-card": ["Inter"],
+                        "headline-page": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["9.5px", {"lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "display-kpi": ["22px", {"lineHeight": "1.1", "letterSpacing": "-0.5px", "fontWeight": "500"}],
+                        "tag": ["10.5px", {"lineHeight": "12px", "fontWeight": "500"}],
+                        "body-main": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "caption": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "body-secondary": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "title-card": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                        "headline-page": ["20px", {"lineHeight": "28px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fc; color: #191c1e; }
+        .toggle-checkbox:checked { right: 0; border-color: #2563EB; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #2563EB; }
+        .toggle-checkbox { right: 0; z-index: 1; border-color: #e2e8f0; transition: all 0.3s; }
+        .toggle-label { width: 2.5rem; height: 1.25rem; background-color: #e2e8f0; border-radius: 9999px; position: relative; cursor: pointer; transition: all 0.3s; }
+        .toggle-label:after { content: ''; position: absolute; top: 2px; left: 2px; width: 1rem; height: 1rem; background-color: white; border-radius: 50%; transition: all 0.3s; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .toggle-checkbox:checked + .toggle-label:after { transform: translateX(1.25rem); }
+        
+        /* Modal Backdrop */
+        .modal-open { overflow: hidden; }
+        .modal-backdrop { background-color: rgba(15, 17, 23, 0.4); backdrop-filter: blur(2px); }
+    </style>
+</head>
+<body class="bg-background modal-open flex overflow-hidden h-screen">
+<!-- SideNavBar -->
+<aside class="docked fixed left-0 top-0 h-full w-sidebar-width bg-sidebar-surface dark:bg-sidebar-surface border-r-[0.5px] border-outline-variant flat no shadows flex flex-col h-full py-page-padding px-nav-item-x z-20">
+<div class="flex items-center gap-3 px-3 mb-8">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-lg">hub</span>
+</div>
+<div>
+<h1 class="font-title-card text-title-card font-bold text-on-primary dark:text-primary-fixed-dim">Nexus CRM</h1>
+<p class="font-caption text-caption text-text-muted">Enterprise Edition</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-primary-fixed-variant hover:bg-on-primary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 transition-all rounded-lg font-body-main text-body-main" href="#">
+<span class="material-symbols-outlined text-[15px]">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-primary-fixed-variant hover:bg-on-primary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 transition-all rounded-lg font-body-main text-body-main" href="#">
+<span class="material-symbols-outlined text-[15px]">group</span> Leads
+            </a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-primary-fixed-variant hover:bg-on-primary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 transition-all rounded-lg font-body-main text-body-main" href="#">
+<span class="material-symbols-outlined text-[15px]">person</span> Clientes
+            </a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-primary-fixed-variant hover:bg-on-primary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 transition-all rounded-lg font-body-main text-body-main" href="#">
+<span class="material-symbols-outlined text-[15px]">receipt_long</span> Faturas
+            </a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-primary-fixed-variant hover:bg-on-primary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 transition-all rounded-lg font-body-main text-body-main" href="#">
+<span class="material-symbols-outlined text-[15px]">assignment</span> Projetos
+            </a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-primary-fixed-variant hover:bg-on-primary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 transition-all rounded-lg font-body-main text-body-main" href="#">
+<span class="material-symbols-outlined text-[15px]">chat</span> WhatsApp
+            </a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-primary-fixed-variant hover:bg-on-primary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 transition-all rounded-lg font-body-main text-body-main" href="#">
+<span class="material-symbols-outlined text-[15px]">support_agent</span> Suporte
+            </a>
+</nav>
+<div class="mt-auto border-t border-sidebar-surface/50 pt-4 space-y-1">
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y bg-primary-container text-on-primary-container font-medium rounded-lg font-body-main text-body-main hover:bg-on-primary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined text-[15px]">settings</span> Configurações
+            </a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-on-primary-fixed-variant hover:bg-on-primary-fixed-variant transition-colors duration-200 scale-98 active:opacity-80 transition-all rounded-lg font-body-main text-body-main" href="#">
+<span class="material-symbols-outlined text-[15px]">logout</span> Sair
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[200px] flex-1 flex flex-col h-full relative z-10">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-dim border-b-[0.5px] border-border-subtle flat no shadows flex items-center justify-between px-page-padding w-full h-topbar-height z-10 flex-shrink-0">
+<div class="flex items-center gap-4">
+<h2 class="font-title-card text-title-card font-bold text-on-surface">E-mail · Configurações</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary-container text-white px-4 py-1.5 rounded-lg font-title-card text-title-card hover:bg-[#1d4ed8] transition-colors">
+                    Salvar configurações
+                </button>
+<div class="flex items-center gap-2 border-l border-border-subtle pl-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors opacity-90 active:scale-95">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+<img alt="User Profile Avatar" class="w-7 h-7 rounded-full ml-2 border border-border-subtle" data-alt="A small, professional headshot photo of a business user, styled as a circular profile avatar. The person is smiling confidently. The lighting is bright and clean, fitting a modern corporate web application interface. Background is a subtle, neutral solid color." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtxHflTKt1_NvWOo_HmunLKgJMOGqokgB5YLVwyG087KMh4iZOohIrdwzUsxzx3xNMfzplvsMiNfPFAK6Wz9blj0h9RsaoE-hEalDe-m1NTtCpSW0LJmNdm2kzBWn2pB6y83CqmOQFNcg43Nlp-kb_noRiqW-cQBbNTkl5s-vHKz9zD_mKrR1KKrjg4RwN9vx7_UsWe9IZz1WoGf7lFA4hqMixayXuaGLpIL952zZwNI7d0Fkq-MhPMI0KKXHnxFUAa06ik2mb3D8"/>
+</div>
+</div>
+</header>
+<!-- Scrollable Content Canvas -->
+<div class="flex-1 overflow-y-auto p-page-padding">
+<div class="max-w-5xl mx-auto space-y-section-gap pb-20">
+<!-- SEÇÃO "SMTP próprio" -->
+<section class="bg-card-background border border-border-subtle rounded-xl p-card-padding">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h3 class="font-title-card text-title-card text-text-dark">SMTP próprio</h3>
+<p class="font-body-secondary text-body-secondary text-text-slate mt-1">Configure um servidor SMTP personalizado para o envio de e-mails do sistema.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-body-secondary text-body-secondary text-text-dark">Usar servidor SMTP personalizado</span>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer" id="smtp-toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer" for="smtp-toggle"></label>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 border-t border-border-subtle pt-4">
+<div>
+<label class="block font-body-secondary text-body-secondary text-text-slate mb-1">Host SMTP</label>
+<input class="w-full bg-surface-container-lowest border border-border-subtle rounded-lg px-3 py-1.5 font-body-main text-body-main text-text-dark focus:border-primary focus:ring-0 flat" type="text" value="smtp.seudominio.com"/>
+</div>
+<div>
+<label class="block font-body-secondary text-body-secondary text-text-slate mb-1">Porta</label>
+<input class="w-full bg-surface-container-lowest border border-border-subtle rounded-lg px-3 py-1.5 font-body-main text-body-main text-text-dark focus:border-primary focus:ring-0 flat" type="text" value="587"/>
+</div>
+<div>
+<label class="block font-body-secondary text-body-secondary text-text-slate mb-1">Usuário</label>
+<input class="w-full bg-surface-container-lowest border border-border-subtle rounded-lg px-3 py-1.5 font-body-main text-body-main text-text-dark focus:border-primary focus:ring-0 flat" type="text" value="contato@seudominio.com"/>
+</div>
+<div>
+<label class="block font-body-secondary text-body-secondary text-text-slate mb-1">Senha</label>
+<input class="w-full bg-surface-container-lowest border border-border-subtle rounded-lg px-3 py-1.5 font-body-main text-body-main text-text-dark focus:border-primary focus:ring-0 flat" type="password" value="********"/>
+</div>
+<div>
+<label class="block font-body-secondary text-body-secondary text-text-slate mb-1">Criptografia</label>
+<select class="w-full bg-surface-container-lowest border border-border-subtle rounded-lg px-3 py-1.5 font-body-main text-body-main text-text-dark focus:border-primary focus:ring-0 flat">
+<option>TLS</option>
+<option>SSL</option>
+<option>Nenhuma</option>
+</select>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-3">
+<button class="bg-surface-container-low text-text-dark border border-border-subtle px-4 py-1.5 rounded-lg font-title-card text-title-card hover:bg-surface-variant transition-colors">
+                            Testar conexão
+                        </button>
+<span class="inline-flex items-center gap-1 bg-success-tint text-[#1D4ED8] font-tag text-tag px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            Conexão bem-sucedida
+                        </span>
+</div>
+</section>
+<!-- SEÇÃO "Modelos de e-mail" -->
+<section class="bg-card-background border border-border-subtle rounded-xl overflow-hidden">
+<div class="p-card-padding border-b border-border-subtle">
+<h3 class="font-title-card text-title-card text-text-dark">Modelos de e-mail</h3>
+<p class="font-body-secondary text-body-secondary text-text-slate mt-1">Gerencie os textos padrão enviados automaticamente pelo sistema.</p>
+</div>
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-border-subtle">
+<th class="font-label-caps text-label-caps text-text-slate py-2 px-4 uppercase">Evento</th>
+<th class="font-label-caps text-label-caps text-text-slate py-2 px-4 uppercase w-1/2">Assunto</th>
+<th class="font-label-caps text-label-caps text-text-slate py-2 px-4 uppercase text-center w-24">Ativo</th>
+<th class="font-label-caps text-label-caps text-text-slate py-2 px-4 uppercase text-right w-24">Ações</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle">
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="py-2.5 px-4 font-body-main text-body-main text-text-dark font-medium">Fatura emitida</td>
+<td class="py-2.5 px-4">
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 font-body-main text-body-main text-text-slate" type="text" value="Nova fatura disponível - {nome_empresa}"/>
+</td>
+<td class="py-2.5 px-4 text-center">
+<div class="relative inline-block w-8 align-middle select-none">
+<input checked="" class="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-2 appearance-none cursor-pointer" style="top: 2px;" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer" style="width: 2rem;"></label>
+</div>
+</td>
+<td class="py-2.5 px-4 text-right">
+<button class="text-primary hover:text-[#1d4ed8] font-body-secondary text-body-secondary font-medium">Editar</button>
+</td>
+</tr>
+<!-- More rows would go here, simplified for brevity -->
+</tbody>
+</table>
+</section>
+</div>
+</div>
+</main>
+<!-- MODAL "Editar modelo" (Simulado aberto) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+<div class="absolute inset-0 modal-backdrop"></div>
+<div class="relative bg-card-background border border-border-subtle rounded-xl shadow-2xl w-full max-w-4xl flex flex-col max-h-[921px]">
+<!-- Modal Header -->
+<div class="flex items-center justify-between p-4 border-b border-border-subtle">
+<div>
+<h3 class="font-title-card text-title-card font-bold text-text-dark">Editar Modelo: Fatura emitida</h3>
+<p class="font-caption text-caption text-text-slate">Personalize a mensagem enviada aos clientes ao gerar uma nova fatura.</p>
+</div>
+<button class="text-text-muted hover:text-text-dark transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Modal Body (Bento Layout style) -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Editor Area -->
+<div class="flex-1 flex flex-col border-r border-border-subtle p-4 bg-surface-container-lowest">
+<div class="mb-3 border border-border-subtle rounded-lg flex items-center p-1 gap-1 bg-surface-container-low">
+<button class="p-1 rounded hover:bg-surface-variant text-text-dark"><span class="material-symbols-outlined text-[16px]">format_bold</span></button>
+<button class="p-1 rounded hover:bg-surface-variant text-text-dark"><span class="material-symbols-outlined text-[16px]">format_italic</span></button>
+<button class="p-1 rounded hover:bg-surface-variant text-text-dark"><span class="material-symbols-outlined text-[16px]">link</span></button>
+<div class="w-px h-4 bg-border-subtle mx-1"></div>
+<button class="p-1 rounded hover:bg-surface-variant text-text-dark"><span class="material-symbols-outlined text-[16px]">code</span></button>
+</div>
+<textarea class="flex-1 w-full border border-border-subtle rounded-lg p-3 font-body-main text-body-main text-text-dark focus:border-primary focus:ring-0 resize-none h-64">Olá {nome_cliente},
+
+Anexamos a fatura referente aos serviços prestados recentemente.
+Valor: {valor_fatura}
+Vencimento: {data_vencimento}
+
+Você pode visualizar e pagar a fatura acessando o link abaixo:
+{link_fatura}
+
+Qualquer dúvida, estamos à disposição.
+Atenciosamente,
+Equipe Nexus
+                    </textarea>
+</div>
+<!-- Merge Fields Sidebar -->
+<div class="w-64 bg-surface-bright p-4 overflow-y-auto">
+<h4 class="font-label-caps text-label-caps text-text-slate uppercase mb-3 tracking-wider">Variáveis Dinâmicas</h4>
+<p class="font-caption text-caption text-text-slate mb-4">Clique para copiar as tags que serão substituídas por dados reais no envio.</p>
+<div class="space-y-2">
+<button class="w-full flex items-center justify-between p-2 rounded border border-border-subtle bg-white hover:border-primary group transition-colors">
+<span class="font-tag text-tag text-text-dark">{nome_cliente}</span>
+<span class="material-symbols-outlined text-[14px] text-text-muted group-hover:text-primary">content_copy</span>
+</button>
+<button class="w-full flex items-center justify-between p-2 rounded border border-border-subtle bg-white hover:border-primary group transition-colors">
+<span class="font-tag text-tag text-text-dark">{valor_fatura}</span>
+<span class="material-symbols-outlined text-[14px] text-text-muted group-hover:text-primary">content_copy</span>
+</button>
+<button class="w-full flex items-center justify-between p-2 rounded border border-border-subtle bg-white hover:border-primary group transition-colors">
+<span class="font-tag text-tag text-text-dark">{data_vencimento}</span>
+<span class="material-symbols-outlined text-[14px] text-text-muted group-hover:text-primary">content_copy</span>
+</button>
+<button class="w-full flex items-center justify-between p-2 rounded border border-border-subtle bg-white hover:border-primary group transition-colors">
+<span class="font-tag text-tag text-text-dark">{link_fatura}</span>
+<span class="material-symbols-outlined text-[14px] text-text-muted group-hover:text-primary">content_copy</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="p-4 border-t border-border-subtle bg-surface-container-low flex justify-end gap-3 rounded-b-xl">
+<button class="px-4 py-1.5 rounded-lg font-title-card text-title-card text-text-dark hover:bg-surface-variant border border-border-subtle bg-white transition-colors">Cancelar</button>
+<button class="px-4 py-1.5 rounded-lg font-title-card text-title-card text-white bg-primary-container hover:bg-[#1d4ed8] transition-colors">Salvar Modelo</button>
+</div>
+</div>
+</div>
+</body></html>

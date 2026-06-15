@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NúcleoCRM - Support Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .material-symbols-outlined {
+                font-family: 'Material Symbols Outlined';
+                font-weight: normal;
+                font-style: normal;
+                font-size: 24px;
+                line-height: 1;
+                letter-spacing: normal;
+                text-transform: none;
+                display: inline-block;
+                white-space: nowrap;
+                word-wrap: normal;
+                direction: ltr;
+                -webkit-font-feature-settings: 'liga';
+                -webkit-font-smoothing: antialiased;
+            }
+            
+            /* Hide scrollbar for cleaner look but keep functionality */
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#191c1e",
+                        "text-muted": "#9CA3AF",
+                        "surface-dim": "#d8dadd",
+                        "on-tertiary-fixed-variant": "#783200",
+                        "sidebar-surface": "#1C2030",
+                        "text-dark": "#111827",
+                        "surface-container-low": "#f2f4f7",
+                        "secondary-fixed": "#e2e2eb",
+                        "primary": "#004ac6",
+                        "inverse-on-surface": "#eff1f4",
+                        "tertiary-container": "#b54e00",
+                        "secondary": "#5d5e65",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f7f9fc",
+                        "inverse-surface": "#2d3133",
+                        "border-subtle": "#E5E7EB",
+                        "primary-container": "#2563eb",
+                        "on-primary-container": "#eeefff",
+                        "surface-container-highest": "#e0e3e6",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "warning-tint": "#FFF7ED",
+                        "background": "#f0f2f5", /* Overriding to match prompt #F0F2F5 */
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "surface-variant": "#e0e3e6",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#191c1e",
+                        "on-surface-variant": "#434655",
+                        "on-error": "#ffffff",
+                        "text-slate": "#4B5563",
+                        "surface-tint": "#0053db",
+                        "surface-container-high": "#e6e8eb",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-fixed-dim": "#c5c6ce",
+                        "on-tertiary-container": "#ffece5",
+                        "surface-bright": "#f7f9fc",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "tertiary": "#8e3c00",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#45464e",
+                        "on-secondary-fixed": "#191b22",
+                        "outline": "#737686",
+                        "surface-container": "#eceef1",
+                        "on-error-container": "#93000a",
+                        "success-tint": "#EFF6FF",
+                        "on-tertiary-fixed": "#341100",
+                        "inverse-primary": "#b4c5ff",
+                        "tertiary-fixed": "#ffdbca",
+                        "error": "#ba1a1a",
+                        "card-background": "#FFFFFF",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#00174b",
+                        "on-secondary-container": "#63646c",
+                        "secondary-container": "#e2e2eb",
+                        "primary-fixed": "#dbe1ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "page-padding": "18px",
+                        "nav-item-y": "7px",
+                        "topbar-height": "52px",
+                        "card-padding": "16px",
+                        "container-gap": "10px",
+                        "sidebar-width": "200px",
+                        "section-gap": "14px",
+                        "nav-item-x": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-page": ["Inter", "sans-serif"],
+                        "title-card": ["Inter", "sans-serif"],
+                        "label-caps": ["Inter", "sans-serif"],
+                        "body-main": ["Inter", "sans-serif"],
+                        "tag": ["Inter", "sans-serif"],
+                        "display-kpi": ["Inter", "sans-serif"],
+                        "caption": ["Inter", "sans-serif"],
+                        "body-secondary": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-page": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "title-card": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                        "label-caps": ["9.5px", {"lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "body-main": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "tag": ["10.5px", {"lineHeight": "12px", "fontWeight": "500"}],
+                        "display-kpi": ["22px", {"lineHeight": "1.1", "letterSpacing": "-0.5px", "fontWeight": "500"}],
+                        "caption": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "body-secondary": ["12px", {"lineHeight": "16px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background h-full overflow-hidden flex font-body-main text-body-main">
+<!-- SideNavBar Component -->
+<nav aria-label="Sidebar" class="bg-sidebar-surface dark:bg-sidebar-surface text-primary-container font-body-main text-body-main fixed left-0 top-0 h-full w-[200px] border-r-[0.5px] border-[#1a1f2e] flex flex-col py-section-gap w-[200px] z-20 hidden md:flex">
+<!-- Brand / Header -->
+<div class="px-nav-item-x mb-8 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center text-surface-container-lowest font-bold">N</div>
+<div>
+<h1 class="text-headline-page font-headline-page font-bold text-surface-container-lowest leading-none">NúcleoCRM</h1>
+<p class="text-[10px] text-text-muted mt-1 uppercase tracking-wider">Management Portal</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 overflow-y-auto no-scrollbar space-y-1 px-2">
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y rounded text-text-muted hover:text-surface-container-lowest hover:bg-[#1C2030] transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y rounded text-text-muted hover:text-surface-container-lowest hover:bg-[#1C2030] transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="leaderboard">leaderboard</span>
+<span>Leads</span>
+</a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y rounded text-text-muted hover:text-surface-container-lowest hover:bg-[#1C2030] transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="group">group</span>
+<span>Clients</span>
+</a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y rounded text-text-muted hover:text-surface-container-lowest hover:bg-[#1C2030] transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="receipt_long">receipt_long</span>
+<span>Invoices</span>
+</a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y rounded text-text-muted hover:text-surface-container-lowest hover:bg-[#1C2030] transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="assignment">assignment</span>
+<span>Projects</span>
+</a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y rounded text-text-muted hover:text-surface-container-lowest hover:bg-[#1C2030] transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="hub">hub</span>
+<span>Channels</span>
+</a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y rounded bg-[#1C2030] text-surface-container-lowest font-medium transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="support_agent">support_agent</span>
+<span>Support</span>
+</a>
+</div>
+<!-- User Profile minimal -->
+<div class="mt-auto px-4 pt-4 border-t-[0.5px] border-[#1a1f2e]">
+<div class="flex items-center gap-3">
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-[#1a1f2e]" data-alt="A professional headshot of a man with short brown hair, wearing a white shirt. The background is a soft, blurred corporate office setting. The lighting is natural and bright, highlighting his friendly expression. This image fits a modern, professional light-mode UI context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3vvL-fu4OE1cpvyyL08KumDgmljtvRPyFDtS7RihrkO4-HTMsnfwG-u4VX0oG4uGPJaX_TIVRqmlWH7HR865AjuYJlWUYO4qFV_1C6ZVwIG13lecNUSZDSVVJheqVg-Tk8D4RvnykDug8BYYaLpuF5AfBEt70vzkk9yIrwEcu3pGQmzA1qgFGPp5BSKLbnYoo2YK3XGD0ogLiQA-ktzUlGsr7IYK0SJ-z_9gqAZ7O58pdYhgnd04FjJli9JbrzKArHfU9y_LCWMg"/>
+<div>
+<p class="text-caption font-caption text-surface-container-lowest">Admin User</p>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:ml-[200px] w-full min-h-screen">
+<!-- TopNavBar Component -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-lowest text-primary font-body-main text-body-main fixed top-0 right-0 h-[52px] w-full md:w-[calc(100%-200px)] border-b-[0.5px] border-border-subtle flex justify-between items-center px-page-padding h-[52px] z-10">
+<!-- Left: Title & Mobile Menu Toggle -->
+<div class="flex items-center gap-4">
+<button class="md:hidden text-text-dark">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h2 class="text-headline-page font-headline-page font-bold text-text-dark">Suporte</h2>
+</div>
+<!-- Right: Actions -->
+<div class="flex items-center gap-4">
+<!-- Search (on left of actions as per JSON) -->
+<div class="hidden sm:flex items-center bg-[#F3F4F6] rounded-lg px-3 py-1.5 border border-transparent focus-within:border-primary focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-[16px] text-text-muted mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none text-[11px] focus:ring-0 p-0 w-48 text-text-dark placeholder:text-text-muted" placeholder="Search support..." type="text"/>
+</div>
+<!-- Icon Actions -->
+<button class="text-on-surface-variant hover:text-primary transition-all relative">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-[#F97316] rounded-full border border-surface-container-lowest"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+</button>
+<!-- Primary Action -->
+<button class="bg-primary-container text-white text-[13px] font-medium px-4 py-1.5 rounded-lg hover:bg-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
+                    Novo ticket
+                </button>
+</div>
+</header>
+<!-- Main Workspace Canvas -->
+<main class="flex-1 mt-[52px] p-page-padding overflow-y-auto">
+<!-- KPI Section -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-container-gap mb-section-gap">
+<!-- KPI 1 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding flex flex-col justify-between min-h-[100px] border-l-[3px] border-l-border-subtle">
+<h3 class="font-title-card text-title-card text-text-muted">Abertos</h3>
+<div class="mt-2 flex items-end justify-between">
+<span class="font-display-kpi text-display-kpi text-text-dark">18</span>
+<span class="material-symbols-outlined text-text-muted" data-icon="inbox">inbox</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding flex flex-col justify-between min-h-[100px] border-l-[3px] border-l-[#F97316]">
+<div class="flex items-center justify-between">
+<h3 class="font-title-card text-title-card text-[#F97316]">Meu SLA em risco</h3>
+<span class="bg-[#FFF7ED] text-[#F97316] font-tag text-tag px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="warning">warning</span>
+                            Atenção
+                        </span>
+</div>
+<div class="mt-2 flex items-end justify-between">
+<span class="font-display-kpi text-display-kpi text-text-dark">3</span>
+<span class="material-symbols-outlined text-[#F97316]" data-icon="timer">timer</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding flex flex-col justify-between min-h-[100px] border-l-[3px] border-l-primary-container">
+<div class="flex items-center justify-between">
+<h3 class="font-title-card text-title-card text-text-muted">Resolvidos hoje</h3>
+<span class="bg-[#EFF6FF] text-[#1D4ED8] font-tag text-tag px-2 py-0.5 rounded-full">
+                            Hoje
+                        </span>
+</div>
+<div class="mt-2 flex items-end justify-between">
+<span class="font-display-kpi text-display-kpi text-text-dark">7</span>
+<span class="material-symbols-outlined text-primary-container" data-icon="task_alt">task_alt</span>
+</div>
+</div>
+</div>
+<!-- Filters & Table Wrapper -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl flex flex-col overflow-hidden">
+<!-- Filters Header -->
+<div class="p-card-padding border-b-[0.5px] border-border-subtle flex flex-col lg:flex-row gap-4 justify-between items-start lg:items-center bg-surface-container-lowest">
+<!-- Search & Chips -->
+<div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center w-full lg:w-auto">
+<!-- Search Table -->
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[16px] text-text-muted" data-icon="search">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 border-[0.5px] border-border-subtle rounded-lg text-[13px] focus:border-primary-container focus:ring-0 bg-transparent text-text-dark placeholder:text-text-muted" placeholder="Buscar ticket..." type="text"/>
+</div>
+<!-- Department Chips -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar w-full sm:w-auto pb-1 sm:pb-0">
+<button class="px-3 py-1 bg-primary-container text-white font-tag text-tag rounded-full whitespace-nowrap">Todos</button>
+<button class="px-3 py-1 bg-surface-container-high text-text-slate hover:bg-border-subtle transition-colors font-tag text-tag rounded-full whitespace-nowrap">Comercial</button>
+<button class="px-3 py-1 bg-surface-container-high text-text-slate hover:bg-border-subtle transition-colors font-tag text-tag rounded-full whitespace-nowrap">Suporte</button>
+<button class="px-3 py-1 bg-surface-container-high text-text-slate hover:bg-border-subtle transition-colors font-tag text-tag rounded-full whitespace-nowrap">Financeiro</button>
+</div>
+</div>
+<!-- Dropdowns -->
+<div class="flex gap-2 w-full lg:w-auto overflow-x-auto no-scrollbar">
+<select class="pl-3 pr-8 py-1.5 border-[0.5px] border-border-subtle rounded-lg text-[13px] text-text-dark bg-transparent focus:border-primary-container focus:ring-0 appearance-none min-w-[120px]">
+<option value="">Status</option>
+<option value="aberto">Aberto</option>
+<option value="aguardando">Aguardando</option>
+<option value="resolvido">Resolvido</option>
+</select>
+<select class="pl-3 pr-8 py-1.5 border-[0.5px] border-border-subtle rounded-lg text-[13px] text-text-dark bg-transparent focus:border-primary-container focus:ring-0 appearance-none min-w-[120px]">
+<option value="">Prioridade</option>
+<option value="alta">Alta</option>
+<option value="media">Média</option>
+<option value="baixa">Baixa</option>
+</select>
+<select class="pl-3 pr-8 py-1.5 border-[0.5px] border-border-subtle rounded-lg text-[13px] text-text-dark bg-transparent focus:border-primary-container focus:ring-0 appearance-none min-w-[130px]">
+<option value="">Responsável</option>
+<option value="me">Atribuídos a mim</option>
+<option value="unassigned">Não atribuídos</option>
+</select>
+</div>
+</div>
+<!-- Table Content -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-[#F9FAFB] border-b-[0.5px] border-border-subtle text-caption font-caption text-text-muted uppercase tracking-wider">
+<th class="px-4 py-3 font-medium">Nº</th>
+<th class="px-4 py-3 font-medium">Assunto</th>
+<th class="px-4 py-3 font-medium">Cliente + Contato</th>
+<th class="px-4 py-3 font-medium">Departamento</th>
+<th class="px-4 py-3 font-medium">Prioridade</th>
+<th class="px-4 py-3 font-medium">Responsável</th>
+<th class="px-4 py-3 font-medium">Aberto em</th>
+<th class="px-4 py-3 font-medium">SLA</th>
+<th class="px-4 py-3 font-medium">Status</th>
+</tr>
+</thead>
+<tbody class="text-[13px] text-text-dark divide-y-[0.5px] divide-border-subtle bg-surface-container-lowest">
+<!-- Row 1: SLA Expired -->
+<tr class="bg-[#FEF2F2] hover:bg-red-100 transition-colors group cursor-pointer">
+<td class="px-4 py-3 font-medium text-[#991B1B]">TKT-892</td>
+<td class="px-4 py-3 max-w-[200px] truncate font-medium text-[#991B1B]">Sistema fora do ar após atualização</td>
+<td class="px-4 py-3">
+<div class="font-medium">TechCorp Ltda</div>
+<div class="text-[11px] text-[#991B1B] opacity-80">joao.silva@techcorp.com</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-red-100 text-red-800 border border-red-200">Suporte</span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 text-[#F97316] font-medium border border-[#F97316] px-2 py-0.5 rounded text-[11px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="keyboard_double_arrow_up">keyboard_double_arrow_up</span> Alta
+                                    </span>
+</td>
+<td class="px-4 py-3">
+<img alt="Avatar" class="w-6 h-6 rounded-full border border-border-subtle" data-alt="A professional headshot of a man with short brown hair, wearing a white shirt. The background is a soft, blurred corporate office setting. The lighting is natural and bright, highlighting his friendly expression. This image fits a modern, professional light-mode UI context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQk788SfJ2V82H8HBuGertUeW4048Dg1EuXVdy0q6r66ldMNMdok4UFoMGhPA6YIbG9Xh3VH13eE7lgOXOk4uKab3pmvFvGrZ4qkyXsnYqwd96kxKwqXaWQcDePa511G4c6sucO4TSkKY3D00g7cNKc1aRavW7XIW96n1v42q1LiQtIbfYk3Y1hi-W-k2rbiLbcABtTvUfDo_iMw7O5BnM4_6CDa5L64LeMxXL24fVcyNd-3gOkh-pEG6bfUIy-sjXBtF1c6MMVMs" title="Admin User"/>
+</td>
+<td class="px-4 py-3 text-text-muted">12 Out, 08:30</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 bg-[#FEE2E2] text-[#991B1B] font-tag text-tag px-2 py-1 rounded-full whitespace-nowrap">
+<span class="material-symbols-outlined text-[12px]" data-icon="error">error</span> 12h atrasado
+                                    </span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[11px] font-medium bg-red-100 text-red-800">Aberto</span>
+</td>
+</tr>
+<!-- Row 2: Aguardando Cliente -->
+<tr class="hover:bg-surface-bright transition-colors cursor-pointer">
+<td class="px-4 py-3 font-medium">TKT-891</td>
+<td class="px-4 py-3 max-w-[200px] truncate text-text-dark">Dúvida sobre fatura de Setembro</td>
+<td class="px-4 py-3">
+<div class="font-medium text-text-dark">Global Imports</div>
+<div class="text-[11px] text-text-muted">maria@global.com</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 text-gray-800 border border-gray-200">Financeiro</span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 text-text-slate font-medium border border-border-subtle px-2 py-0.5 rounded text-[11px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="drag_handle">drag_handle</span> Média
+                                    </span>
+</td>
+<td class="px-4 py-3">
+<img alt="Avatar" class="w-6 h-6 rounded-full border border-border-subtle" data-alt="A professional headshot of a woman with long dark hair, wearing a dark blazer over a light blouse. The background is a clean, bright modern office interior. She has a confident, approachable smile. The image is high quality and well-lit for a professional UI avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP7c3V9tyn6IQGZ439CoYZloWl1MF6xb4VilW6paxm8nsDoiFFSbmF04b7n5IPoHRjmoEjy95ivtdyG00XKw3iJWvB5oBQ6PsRlpmEyWda1XGKqVgHyR2Ew4ucbPhOHIeVZDO2XHz4jzvFpO_OZJYVpLcodP9aqyR4D35RBP-yyx10fdQfcEFBlYPBrLqRt29NP9O6sNTlrru87-KF4sP2sG7I2phyEIcTxFleS1etiAimtKZbLgnh4NAcaHl0AnE4HzC0d2FQ83o" title="Ana Souza"/>
+</td>
+<td class="px-4 py-3 text-text-muted">12 Out, 10:15</td>
+<td class="px-4 py-3">
+<span class="text-[11px] text-text-muted">Pausado</span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[11px] font-medium bg-[#FFF7ED] text-[#F97316] border border-[#FFEDD5]">Aguardando cliente</span>
+</td>
+</tr>
+<!-- Row 3: Alta, SLA Risco -->
+<tr class="hover:bg-surface-bright transition-colors cursor-pointer">
+<td class="px-4 py-3 font-medium">TKT-890</td>
+<td class="px-4 py-3 max-w-[200px] truncate text-text-dark">Erro na integração da API</td>
+<td class="px-4 py-3">
+<div class="font-medium text-text-dark">DevSolutions</div>
+<div class="text-[11px] text-text-muted">carlos.dev@ds.com</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 text-gray-800 border border-gray-200">Suporte</span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 text-[#F97316] font-medium border border-[#F97316] px-2 py-0.5 rounded text-[11px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="keyboard_double_arrow_up">keyboard_double_arrow_up</span> Alta
+                                    </span>
+</td>
+<td class="px-4 py-3">
+<div class="w-6 h-6 rounded-full bg-surface-container-high border border-border-subtle flex items-center justify-center text-[10px] font-medium text-text-slate" title="Unassigned">
+<span class="material-symbols-outlined text-[14px]" data-icon="person_off">person_off</span>
+</div>
+</td>
+<td class="px-4 py-3 text-text-muted">Hoje, 09:00</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 bg-[#FFF7ED] text-[#F97316] font-tag text-tag px-2 py-1 rounded-full whitespace-nowrap">
+<span class="material-symbols-outlined text-[12px]" data-icon="schedule">schedule</span> 2h restantes
+                                    </span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[11px] font-medium bg-gray-100 text-gray-800">Aberto</span>
+</td>
+</tr>
+<!-- Row 4: Baixa, Dentro SLA -->
+<tr class="hover:bg-surface-bright transition-colors cursor-pointer">
+<td class="px-4 py-3 font-medium">TKT-889</td>
+<td class="px-4 py-3 max-w-[200px] truncate text-text-dark">Alteração de e-mail de faturamento</td>
+<td class="px-4 py-3">
+<div class="font-medium text-text-dark">Alpha Consultoria</div>
+<div class="text-[11px] text-text-muted">financeiro@alpha.com</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 text-gray-800 border border-gray-200">Financeiro</span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 text-[#0284C7] font-medium border border-[#BAE6FD] bg-[#F0F9FF] px-2 py-0.5 rounded text-[11px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="keyboard_arrow_down">keyboard_arrow_down</span> Baixa
+                                    </span>
+</td>
+<td class="px-4 py-3">
+<img alt="Avatar" class="w-6 h-6 rounded-full border border-border-subtle" data-alt="A professional headshot of a man with short brown hair, wearing a white shirt. The background is a soft, blurred corporate office setting. The lighting is natural and bright, highlighting his friendly expression. This image fits a modern, professional light-mode UI context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-hOHE8NPxn_QW61NKyiOjwKb4KrVP76WQxcWoJ2NHlKJnB3Cw9SAC1d22zjK6ypXUnbciE0LbNghgbMudtLOBk8Jx18wCcO2drufezCaVINX3CUvK1zAMMuDwTlss8AqzEqy7mmBovlmunBhRMRAZvoSQ8b8vK8mgGmDrUfOfWajtACtlybA26jDka4XPrY61Bga_cJi33Bm2JVPj755-tcJncyv2z3dolbxOZQFwJqHOxjGrGe3yJpfv1i-XNsUZk5aPRPz1CLY" title="Admin User"/>
+</td>
+<td class="px-4 py-3 text-text-muted">Hoje, 11:20</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 bg-[#F0FDF4] text-[#166534] font-tag text-tag px-2 py-1 rounded-full whitespace-nowrap">
+<span class="material-symbols-outlined text-[12px]" data-icon="check_circle">check_circle</span> Dentro
+                                    </span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[11px] font-medium bg-[#EFF6FF] text-[#1D4ED8] border border-[#DBEAFE]">Em andamento</span>
+</td>
+</tr>
+<!-- Row 5: Média, Dentro SLA -->
+<tr class="hover:bg-surface-bright transition-colors cursor-pointer">
+<td class="px-4 py-3 font-medium">TKT-888</td>
+<td class="px-4 py-3 max-w-[200px] truncate text-text-dark">Solicitação de nova licença</td>
+<td class="px-4 py-3">
+<div class="font-medium text-text-dark">MegaRetail</div>
+<div class="text-[11px] text-text-muted">ti@megaretail.com</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 text-gray-800 border border-gray-200">Comercial</span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 text-text-slate font-medium border border-border-subtle px-2 py-0.5 rounded text-[11px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="drag_handle">drag_handle</span> Média
+                                    </span>
+</td>
+<td class="px-4 py-3">
+<img alt="Avatar" class="w-6 h-6 rounded-full border border-border-subtle" data-alt="A professional headshot of a smiling woman with glasses and blonde hair, wearing a light gray blazer. The background is a bright, neutral office corridor. The lighting is soft and even, ideal for a clean corporate UI avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoH9Q2ag54vwvMlS85ZorrECTdRyLcNvetGeYot08uZOcFQ-PNsnHaToL6ECOaXuUi1sNpwvAm-GvC9ccYuh2YzPMO2yzFWnqMyQHh9cJKmDON_EUgucNMIBbDwzCIROeXlcuKBmV7hdmr97WHegosuzjgXeVxcCsmppj-R_XWrgcMruUNcQOfLZF2VFf459J1XH4m4wB3b_xqC4mt-0TA1gzgds8Hxq_lEEibeAm8B8P2RTNm6Sn8BIvVBeotWu2yDTMb9tlpEi8" title="Julia Lima"/>
+</td>
+<td class="px-4 py-3 text-text-muted">Hoje, 13:45</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 bg-[#F0FDF4] text-[#166534] font-tag text-tag px-2 py-1 rounded-full whitespace-nowrap">
+<span class="material-symbols-outlined text-[12px]" data-icon="check_circle">check_circle</span> Dentro
+                                    </span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[11px] font-medium bg-gray-100 text-gray-800">Aberto</span>
+</td>
+</tr>
+<!-- Row 6: Média, Resolvido -->
+<tr class="hover:bg-surface-bright transition-colors cursor-pointer opacity-70">
+<td class="px-4 py-3 font-medium line-through text-text-muted">TKT-887</td>
+<td class="px-4 py-3 max-w-[200px] truncate text-text-muted">Dificuldade login usuário novo</td>
+<td class="px-4 py-3 text-text-muted">
+<div class="font-medium">FastLogistics</div>
+<div class="text-[11px]">rh@fastlog.com</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 text-gray-500 border border-gray-200">Suporte</span>
+</td>
+<td class="px-4 py-3 text-text-muted">
+<span class="inline-flex items-center gap-1 text-text-slate font-medium border border-border-subtle px-2 py-0.5 rounded text-[11px] opacity-70">
+<span class="material-symbols-outlined text-[12px]" data-icon="drag_handle">drag_handle</span> Média
+                                    </span>
+</td>
+<td class="px-4 py-3">
+<img alt="Avatar" class="w-6 h-6 rounded-full border border-border-subtle opacity-70" data-alt="A professional headshot of a man with short brown hair, wearing a white shirt. The background is a soft, blurred corporate office setting. The lighting is natural and bright, highlighting his friendly expression. This image fits a modern, professional light-mode UI context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD2tvkAlZXRDATyyejm6H92b99iW7xO_L7UuSYQq7oms0Fx-SqfhKBRl78kTsaLWvsNseXUxR5kLmLKEXDzj1Hshz5G5aAp0eFs4y5Qz20gvF0kaq9EpXI4ary45e3jB9KawEVnQbA5pk470g1Y7jQX0vOLaV4ZXwKk0UeBEZWfwyGEb6m98F5HT7m--ifuecM-1z-hUYBVu_IBg3gmLYZwlP5rxNFBGXfHA417JmqdVD3yn0e5NwTCzd2aIOE7aUZgMcNM-JQAhk" title="Admin User"/>
+</td>
+<td class="px-4 py-3 text-text-muted">Ontem, 16:00</td>
+<td class="px-4 py-3">
+<span class="text-[11px] text-text-muted">-</span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[11px] font-medium bg-[#F0FDF4] text-[#166534] border border-[#DCFCE7]">Resolvido</span>
+</td>
+</tr>
+<!-- Row 7: Baixa, Dentro -->
+<tr class="hover:bg-surface-bright transition-colors cursor-pointer">
+<td class="px-4 py-3 font-medium">TKT-886</td>
+<td class="px-4 py-3 max-w-[200px] truncate text-text-dark">Feedback sobre relatório Vendas</td>
+<td class="px-4 py-3">
+<div class="font-medium text-text-dark">Construtora Base</div>
+<div class="text-[11px] text-text-muted">gerencia@base.com</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 text-gray-800 border border-gray-200">Suporte</span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 text-[#0284C7] font-medium border border-[#BAE6FD] bg-[#F0F9FF] px-2 py-0.5 rounded text-[11px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="keyboard_arrow_down">keyboard_arrow_down</span> Baixa
+                                    </span>
+</td>
+<td class="px-4 py-3">
+<div class="w-6 h-6 rounded-full bg-surface-container-high border border-border-subtle flex items-center justify-center text-[10px] font-medium text-text-slate" title="Unassigned">
+<span class="material-symbols-outlined text-[14px]" data-icon="person_off">person_off</span>
+</div>
+</td>
+<td class="px-4 py-3 text-text-muted">Ontem, 14:30</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 bg-[#F0FDF4] text-[#166534] font-tag text-tag px-2 py-1 rounded-full whitespace-nowrap">
+<span class="material-symbols-outlined text-[12px]" data-icon="check_circle">check_circle</span> Dentro
+                                    </span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[11px] font-medium bg-gray-100 text-gray-800">Aberto</span>
+</td>
+</tr>
+<!-- Row 8: Alta, Aguardando -->
+<tr class="hover:bg-surface-bright transition-colors cursor-pointer">
+<td class="px-4 py-3 font-medium">TKT-885</td>
+<td class="px-4 py-3 max-w-[200px] truncate text-text-dark">Problema de cobrança duplicada</td>
+<td class="px-4 py-3">
+<div class="font-medium text-text-dark">Estúdio Design</div>
+<div class="text-[11px] text-text-muted">contato@ed.design</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 text-gray-800 border border-gray-200">Financeiro</span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 text-[#F97316] font-medium border border-[#F97316] px-2 py-0.5 rounded text-[11px]">
+<span class="material-symbols-outlined text-[12px]" data-icon="keyboard_double_arrow_up">keyboard_double_arrow_up</span> Alta
+                                    </span>
+</td>
+<td class="px-4 py-3">
+<img alt="Avatar" class="w-6 h-6 rounded-full border border-border-subtle" data-alt="A professional headshot of a woman with long dark hair, wearing a dark blazer over a light blouse. The background is a clean, bright modern office interior. She has a confident, approachable smile. The image is high quality and well-lit for a professional UI avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrg11THOznAG71Qv_jzEuXN0GaQx-2tFDBVH-dCYo_JdXvEWUR7h1mRMY98kfMlpnT93Us8FoKK40-Ab6Vq2uegzg0P3Opji9GrbN3oMHY5X-XqqWNCDbGMfMA5gu1uov9Cn3ORkshHXMlWIOvfbLq7SZTNLzJkE27g3sezUTBWM6sltH9fWtR3MYIGxpIqUxb5DH5LRl3xErvcAxwEiTZdS2PwraSdgm5mAWz3cU5FoiSDcAINdK06LidCCYaUOdIu0M0XBevwFo" title="Ana Souza"/>
+</td>
+<td class="px-4 py-3 text-text-muted">Ontem, 09:00</td>
+<td class="px-4 py-3">
+<span class="text-[11px] text-text-muted">Pausado</span>
+</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-[11px] font-medium bg-[#FFF7ED] text-[#F97316] border border-[#FFEDD5]">Aguardando cliente</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="p-3 border-t-[0.5px] border-border-subtle bg-surface-container-lowest flex items-center justify-between">
+<span class="text-[12px] text-text-muted">Mostrando 1 a 8 de 42 tickets</span>
+<div class="flex gap-1">
+<button class="px-2 py-1 border-[0.5px] border-border-subtle rounded text-text-muted hover:bg-surface-bright disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[16px]" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="px-3 py-1 bg-primary-container text-white rounded text-[12px] font-medium">1</button>
+<button class="px-3 py-1 border-[0.5px] border-border-subtle rounded text-text-slate hover:bg-surface-bright text-[12px] font-medium">2</button>
+<button class="px-3 py-1 border-[0.5px] border-border-subtle rounded text-text-slate hover:bg-surface-bright text-[12px] font-medium">3</button>
+<button class="px-2 py-1 border-[0.5px] border-border-subtle rounded text-text-muted hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

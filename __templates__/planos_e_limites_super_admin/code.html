@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Planos e Limites - Super Admin</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-highest": "#e0e3e6",
+                      "primary-container": "#2563eb",
+                      "inverse-primary": "#b4c5ff",
+                      "background": "#f7f9fc",
+                      "tertiary-fixed-dim": "#ffb690",
+                      "success-tint": "#EFF6FF",
+                      "secondary": "#5d5e65",
+                      "text-muted": "#9CA3AF",
+                      "warning-tint": "#FFF7ED",
+                      "on-secondary-fixed-variant": "#45464e",
+                      "inverse-on-surface": "#eff1f4",
+                      "surface-dim": "#d8dadd",
+                      "on-error": "#ffffff",
+                      "tertiary-container": "#b54e00",
+                      "on-secondary-fixed": "#191b22",
+                      "primary-fixed": "#dbe1ff",
+                      "on-tertiary-container": "#ffece5",
+                      "surface-tint": "#0053db",
+                      "on-background": "#191c1e",
+                      "error-container": "#ffdad6",
+                      "secondary-container": "#e2e2eb",
+                      "surface-variant": "#e0e3e6",
+                      "text-slate": "#4B5563",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "text-dark": "#111827",
+                      "sidebar-surface": "#1C2030",
+                      "on-tertiary-fixed-variant": "#783200",
+                      "tertiary-fixed": "#ffdbca",
+                      "secondary-fixed": "#e2e2eb",
+                      "on-primary": "#ffffff",
+                      "surface-bright": "#f7f9fc",
+                      "on-error-container": "#93000a",
+                      "primary": "#004ac6",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-high": "#e6e8eb",
+                      "error": "#ba1a1a",
+                      "outline-variant": "#c3c6d7",
+                      "surface-container": "#eceef1",
+                      "on-primary-fixed": "#00174b",
+                      "on-primary-container": "#eeefff",
+                      "on-tertiary-fixed": "#341100",
+                      "secondary-fixed-dim": "#c5c6ce",
+                      "on-secondary-container": "#63646c",
+                      "on-secondary": "#ffffff",
+                      "border-subtle": "#E5E7EB",
+                      "on-surface-variant": "#434655",
+                      "on-surface": "#191c1e",
+                      "tertiary": "#8e3c00",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "surface-container-lowest": "#ffffff",
+                      "outline": "#737686",
+                      "surface-container-low": "#f2f4f7",
+                      "surface": "#f7f9fc",
+                      "inverse-surface": "#2d3133",
+                      "card-background": "#FFFFFF"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sidebar-width": "200px",
+                      "topbar-height": "52px",
+                      "section-gap": "14px",
+                      "page-padding": "18px",
+                      "nav-item-x": "12px",
+                      "container-gap": "10px",
+                      "card-padding": "16px",
+                      "nav-item-y": "7px"
+              },
+              "fontFamily": {
+                      "title-card": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "caption": ["Inter"],
+                      "body-main": ["Inter"],
+                      "body-secondary": ["Inter"],
+                      "headline-page": ["Inter"],
+                      "display-kpi": ["Inter"],
+                      "tag": ["Inter"]
+              },
+              "fontSize": {
+                      "title-card": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                      "label-caps": ["9.5px", {"lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                      "caption": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                      "body-main": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-secondary": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "headline-page": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                      "display-kpi": ["22px", {"lineHeight": "1.1", "letterSpacing": "-0.5px", "fontWeight": "500"}],
+                      "tag": ["10.5px", {"lineHeight": "12px", "fontWeight": "500"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Base styles to ensure consistency */
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        /* Custom scrollbar for sidebar */
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background-color: theme('colors.surface-container-high');
+            border-radius: 4px;
+        }
+        
+        /* Input overrides for flat admin style */
+        .admin-input {
+            background-color: theme('colors.surface-bright');
+            border: 0.5px solid theme('colors.border-subtle');
+            border-radius: theme('borderRadius.DEFAULT');
+            padding: 6px 10px;
+            font-family: theme('fontFamily.body-main');
+            font-size: 13px;
+            line-height: 20px;
+            color: theme('colors.on-surface');
+            width: 100%;
+            transition: border-color 0.15s ease-in-out;
+            box-shadow: none !important; /* Force flat look */
+        }
+        .admin-input:focus {
+            outline: none;
+            border-color: theme('colors.primary');
+        }
+    </style>
+</head>
+<body class="flex bg-background h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-sidebar-surface dark:bg-sidebar-surface fixed left-0 top-0 h-full w-[200px] border-r-[0.5px] border-outline-variant flex flex-col h-screen overflow-y-auto sidebar-scroll z-20">
+<!-- Brand / Header -->
+<div class="px-page-padding py-4 flex flex-col gap-1 border-b-[0.5px] border-[#1a1f2e]">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center text-on-primary font-bold text-caption">A</div>
+<div class="flex flex-col">
+<span class="text-title-card font-title-card font-bold text-on-primary-container truncate">SUPER ADMIN</span>
+<span class="text-caption font-caption text-text-muted truncate">Administrador Geral</span>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 py-4 px-3 flex flex-col gap-1">
+<a class="text-text-muted hover:text-on-primary flex items-center px-nav-item-x py-nav-item-y hover:bg-on-secondary-fixed-variant transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px] group-hover:scale-95 transition-transform duration-150">dashboard</span>
+<span class="text-body-main font-body-main">Dashboard</span>
+</a>
+<a class="bg-primary-container text-on-primary font-bold flex items-center px-nav-item-x py-nav-item-y rounded-lg hover:bg-on-secondary-fixed-variant transition-colors group" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px] scale-95 transition-transform duration-150">payments</span>
+<span class="text-body-main font-body-main">Planos e Limites</span>
+</a>
+<a class="text-text-muted hover:text-on-primary flex items-center px-nav-item-x py-nav-item-y hover:bg-on-secondary-fixed-variant transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px] group-hover:scale-95 transition-transform duration-150">group</span>
+<span class="text-body-main font-body-main">Usuários</span>
+</a>
+<a class="text-text-muted hover:text-on-primary flex items-center px-nav-item-x py-nav-item-y hover:bg-on-secondary-fixed-variant transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px] group-hover:scale-95 transition-transform duration-150">settings</span>
+<span class="text-body-main font-body-main">Configurações</span>
+</a>
+<a class="text-text-muted hover:text-on-primary flex items-center px-nav-item-x py-nav-item-y hover:bg-on-secondary-fixed-variant transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px] group-hover:scale-95 transition-transform duration-150">view_module</span>
+<span class="text-body-main font-body-main">Módulos</span>
+</a>
+<a class="text-text-muted hover:text-on-primary flex items-center px-nav-item-x py-nav-item-y hover:bg-on-secondary-fixed-variant transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px] group-hover:scale-95 transition-transform duration-150">history</span>
+<span class="text-body-main font-body-main">Logs de Auditoria</span>
+</a>
+</div>
+<!-- Footer Actions -->
+<div class="px-3 py-4 border-t-[0.5px] border-[#1a1f2e] flex flex-col gap-2">
+<button class="w-full bg-[#1C2030] text-primary-container border border-primary-container/30 hover:bg-primary-container/10 transition-colors text-body-main font-body-main py-2 rounded-lg text-center">
+                Suporte Admin
+            </button>
+<a class="text-text-muted hover:text-on-primary flex items-center px-nav-item-x py-nav-item-y hover:bg-on-secondary-fixed-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px]">logout</span>
+<span class="text-body-main font-body-main">Sair</span>
+</a>
+</div>
+</nav>
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-lowest fixed top-0 right-0 w-[calc(100%-200px)] h-[52px] border-b-[0.5px] border-border-subtle flex justify-between items-center px-page-padding z-10">
+<div class="flex items-center">
+<h1 class="text-headline-page font-headline-page text-on-surface font-semibold">Planos e limites</h1>
+</div>
+<div class="flex items-center gap-4">
+<!-- Search omitted to match right-aligned actions as requested by search_bar "on_left" implies logic, but instructions just say right trailing actions -->
+<div class="flex items-center gap-2 text-text-muted">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors hover:text-primary">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors hover:text-primary">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+</div>
+<div class="h-8 w-8 rounded-full overflow-hidden bg-surface-container-high border-[0.5px] border-border-subtle shrink-0">
+<!-- Using a colored div as fallback avatar since no image provided and strictly admin UI -->
+<div class="w-full h-full bg-primary-container flex items-center justify-center text-on-primary text-caption font-bold">SA</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-[200px] mt-[52px] w-[calc(100%-200px)] h-[calc(100vh-52px)] overflow-y-auto bg-surface p-page-padding">
+<div class="max-w-[1200px] mx-auto flex flex-col gap-section-gap pb-10">
+<!-- Warning Notice -->
+<div class="bg-warning-tint border border-[#fed7aa] rounded-lg p-card-padding flex items-start gap-3 w-full shadow-sm shadow-[#FFF7ED]/50">
+<span class="material-symbols-outlined text-[#F97316] mt-0.5">warning</span>
+<div class="flex flex-col">
+<span class="text-body-main font-body-main text-[#8a3800] font-medium">Atenção às alterações de limites</span>
+<span class="text-body-secondary font-body-secondary text-[#9c4200]">Reduzir limites abaixo do uso atual de tenants existentes não os afeta retroativamente — aplica-se apenas para novos tenants ou upgrades futuros.</span>
+</div>
+</div>
+<!-- Plans Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-container-gap">
+<!-- Plan Card: Starter -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding flex flex-col relative border-l-[3px] border-l-surface-container-high">
+<div class="flex justify-between items-start mb-4">
+<div class="w-full pr-4">
+<label class="text-label-caps font-label-caps text-text-muted mb-1 block uppercase">Nome do Plano</label>
+<input class="admin-input font-bold text-[16px]" type="text" value="Starter"/>
+</div>
+<button class="text-text-muted hover:text-error transition-colors mt-5">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-5">
+<div>
+<label class="text-label-caps font-label-caps text-text-muted mb-1 block">Preço Mensal (R$)</label>
+<input class="admin-input" type="number" value="99.00"/>
+</div>
+<div>
+<label class="text-label-caps font-label-caps text-text-muted mb-1 block">Preço Anual (R$)</label>
+<input class="admin-input" type="number" value="990.00"/>
+</div>
+</div>
+<div class="border-t-[0.5px] border-border-subtle pt-4 mb-4 flex-1">
+<h4 class="text-title-card font-title-card text-on-surface mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-text-muted">tune</span>
+                            Limites do Plano
+                        </h4>
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">group</span> Usuários Staff</span>
+<input class="admin-input w-20 text-center py-1" type="number" value="2"/>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">contacts</span> Leads/Contatos</span>
+<input class="admin-input w-24 text-center py-1" type="number" value="1000"/>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">cloud</span> Storage (GB)</span>
+<input class="admin-input w-20 text-center py-1" type="number" value="5"/>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">chat</span> Números WhatsApp</span>
+<input class="admin-input w-20 text-center py-1" type="number" value="1"/>
+</div>
+</div>
+</div>
+<div class="border-t-[0.5px] border-border-subtle pt-4 mb-6">
+<h4 class="text-title-card font-title-card text-on-surface mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-text-muted">extension</span>
+                            Módulos Inclusos
+                        </h4>
+<div class="flex flex-col gap-2">
+<label class="flex items-center cursor-pointer justify-between py-1">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant">Contratos</span>
+<div class="relative">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+<label class="flex items-center cursor-pointer justify-between py-1">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant">API WhatsApp</span>
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+<label class="flex items-center cursor-pointer justify-between py-1">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant">Públicos de Mídia</span>
+<div class="relative">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+<label class="flex items-center cursor-pointer justify-between py-1">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant">Domínio Próprio</span>
+<div class="relative">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+</div>
+</div>
+<div class="mt-auto flex flex-col gap-3">
+<div class="bg-surface-container-low rounded p-2 text-center text-caption font-caption text-on-surface-variant border-[0.5px] border-border-subtle">
+<span class="font-bold text-on-surface">124</span> tenants neste plano
+                        </div>
+<button class="w-full bg-primary text-on-primary rounded font-body-main text-[13px] py-2 hover:bg-primary/90 transition-colors font-medium">
+                            Salvar Alterações
+                        </button>
+</div>
+</div>
+<!-- Plan Card: Pro -->
+<div class="bg-card-background border-[0.5px] border-primary rounded-xl p-card-padding flex flex-col relative border-l-[3px] border-l-primary shadow-sm shadow-primary/5">
+<div class="absolute -top-3 right-4 bg-primary text-on-primary text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wide">
+                        MAIS POPULAR
+                    </div>
+<div class="flex justify-between items-start mb-4 mt-2">
+<div class="w-full pr-4">
+<label class="text-label-caps font-label-caps text-text-muted mb-1 block uppercase">Nome do Plano</label>
+<input class="admin-input font-bold text-[16px] border-primary/30" type="text" value="Pro"/>
+</div>
+<button class="text-text-muted hover:text-error transition-colors mt-5">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-5">
+<div>
+<label class="text-label-caps font-label-caps text-text-muted mb-1 block">Preço Mensal (R$)</label>
+<input class="admin-input border-primary/30" type="number" value="249.00"/>
+</div>
+<div>
+<label class="text-label-caps font-label-caps text-text-muted mb-1 block">Preço Anual (R$)</label>
+<input class="admin-input border-primary/30" type="number" value="2490.00"/>
+</div>
+</div>
+<div class="border-t-[0.5px] border-border-subtle pt-4 mb-4 flex-1">
+<h4 class="text-title-card font-title-card text-on-surface mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-text-muted">tune</span>
+                            Limites do Plano
+                        </h4>
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">group</span> Usuários Staff</span>
+<input class="admin-input w-20 text-center py-1" type="number" value="10"/>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">contacts</span> Leads/Contatos</span>
+<input class="admin-input w-24 text-center py-1" type="number" value="10000"/>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">cloud</span> Storage (GB)</span>
+<input class="admin-input w-20 text-center py-1" type="number" value="20"/>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">chat</span> Números WhatsApp</span>
+<input class="admin-input w-20 text-center py-1" type="number" value="3"/>
+</div>
+</div>
+</div>
+<div class="border-t-[0.5px] border-border-subtle pt-4 mb-6">
+<h4 class="text-title-card font-title-card text-on-surface mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-text-muted">extension</span>
+                            Módulos Inclusos
+                        </h4>
+<div class="flex flex-col gap-2">
+<label class="flex items-center cursor-pointer justify-between py-1">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant">Contratos</span>
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+<label class="flex items-center cursor-pointer justify-between py-1">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant">API WhatsApp</span>
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+<label class="flex items-center cursor-pointer justify-between py-1">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant">Públicos de Mídia</span>
+<div class="relative">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+<label class="flex items-center cursor-pointer justify-between py-1">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant">Domínio Próprio</span>
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+</div>
+</div>
+<div class="mt-auto flex flex-col gap-3">
+<div class="bg-primary/5 rounded p-2 text-center text-caption font-caption text-on-surface-variant border-[0.5px] border-primary/20">
+<span class="font-bold text-primary">482</span> tenants neste plano
+                        </div>
+<button class="w-full bg-primary text-on-primary rounded font-body-main text-[13px] py-2 hover:bg-primary/90 transition-colors font-medium">
+                            Salvar Alterações
+                        </button>
+</div>
+</div>
+<!-- Plan Card: Business -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding flex flex-col relative border-l-[3px] border-l-surface-container-highest">
+<div class="flex justify-between items-start mb-4">
+<div class="w-full pr-4">
+<label class="text-label-caps font-label-caps text-text-muted mb-1 block uppercase">Nome do Plano</label>
+<input class="admin-input font-bold text-[16px]" type="text" value="Business"/>
+</div>
+<button class="text-text-muted hover:text-error transition-colors mt-5">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-5">
+<div>
+<label class="text-label-caps font-label-caps text-text-muted mb-1 block">Preço Mensal (R$)</label>
+<input class="admin-input" type="number" value="599.00"/>
+</div>
+<div>
+<label class="text-label-caps font-label-caps text-text-muted mb-1 block">Preço Anual (R$)</label>
+<input class="admin-input" type="number" value="5990.00"/>
+</div>
+</div>
+<div class="border-t-[0.5px] border-border-subtle pt-4 mb-4 flex-1">
+<h4 class="text-title-card font-title-card text-on-surface mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-text-muted">tune</span>
+                            Limites do Plano
+                        </h4>
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">group</span> Usuários Staff</span>
+<input class="admin-input w-20 text-center py-1 text-[11px]" disabled="" type="text" value="Ilimitado"/>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">contacts</span> Leads/Contatos</span>
+<input class="admin-input w-24 text-center py-1 text-[11px]" disabled="" type="text" value="Ilimitado"/>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">cloud</span> Storage (GB)</span>
+<input class="admin-input w-20 text-center py-1" type="number" value="100"/>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">chat</span> Números WhatsApp</span>
+<input class="admin-input w-20 text-center py-1" type="number" value="10"/>
+</div>
+</div>
+</div>
+<div class="border-t-[0.5px] border-border-subtle pt-4 mb-6">
+<h4 class="text-title-card font-title-card text-on-surface mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-text-muted">extension</span>
+                            Módulos Inclusos
+                        </h4>
+<div class="flex flex-col gap-2">
+<label class="flex items-center cursor-pointer justify-between py-1">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant">Contratos</span>
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+<label class="flex items-center cursor-pointer justify-between py-1">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant">API WhatsApp</span>
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+<label class="flex items-center cursor-pointer justify-between py-1">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant">Públicos de Mídia</span>
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+<label class="flex items-center cursor-pointer justify-between py-1">
+<span class="text-body-secondary font-body-secondary text-on-surface-variant">Domínio Próprio</span>
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+</div>
+</div>
+<div class="mt-auto flex flex-col gap-3">
+<div class="bg-surface-container-low rounded p-2 text-center text-caption font-caption text-on-surface-variant border-[0.5px] border-border-subtle">
+<span class="font-bold text-on-surface">56</span> tenants neste plano
+                        </div>
+<button class="w-full bg-primary text-on-primary rounded font-body-main text-[13px] py-2 hover:bg-primary/90 transition-colors font-medium">
+                            Salvar Alterações
+                        </button>
+</div>
+</div>
+</div> <!-- End Grid -->
+<!-- Global Trial Settings -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-xl p-card-padding flex flex-col gap-4">
+<div class="flex items-center justify-between border-b-[0.5px] border-border-subtle pb-3">
+<div>
+<h3 class="text-title-card font-title-card text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">settings_backup_restore</span>
+                            Configurações globais do Trial
+                        </h3>
+<p class="text-caption font-caption text-text-muted mt-1">Regras aplicadas a todos os novos cadastros orgânicos.</p>
+</div>
+<button class="bg-surface-container-high text-on-surface rounded font-body-main text-[13px] px-4 py-2 hover:bg-surface-dim transition-colors font-medium border-[0.5px] border-border-subtle">
+                        Salvar Configurações
+                    </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+<div class="flex flex-col gap-1">
+<label class="text-label-caps font-label-caps text-text-muted block">Duração do Trial (Dias)</label>
+<div class="flex items-center gap-2">
+<input class="admin-input w-24" type="number" value="14"/>
+<span class="text-body-secondary font-body-secondary text-text-muted">dias de acesso livre</span>
+</div>
+</div>
+<div class="flex items-center justify-between md:justify-start md:gap-6 bg-surface-bright p-3 rounded border-[0.5px] border-border-subtle">
+<span class="text-body-main font-body-main text-on-surface">Trial exige cartão de crédito</span>
+<div class="relative">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</div>
+<div class="flex items-center justify-between md:justify-start md:gap-6 bg-surface-bright p-3 rounded border-[0.5px] border-border-subtle">
+<div class="flex flex-col">
+<span class="text-body-main font-body-main text-on-surface">E-mails de Onboarding</span>
+<span class="text-[10px] text-text-muted leading-tight mt-0.5">Disparar no dia 1, 7 e 14</span>
+</div>
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-high rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

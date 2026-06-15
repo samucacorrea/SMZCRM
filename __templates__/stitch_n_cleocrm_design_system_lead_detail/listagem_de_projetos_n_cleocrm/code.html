@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nexul - Lista de Projetos</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#b54e00",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-container": "#e2e2eb",
+                        "success-tint": "#EFF6FF",
+                        "on-primary-container": "#eeefff",
+                        "inverse-primary": "#b4c5ff",
+                        "card-background": "#FFFFFF",
+                        "secondary-fixed": "#e2e2eb",
+                        "background": "#f7f9fc",
+                        "surface-container": "#eceef1",
+                        "on-secondary-fixed": "#191b22",
+                        "on-surface": "#191c1e",
+                        "inverse-on-surface": "#eff1f4",
+                        "surface": "#f7f9fc",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "tertiary": "#8e3c00",
+                        "on-surface-variant": "#434655",
+                        "on-secondary-fixed-variant": "#45464e",
+                        "on-tertiary-fixed": "#341100",
+                        "surface-tint": "#0053db",
+                        "warning-tint": "#FFF7ED",
+                        "surface-container-high": "#e6e8eb",
+                        "secondary": "#5d5e65",
+                        "inverse-surface": "#2d3133",
+                        "tertiary-fixed": "#ffdbca",
+                        "primary": "#004ac6",
+                        "surface-bright": "#f7f9fc",
+                        "on-primary-fixed": "#00174b",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#c5c6ce",
+                        "sidebar-surface": "#1C2030",
+                        "outline": "#737686",
+                        "on-background": "#191c1e",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#dbe1ff",
+                        "text-slate": "#4B5563",
+                        "surface-variant": "#e0e3e6",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "text-muted": "#9CA3AF",
+                        "on-tertiary-container": "#ffece5",
+                        "surface-container-low": "#f2f4f7",
+                        "on-tertiary-fixed-variant": "#783200",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d8dadd",
+                        "on-secondary-container": "#63646c",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "text-dark": "#111827",
+                        "surface-container-highest": "#e0e3e6",
+                        "border-subtle": "#E5E7EB",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "topbar-height": "52px",
+                        "sidebar-width": "200px",
+                        "nav-item-x": "12px",
+                        "section-gap": "14px",
+                        "nav-item-y": "7px",
+                        "container-gap": "10px",
+                        "card-padding": "16px",
+                        "page-padding": "18px"
+                    },
+                    "fontFamily": {
+                        "tag": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "title-card": ["Inter"],
+                        "display-kpi": ["Inter"],
+                        "body-main": ["Inter"],
+                        "headline-page": ["Inter"],
+                        "caption": ["Inter"],
+                        "body-secondary": ["Inter"]
+                    },
+                    "fontSize": {
+                        "tag": ["10.5px", { "lineHeight": "12px", "fontWeight": "500" }],
+                        "label-caps": ["9.5px", { "lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "600" }],
+                        "title-card": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "display-kpi": ["22px", { "lineHeight": "1.1", "letterSpacing": "-0.5px", "fontWeight": "500" }],
+                        "body-main": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-page": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "caption": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],
+                        "body-secondary": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Hairline borders as per style guidance */
+        .border-hairline { border-width: 0.5px; }
+        .border-t-hairline { border-top-width: 0.5px; }
+        .border-b-hairline { border-bottom-width: 0.5px; }
+        .border-l-hairline { border-left-width: 0.5px; }
+        .border-r-hairline { border-right-width: 0.5px; }
+    </style>
+</head>
+<body class="bg-surface-container-low text-on-surface font-body-main text-body-main flex h-screen overflow-hidden antialiased">
+<!-- SideNavBar -->
+<aside class="fixed h-full w-[200px] left-0 top-0 border-r-hairline border-outline-variant flex flex-col py-page-padding bg-sidebar-surface dark:bg-sidebar-surface z-20">
+<!-- Brand Header -->
+<div class="px-4 mb-8 flex items-center gap-3">
+<img alt="CRM Logo" class="w-8 h-8 rounded bg-surface-variant object-cover" data-alt="A clean, minimalist 3D rendering of a generic geometric logo icon, suitable for a modern corporate SaaS platform. The shape is crisp and abstract, set against a dark grey background. Lighting is soft and studio-quality, emphasizing the sleek, professional aesthetic of a high-tech financial CRM application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCubnL1kewvec8t5jFSGiyNjKWYx9afm9rHGuiPAG0ECBqkp73QBCTrWQSdiFsBHPNPnwE8PsxQ6EYrPoqsa1PrUHMnyzK7tzZlwgKhk9xjJqAm7D6iikeE-AK4XlgOsG1NXSDDz_1v1_donnO97wgyR1XR_RMSxno5cE-nCnWwiZe3vu0SlrsenHQcwAM8X5seMcVQ7qhloLf1tQ-_pd_wAaZ6WXuhC0deJIOgJm4rWvl9CWoB1X7wbJXAa2j_cmb6o3mN1NalGX0"/>
+<div>
+<h1 class="font-headline-page text-[16px] leading-tight font-bold text-on-primary">Nexul</h1>
+<p class="font-caption text-[10px] text-text-muted">CRM Financeiro</p>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 px-2 space-y-1">
+<!-- Active Tab Contextually set to Dashboard as base -->
+<a class="flex items-center gap-3 px-3 py-2 bg-secondary dark:bg-secondary text-on-primary rounded-lg mx-2 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-body-main font-medium text-[13px]">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-outline hover:text-on-primary hover:bg-secondary-container dark:hover:bg-secondary-fixed-dim rounded-lg mx-2 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+<span class="font-body-main text-[13px]">Faturas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-outline hover:text-on-primary hover:bg-secondary-container dark:hover:bg-secondary-fixed-dim rounded-lg mx-2 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span class="font-body-main text-[13px]">Clientes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-outline hover:text-on-primary hover:bg-secondary-container dark:hover:bg-secondary-fixed-dim rounded-lg mx-2 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">point_of_sale</span>
+<span class="font-body-main text-[13px]">Vendas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-outline hover:text-on-primary hover:bg-secondary-container dark:hover:bg-secondary-fixed-dim rounded-lg mx-2 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">analytics</span>
+<span class="font-body-main text-[13px]">Relatórios</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-outline hover:text-on-primary hover:bg-secondary-container dark:hover:bg-secondary-fixed-dim rounded-lg mx-2 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span class="font-body-main text-[13px]">Configurações</span>
+</a>
+</nav>
+<!-- CTA & Footer -->
+<div class="px-4 mt-auto mb-4">
+<button class="w-full bg-primary-container text-on-primary rounded-lg py-2 flex justify-center items-center gap-2 font-medium text-[13px] hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                Nova Fatura
+            </button>
+</div>
+<div class="px-2 space-y-1 border-t-hairline border-outline-variant pt-2 mx-2">
+<a class="flex items-center gap-3 px-3 py-2 text-outline hover:text-on-primary transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">help_outline</span>
+<span class="font-body-main text-[13px]">Suporte</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-outline hover:text-on-primary transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+<span class="font-body-main text-[13px]">Sair</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="ml-[200px] w-[calc(100%-200px)] flex flex-col h-full bg-surface-container-low">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-200px)] h-[52px] bg-surface-container-lowest dark:bg-surface-container-lowest flex items-center justify-between px-page-padding border-b-hairline border-border-subtle z-10">
+<!-- Title Left -->
+<div class="flex items-center gap-4">
+<h2 class="font-headline-page text-headline-page font-semibold text-text-dark tracking-tight">Projetos</h2>
+</div>
+<!-- Right Actions -->
+<div class="flex items-center gap-4">
+<!-- View Toggle -->
+<div class="flex items-center bg-surface-container-low rounded-lg p-0.5 border-hairline border-border-subtle">
+<button class="flex items-center gap-1.5 px-3 py-1.5 bg-card-background shadow-sm rounded-md text-text-dark font-medium text-[12px] transition-all">
+<span class="material-symbols-outlined text-[16px]">grid_view</span>
+                        Cartões
+                    </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 text-text-slate hover:text-text-dark rounded-md font-medium text-[12px] transition-all">
+<span class="material-symbols-outlined text-[16px]">view_list</span>
+                        Lista
+                    </button>
+</div>
+<!-- Primary Action -->
+<button class="bg-primary-container text-on-primary rounded-lg px-4 h-8 flex items-center gap-1.5 font-medium text-[13px] hover:bg-primary transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                    Novo projeto
+                </button>
+</div>
+</header>
+<!-- Page Canvas -->
+<main class="mt-[52px] flex-1 overflow-y-auto p-page-padding">
+<!-- Bento Grid Layout for Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[14px]">
+<!-- Card 1: Em andamento -->
+<div class="bg-card-background border-hairline border-border-subtle rounded-xl p-[16px] flex flex-col gap-4 relative overflow-hidden group hover:border-outline-variant transition-colors">
+<!-- Top Color Line -->
+<div class="absolute top-0 left-0 w-full h-[2px] bg-primary"></div>
+<!-- Header -->
+<div class="flex flex-col gap-1 mt-1">
+<h3 class="font-title-card text-title-card font-semibold text-text-dark group-hover:text-primary transition-colors">Implementação CRM</h3>
+<p class="font-caption text-caption text-text-muted">TechSul Ltda</p>
+</div>
+<!-- Progress -->
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-center font-tag text-tag text-text-slate">
+<span>Progresso</span>
+<span class="font-semibold text-text-dark">68%</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 68%"></div>
+</div>
+</div>
+<!-- Metrics -->
+<div class="flex items-center gap-1.5 font-caption text-caption text-text-slate pt-1">
+<span class="material-symbols-outlined text-[14px] text-text-muted">checklist</span>
+<span>12 tarefas · 3 abertas · <span class="font-medium text-text-dark">R$ 8.400 faturável</span></span>
+</div>
+<!-- Footer Details -->
+<div class="flex items-center justify-between pt-3 border-t-hairline border-border-subtle mt-auto">
+<div class="flex items-center -space-x-2">
+<img alt="Membro" class="w-6 h-6 rounded-full border-2 border-card-background object-cover" data-alt="A small circular portrait photograph of a young professional woman with brown hair, smiling subtly. The lighting is bright and even, typical of a modern corporate headshot. She is wearing a light-colored blouse. The image is cropped tightly around her face." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZhlflYnr_uUsA6X_eJzdyAb3TOWFxB24qL8KiyqOj6B0-JfXl4TRPHIvBBAg44SV95uT0e9HtyiNnIHNTQpTxrbS2fIyeLhm3Esq41wqcI09YHBu7fliafcXk28jt2EwnWmweOa3VuhLapwcwMxtnX92Rc7RzeiY9wwzK1iPAyUGuP52xSGVe5EqSXfI2rJXJ7whgS9plHns_tmQ9iaZOsmk_-HfhiB3aIxlvdfRcqIxHkt9IKWCCGNcAV8efPwW4SZeWytsSbeg"/>
+<img alt="Membro" class="w-6 h-6 rounded-full border-2 border-card-background object-cover" data-alt="A small circular portrait photograph of a young professional man with short dark hair and a neat beard. He is looking directly at the camera with a neutral, confident expression. The lighting is clean and well-balanced, suitable for a business avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANYcHkwF_-SBavYdBjsjOi75D0Y8IbfpsWIpM_JQc6-NVvUPU36NpSy2rXt3wABpkMjOqPHUha6v4hLBJVAVZSR3EnEmRtbPDY9_LXR85nurbvERg1txVNrMXz8yQKt5_UZzLvygJ4pbKlIC-SfWmqR7q15F6nHIvWLeKdeDlwQguXtcywXiqxB1vbwaYFz3F-dWl6PodGqbaT7jznR08MnaVQlAk8KaztPz5cjo5wlD8D3zijIuBHiwlKD6BjzLGh7VGgME79bCo"/>
+<div class="w-6 h-6 rounded-full border-2 border-card-background bg-surface-variant flex items-center justify-center font-tag text-[9px] text-text-dark font-medium">+2</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="bg-success-tint text-[#1D4ED8] px-2 py-0.5 rounded-full font-tag text-tag flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#1D4ED8]"></span>
+                                Em andamento
+                            </span>
+<span class="font-caption text-[10px] text-text-muted">Prazo: 30/06/2026</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Em espera -->
+<div class="bg-card-background border-hairline border-border-subtle rounded-xl p-[16px] flex flex-col gap-4 relative overflow-hidden group hover:border-outline-variant transition-colors">
+<!-- Top Color Line -->
+<div class="absolute top-0 left-0 w-full h-[2px] bg-outline-variant"></div>
+<!-- Header -->
+<div class="flex flex-col gap-1 mt-1">
+<h3 class="font-title-card text-title-card font-semibold text-text-dark group-hover:text-primary transition-colors">Consultoria Digital</h3>
+<p class="font-caption text-caption text-text-muted">Agência Vetor</p>
+</div>
+<!-- Progress -->
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-center font-tag text-tag text-text-slate">
+<span>Progresso</span>
+<span class="font-semibold text-text-dark">45%</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-1.5 overflow-hidden">
+<div class="bg-outline-variant h-full rounded-full" style="width: 45%"></div>
+</div>
+</div>
+<!-- Metrics -->
+<div class="flex items-center gap-1.5 font-caption text-caption text-text-slate pt-1">
+<span class="material-symbols-outlined text-[14px] text-text-muted">checklist</span>
+<span>8 tarefas · 4 abertas · <span class="font-medium text-text-dark">R$ 3.200 faturável</span></span>
+</div>
+<!-- Footer Details -->
+<div class="flex items-center justify-between pt-3 border-t-hairline border-border-subtle mt-auto">
+<div class="flex items-center -space-x-2">
+<img alt="Membro" class="w-6 h-6 rounded-full border-2 border-card-background object-cover" data-alt="A small circular headshot of a middle-aged woman with glasses and short blonde hair. She is wearing a professional dark blazer. The lighting is soft and studio-quality. The portrait is cropped closely for use as a UI avatar in a corporate application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDclJSalApF7HGWOWxvTL-s0suUCFK70kFlakqQW8M5s1NeihbMNNMtQChME1PHteR57fujA9dUyX4704HyBfddZNuqpBuhfyzx0ChX609tmhYWQRSiOlWkH0bMOrj82BmCxRQa8YCd2D4aR0MzncmMzzlKfdFkTd5hOtPidRDfCAD0Aj_4jk9H81SFTAxcBOlB-m3G5zGqIphw9S54kW1E3Nzn1_qkpc43uTsVaZNi8TTAN_dXqSxc60Egon6Ca2r3M2pUsHRrWgY"/>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="bg-warning-tint text-[#F97316] px-2 py-0.5 rounded-full font-tag text-tag flex items-center gap-1">
+<span class="material-symbols-outlined text-[11px]">pause_circle</span>
+                                Em espera
+                            </span>
+<span class="font-caption text-[10px] text-text-muted">Prazo: 15/07/2026</span>
+</div>
+</div>
+</div>
+<!-- Card 3: Concluído -->
+<div class="bg-card-background border-hairline border-border-subtle rounded-xl p-[16px] flex flex-col gap-4 relative overflow-hidden group hover:border-outline-variant transition-colors opacity-80 hover:opacity-100">
+<!-- Top Color Line -->
+<div class="absolute top-0 left-0 w-full h-[2px] bg-outline-variant"></div>
+<!-- Header -->
+<div class="flex flex-col gap-1 mt-1">
+<h3 class="font-title-card text-title-card font-semibold text-text-dark line-through decoration-text-muted/50">Landing Page Black Friday</h3>
+<p class="font-caption text-caption text-text-muted">Loja Exemplo</p>
+</div>
+<!-- Progress -->
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-center font-tag text-tag text-text-slate">
+<span>Progresso</span>
+<span class="font-semibold text-[#059669]">100%</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-1.5 overflow-hidden">
+<div class="bg-[#059669] h-full rounded-full" style="width: 100%"></div>
+</div>
+</div>
+<!-- Metrics -->
+<div class="flex items-center gap-1.5 font-caption text-caption text-text-slate pt-1">
+<span class="material-symbols-outlined text-[14px] text-text-muted">checklist</span>
+<span>15 tarefas · 0 abertas · <span class="font-medium text-text-dark">R$ 2.500 faturável</span></span>
+</div>
+<!-- Footer Details -->
+<div class="flex items-center justify-between pt-3 border-t-hairline border-border-subtle mt-auto">
+<div class="flex items-center -space-x-2">
+<img alt="Membro" class="w-6 h-6 rounded-full border-2 border-card-background object-cover" data-alt="A small circular profile picture of a young man with curly hair and a casual button-down shirt. The background is slightly out of focus. The lighting is bright and natural. The image is scaled down to serve as a user avatar icon in a software interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFDwTXOtCkuVZiIN_fWu-iFMvKXClxhxE-zBJRUqkzJFA5Ydu4KU8sGcQo5sCDmaMRRAer1JGcLPxhVDmLnDNG4OLx4kUk3EELSBfMv-8ZwZUACaepwR_7QMGHYQ7Zx138pqZfX2-FIAI1Vyz8UvbtaNI7hc8hOWHbfRbawB7Xy6omRMmoUO4mDu6GQvSgTK5RXTzOyLAHKR30cgwCdJuXke1P_E8gtb2uxCMzKS3fehh5ar8ZInyr-nnU2fZ6MuvsA28J-z3_VCo"/>
+<img alt="Membro" class="w-6 h-6 rounded-full border-2 border-card-background object-cover" data-alt="A small circular avatar showing a professional woman looking away from the camera thoughtfully. She has dark hair tied back. The lighting is soft and corporate. The image is tightly cropped for UI design usage." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATqAys8JFNBFuD6FJibcJu4_M3KVc-RdNyOHePf1cvqhhRhF_bgW7QL40M3ljxtvKfKiiX9YmEx7sYRCRJAS5Wmhvv-qnQnJtX4fETPtGUoNQxXazLBSUzKJogtOpt58m4lLG7uyxKz2k6jKHGzLxvwwO7g6NyB5athqeqoaGdfzp3LAS_OT3h1TUo_iTDL4dVi1rDDJMOuwTtadKtS-RcbgeV845aqi4Y6gYVjclcrwGFyrs14pap6mua-5sqm4OsMlJHnQE-Rys"/>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="bg-[#ECFDF5] text-[#059669] px-2 py-0.5 rounded-full font-tag text-tag flex items-center gap-1">
+<span class="material-symbols-outlined text-[11px]">check_circle</span>
+                                Concluído
+                            </span>
+<span class="font-caption text-[10px] text-text-muted">Prazo: 10/06/2026</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Atrasado (Specific Case) -->
+<div class="bg-card-background border-hairline border-border-subtle border-l-[3px] border-l-tertiary-container rounded-xl p-[16px] flex flex-col gap-4 relative overflow-hidden group shadow-sm hover:shadow-md transition-all">
+<!-- Header -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<h3 class="font-title-card text-title-card font-semibold text-text-dark group-hover:text-tertiary-container transition-colors">Migração de Dados</h3>
+<span class="material-symbols-outlined text-tertiary-container text-[18px]">warning</span>
+</div>
+<p class="font-caption text-caption text-text-muted">Global Corp</p>
+</div>
+<!-- Progress -->
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-center font-tag text-tag text-text-slate">
+<span>Progresso</span>
+<span class="font-semibold text-text-dark">90%</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-1.5 overflow-hidden">
+<div class="bg-tertiary-container h-full rounded-full" style="width: 90%"></div>
+</div>
+</div>
+<!-- Metrics -->
+<div class="flex items-center gap-1.5 font-caption text-caption text-text-slate pt-1">
+<span class="material-symbols-outlined text-[14px] text-text-muted">checklist</span>
+<span>24 tarefas · 2 abertas · <span class="font-medium text-text-dark">R$ 15.000 faturável</span></span>
+</div>
+<!-- Footer Details -->
+<div class="flex items-center justify-between pt-3 border-t-hairline border-border-subtle mt-auto">
+<div class="flex items-center -space-x-2">
+<img alt="Membro" class="w-6 h-6 rounded-full border-2 border-card-background object-cover" data-alt="A small circular avatar of an older professional man with gray hair and glasses, wearing a suit. He has a serious but approachable expression. The lighting is formal and studio-quality. This is used as a user profile indicator in a corporate dashboard layout." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_T0yrB6XZKyZ8sMg5aqC4yJz6G64VzPJhuIJ44-0FPR3ibt-9IT8B_lZchvr_5N-TmcuhvnmuBxMpdv9DXEjsG1NseoD1UZGY1UTtCz1qP1SehnftOWNN4P0mJ3uvTRa9ALNzh0YV9Eyj472AOZP7AdISLMhS1p06TKd1rYBehN4XEF3EFg7IyGPo8f12RetLCiLIBP154qBrFf-HkLKxYA9rr3X_z2KR4_aXm4G1lBCQohs0jG0ahoSkZHaDhGPMJHYRH22Kbg8"/>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="bg-warning-tint text-tertiary-container px-2 py-0.5 rounded-full font-tag text-tag font-semibold border-hairline border-tertiary-container/30">
+                                3 dias de atraso
+                            </span>
+<span class="font-caption text-[10px] text-tertiary-container font-medium">Prazo: 05/06/2026</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WhatsApp Business - Configurações - NúcleoCRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#004ac6",
+                      "on-secondary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "card-background": "#FFFFFF",
+                      "text-dark": "#111827",
+                      "on-error-container": "#93000a",
+                      "error-container": "#ffdad6",
+                      "inverse-on-surface": "#eff1f4",
+                      "surface-container": "#eceef1",
+                      "secondary-container": "#e2e2eb",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "outline": "#737686",
+                      "surface": "#f7f9fc",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "on-primary-fixed": "#00174b",
+                      "secondary": "#5d5e65",
+                      "on-background": "#191c1e",
+                      "on-secondary-fixed-variant": "#45464e",
+                      "text-muted": "#9CA3AF",
+                      "on-surface": "#191c1e",
+                      "inverse-primary": "#b4c5ff",
+                      "border-subtle": "#E5E7EB",
+                      "surface-container-low": "#f2f4f7",
+                      "secondary-fixed": "#e2e2eb",
+                      "tertiary": "#8e3c00",
+                      "surface-container-high": "#e6e8eb",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#dbe1ff",
+                      "on-tertiary-fixed-variant": "#783200",
+                      "surface-dim": "#d8dadd",
+                      "warning-tint": "#FFF7ED",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-surface": "#2d3133",
+                      "tertiary-fixed": "#ffdbca",
+                      "on-error": "#ffffff",
+                      "surface-variant": "#e0e3e6",
+                      "tertiary-fixed-dim": "#ffb690",
+                      "text-slate": "#4B5563",
+                      "on-secondary-fixed": "#191b22",
+                      "surface-container-highest": "#e0e3e6",
+                      "on-primary-container": "#eeefff",
+                      "surface-bright": "#f7f9fc",
+                      "surface-tint": "#0053db",
+                      "success-tint": "#EFF6FF",
+                      "on-tertiary-container": "#ffece5",
+                      "on-surface-variant": "#434655",
+                      "primary-container": "#2563eb",
+                      "on-secondary-container": "#63646c",
+                      "sidebar-surface": "#1C2030",
+                      "on-tertiary-fixed": "#341100",
+                      "tertiary-container": "#b54e00",
+                      "background": "#f7f9fc",
+                      "outline-variant": "#c3c6d7",
+                      "secondary-fixed-dim": "#c5c6ce",
+                      "on-primary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "page-padding": "18px",
+                      "nav-item-x": "12px",
+                      "sidebar-width": "200px",
+                      "card-padding": "16px",
+                      "topbar-height": "52px",
+                      "section-gap": "14px",
+                      "container-gap": "10px",
+                      "nav-item-y": "7px"
+              },
+              "fontFamily": {
+                      "title-card": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "display-kpi": [
+                              "Inter"
+                      ],
+                      "body-main": [
+                              "Inter"
+                      ],
+                      "tag": [
+                              "Inter"
+                      ],
+                      "caption": [
+                              "Inter"
+                      ],
+                      "headline-page": [
+                              "Inter"
+                      ],
+                      "body-secondary": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "title-card": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "9.5px",
+                              {
+                                      "lineHeight": "12px",
+                                      "letterSpacing": "0.08em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-kpi": [
+                              "22px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.5px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-main": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "tag": [
+                              "10.5px",
+                              {
+                                      "lineHeight": "12px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "caption": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-page": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-secondary": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+          .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+          }
+      </style>
+</head>
+<body class="bg-[#F0F2F5] font-body-main text-body-main text-[#111827] antialiased">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[200px] flex flex-col py-nav-item-y bg-sidebar-surface dark:bg-sidebar-surface border-r-[0.5px] border-[#1a1f2e] z-50">
+<!-- Header -->
+<div class="px-page-padding mb-6 flex items-center space-x-3">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-white text-[18px]">hub</span>
+</div>
+<div>
+<h1 class="font-headline-page text-[15px] font-bold text-white leading-tight">SalesHub CRM</h1>
+<p class="font-caption text-caption text-text-muted mt-0.5">Vendas &amp; Atendimento</p>
+</div>
+</div>
+<!-- CTA -->
+<div class="px-nav-item-x mb-4">
+<button class="w-full bg-primary-container hover:bg-primary-container/90 text-white font-medium py-2 px-3 rounded-[8px] flex items-center justify-center space-x-2 transition-colors duration-200 text-[13px]">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Novo Atendimento</span>
+</button>
+</div>
+<!-- Main Nav -->
+<nav class="flex-1 px-nav-item-x space-y-1">
+<a class="flex items-center space-x-3 px-3 py-2 rounded-[6px] text-text-muted hover:text-white hover:bg-[#1C2030] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+<span class="font-body-main text-[13px]">Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-[6px] text-text-muted hover:text-white hover:bg-[#1C2030] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span class="font-body-main text-[13px]">Contatos</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-[6px] text-text-muted hover:text-white hover:bg-[#1C2030] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+<span class="font-body-main text-[13px]">Vendas</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-[6px] text-text-muted hover:text-white hover:bg-[#1C2030] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">support_agent</span>
+<span class="font-body-main text-[13px]">Atendimento</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-[6px] bg-[#1C2030] text-white font-medium opacity-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+<span class="font-body-main text-[13px]">WhatsApp</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-[6px] text-text-muted hover:text-white hover:bg-[#1C2030] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">analytics</span>
+<span class="font-body-main text-[13px]">Relatórios</span>
+</a>
+</nav>
+<!-- Footer Nav -->
+<nav class="px-nav-item-x mt-auto mb-2 space-y-1">
+<a class="flex items-center space-x-3 px-3 py-2 rounded-[6px] bg-[#1C2030] text-white font-medium transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span class="font-body-main text-[13px]">Configurações</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-[6px] text-text-muted hover:text-white hover:bg-[#1C2030] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+<span class="font-body-main text-[13px]">Ajuda</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<div class="ml-[200px] min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 z-40 flex justify-between items-center px-page-padding h-[52px] w-[calc(100%-200px)] bg-surface-container-lowest dark:bg-surface-container-lowest border-b-[0.5px] border-border-subtle">
+<!-- Left: Brand / Title -->
+<div class="flex items-center space-x-6">
+<div class="font-title-card text-title-card font-semibold text-text-dark flex items-center space-x-2">
+<span class="material-symbols-outlined text-[#25D366] text-[20px]">chat</span>
+<span>WhatsApp Business · Configurações</span>
+</div>
+<!-- Nav Links -->
+<nav class="hidden md:flex items-center space-x-4">
+<a class="text-secondary hover:text-primary font-body-secondary text-body-secondary py-4 hover:bg-surface-container-low transition-colors px-2 rounded-md" href="#">Visão Geral</a>
+<a class="text-secondary hover:text-primary font-body-secondary text-body-secondary py-4 hover:bg-surface-container-low transition-colors px-2 rounded-md" href="#">Canais</a>
+<a class="text-secondary hover:text-primary font-body-secondary text-body-secondary py-4 hover:bg-surface-container-low transition-colors px-2 rounded-md" href="#">Automação</a>
+<a class="text-secondary hover:text-primary font-body-secondary text-body-secondary py-4 hover:bg-surface-container-low transition-colors px-2 rounded-md" href="#">Templates</a>
+</nav>
+</div>
+<!-- Right: Actions -->
+<div class="flex items-center space-x-4">
+<button class="bg-primary-container hover:bg-primary-container/90 text-white font-body-main text-[13px] font-medium py-1.5 px-4 rounded-[8px] transition-colors h-[32px] flex items-center">
+                    Conectar Número
+                </button>
+<div class="flex items-center space-x-2 text-text-slate">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 mt-[52px] p-page-padding overflow-y-auto">
+<div class="max-w-[900px] mx-auto space-y-section-gap pb-10">
+<!-- SECTION 1: Número conectado -->
+<section>
+<h2 class="font-title-card text-title-card font-medium text-text-dark mb-3 px-1">Conexão Ativa</h2>
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-[12px] p-card-padding flex items-start justify-between">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-[#25D366]/10 flex items-center justify-center shrink-0 border border-[#25D366]/20">
+<span class="material-symbols-outlined text-[#25D366] text-[28px]">chat</span>
+</div>
+<div>
+<h3 class="font-body-main text-[15px] font-semibold text-text-dark">+55 11 3000-0000</h3>
+<p class="font-body-secondary text-body-secondary text-text-slate mt-0.5">NúcleoCRM Comercial</p>
+<div class="flex items-center space-x-2 mt-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container-low text-secondary font-tag text-tag border-[0.5px] border-border-subtle">
+<span class="material-symbols-outlined text-[12px] mr-1">verified</span>
+                                        Verificado · Meta Business
+                                    </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-[#ECFDF5] text-[#059669] font-tag text-tag border-[0.5px] border-[#059669]/20">
+<span class="material-symbols-outlined text-[12px] mr-1">thumb_up</span>
+                                        Alta qualidade
+                                    </span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end space-y-3">
+<button class="bg-white border-[0.5px] border-border-subtle hover:bg-surface-container-low text-secondary font-body-main text-[13px] font-medium py-1.5 px-4 rounded-[8px] transition-colors h-[32px] flex items-center">
+                                Desconectar
+                            </button>
+<a class="text-primary-container hover:underline font-caption text-caption flex items-center" href="#">
+                                Ver no Meta Business Manager <span class="material-symbols-outlined text-[14px] ml-0.5">open_in_new</span>
+</a>
+</div>
+</div>
+</section>
+<div class="h-[0.5px] bg-border-subtle w-full my-6"></div>
+<!-- SECTION 2: Filas de atendimento -->
+<section>
+<div class="flex items-center justify-between mb-3 px-1">
+<h2 class="font-title-card text-title-card font-medium text-text-dark">Filas de atendimento</h2>
+<button class="text-primary-container hover:text-primary-container/80 font-body-main text-[13px] font-medium flex items-center transition-colors">
+<span class="material-symbols-outlined text-[18px] mr-1">add</span>
+                            Nova fila
+                        </button>
+</div>
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-[12px] overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b-[0.5px] border-border-subtle bg-surface-container-lowest">
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted uppercase">Nome</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted uppercase">Atendentes</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted uppercase">Distribuição</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted uppercase">Horário</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-text-muted uppercase text-right">Ativo</th>
+</tr>
+</thead>
+<tbody class="divide-y-[0.5px] divide-border-subtle">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-3 px-4 font-body-main text-[13px] font-medium text-text-dark">Comercial</td>
+<td class="py-3 px-4">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-blue-100 border-2 border-white flex items-center justify-center text-blue-700 font-bold text-[10px]">A</div>
+<div class="w-6 h-6 rounded-full bg-green-100 border-2 border-white flex items-center justify-center text-green-700 font-bold text-[10px]">B</div>
+<div class="w-6 h-6 rounded-full bg-purple-100 border-2 border-white flex items-center justify-center text-purple-700 font-bold text-[10px]">C</div>
+<div class="w-6 h-6 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-gray-600 font-medium text-[10px]">+2</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container-low text-secondary font-tag text-tag border-[0.5px] border-border-subtle">
+                                            Round-robin
+                                        </span>
+</td>
+<td class="py-3 px-4 font-body-secondary text-body-secondary text-text-slate">08:00 - 18:00</td>
+<td class="py-3 px-4 text-right">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-3 px-4 font-body-main text-[13px] font-medium text-text-dark">Suporte</td>
+<td class="py-3 px-4">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-orange-100 border-2 border-white flex items-center justify-center text-orange-700 font-bold text-[10px]">T</div>
+<div class="w-6 h-6 rounded-full bg-teal-100 border-2 border-white flex items-center justify-center text-teal-700 font-bold text-[10px]">M</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container-low text-secondary font-tag text-tag border-[0.5px] border-border-subtle">
+                                            Manual
+                                        </span>
+</td>
+<td class="py-3 px-4 font-body-secondary text-body-secondary text-text-slate">24/7</td>
+<td class="py-3 px-4 text-right">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-3 px-4 font-body-main text-[13px] font-medium text-text-dark">Financeiro</td>
+<td class="py-3 px-4">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-rose-100 border-2 border-white flex items-center justify-center text-rose-700 font-bold text-[10px]">F</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container-low text-secondary font-tag text-tag border-[0.5px] border-border-subtle">
+                                            Manual
+                                        </span>
+</td>
+<td class="py-3 px-4 font-body-secondary text-body-secondary text-text-slate">09:00 - 17:00</td>
+<td class="py-3 px-4 text-right">
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<div class="h-[0.5px] bg-border-subtle w-full my-6"></div>
+<!-- SECTION 3: Templates aprovados -->
+<section>
+<div class="flex items-center justify-between mb-3 px-1">
+<h2 class="font-title-card text-title-card font-medium text-text-dark">Templates aprovados</h2>
+<button class="text-primary-container hover:text-primary-container/80 font-body-main text-[13px] font-medium flex items-center transition-colors">
+<span class="material-symbols-outlined text-[18px] mr-1">add</span>
+                            Solicitar template
+                        </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-container-gap">
+<!-- Template 1 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-[8px] p-3 hover:border-primary-container transition-colors cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-body-main text-[13px] font-medium text-text-dark truncate mr-2">boas_vindas_lead</h4>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-success-tint text-[#1D4ED8] font-tag text-tag border-[0.5px] border-blue-200 shrink-0">
+                                    Utilidade
+                                </span>
+</div>
+<div class="flex items-center justify-between mt-3">
+<span class="font-caption text-caption text-text-slate">PT-BR</span>
+<span class="flex items-center font-caption text-caption text-[#059669]">
+<div class="w-1.5 h-1.5 rounded-full bg-[#059669] mr-1.5"></div>
+                                    Aprovado
+                                </span>
+</div>
+</div>
+<!-- Template 2 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-[8px] p-3 hover:border-primary-container transition-colors cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-body-main text-[13px] font-medium text-text-dark truncate mr-2">promocao_black_friday</h4>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 font-tag text-tag border-[0.5px] border-purple-200 shrink-0">
+                                    Marketing
+                                </span>
+</div>
+<div class="flex items-center justify-between mt-3">
+<span class="font-caption text-caption text-text-slate">PT-BR</span>
+<span class="flex items-center font-caption text-caption text-[#059669]">
+<div class="w-1.5 h-1.5 rounded-full bg-[#059669] mr-1.5"></div>
+                                    Aprovado
+                                </span>
+</div>
+</div>
+<!-- Template 3 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-[8px] p-3 hover:border-primary-container transition-colors cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-body-main text-[13px] font-medium text-text-dark truncate mr-2">lembrete_reuniao</h4>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-success-tint text-[#1D4ED8] font-tag text-tag border-[0.5px] border-blue-200 shrink-0">
+                                    Utilidade
+                                </span>
+</div>
+<div class="flex items-center justify-between mt-3">
+<span class="font-caption text-caption text-text-slate">PT-BR</span>
+<span class="flex items-center font-caption text-caption text-[#D97706]">
+<div class="w-1.5 h-1.5 rounded-full bg-[#D97706] mr-1.5"></div>
+                                    Em análise
+                                </span>
+</div>
+</div>
+<!-- Template 4 -->
+<div class="bg-card-background border-[0.5px] border-border-subtle rounded-[8px] p-3 hover:border-primary-container transition-colors cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-body-main text-[13px] font-medium text-text-dark truncate mr-2">pesquisa_nps_pos_venda</h4>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 font-tag text-tag border-[0.5px] border-purple-200 shrink-0">
+                                    Marketing
+                                </span>
+</div>
+<div class="flex items-center justify-between mt-3">
+<span class="font-caption text-caption text-text-slate">PT-BR</span>
+<span class="flex items-center font-caption text-caption text-[#059669]">
+<div class="w-1.5 h-1.5 rounded-full bg-[#059669] mr-1.5"></div>
+                                    Aprovado
+                                </span>
+</div>
+</div>
+</div>
+</section>
+<div class="h-[0.5px] bg-border-subtle w-full my-6"></div>
+<!-- SECTION 4 & 5: Bottom Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-section-gap">
+<!-- Janela de 24h -->
+<section class="bg-success-tint border-[0.5px] border-blue-200 rounded-[12px] p-card-padding">
+<div class="flex items-start space-x-3">
+<span class="material-symbols-outlined text-primary-container mt-0.5">info</span>
+<div>
+<h3 class="font-body-main text-[14px] font-semibold text-text-dark mb-1">Janela de 24 horas</h3>
+<p class="font-body-secondary text-body-secondary text-text-slate mb-4">
+                                    O WhatsApp exige que empresas respondam a mensagens de usuários dentro de 24 horas. Fora dessa janela, apenas templates aprovados podem ser enviados.
+                                </p>
+<div class="flex items-center justify-between bg-white/60 p-3 rounded-[8px] border-[0.5px] border-white/40">
+<span class="font-body-main text-[13px] text-text-dark">Aviso automático (restam 2h)</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- Limites do plano -->
+<section class="bg-card-background border-[0.5px] border-border-subtle rounded-[12px] p-card-padding">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-body-main text-[14px] font-semibold text-text-dark">Limites do Plano</h3>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-surface-container-low text-text-dark font-tag text-tag border-[0.5px] border-border-subtle font-medium">
+                                Plano Pro
+                            </span>
+</div>
+<div>
+<div class="flex justify-between font-body-secondary text-body-secondary text-text-slate mb-2">
+<span>Conversas iniciadas (Mês atual)</span>
+<span class="font-medium text-text-dark">320 / 500</span>
+</div>
+<!-- Progress Bar Container -->
+<div class="w-full bg-surface-container-low rounded-full h-2.5 mb-2 overflow-hidden">
+<div class="bg-primary-container h-2.5 rounded-full" style="width: 64%"></div>
+</div>
+<p class="font-caption text-caption text-text-muted mt-2">
+                                Renova em 15 de Outubro. <a class="text-primary-container hover:underline" href="#">Fazer upgrade</a>
+</p>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+</body></html>

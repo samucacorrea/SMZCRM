@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gerenciador de Campos Personalizados - NúcleoCRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#783200",
+                        "primary-fixed": "#dbe1ff",
+                        "background": "#f7f9fc",
+                        "secondary-fixed-dim": "#c5c6ce",
+                        "tertiary-container": "#b54e00",
+                        "tertiary-fixed": "#ffdbca",
+                        "surface-bright": "#f7f9fc",
+                        "on-surface-variant": "#434655",
+                        "surface-container-high": "#e6e8eb",
+                        "surface-tint": "#0053db",
+                        "secondary": "#5d5e65",
+                        "on-primary-fixed": "#00174b",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "secondary-container": "#e2e2eb",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#45464e",
+                        "on-secondary-container": "#63646c",
+                        "warning-tint": "#FFF7ED",
+                        "secondary-fixed": "#e2e2eb",
+                        "on-surface": "#191c1e",
+                        "sidebar-surface": "#0F1117", /* Mapeado para o requisito do usuário */
+                        "on-primary-container": "#eeefff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#8e3c00",
+                        "primary-container": "#2563eb",
+                        "inverse-primary": "#b4c5ff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#341100",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-secondary-fixed": "#191b22",
+                        "outline-variant": "#E5E7EB", /* Ajustado para a borda 0.5px */
+                        "surface": "#f7f9fc",
+                        "surface-container-highest": "#e0e3e6",
+                        "text-slate": "#4B5563",
+                        "primary": "#2563EB", /* Azul primário solicitado */
+                        "surface-container-lowest": "#ffffff",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "card-background": "#FFFFFF",
+                        "inverse-on-surface": "#eff1f4",
+                        "surface-variant": "#e0e3e6",
+                        "surface-container": "#eceef1",
+                        "outline": "#737686",
+                        "on-primary": "#ffffff",
+                        "text-dark": "#111827",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "on-tertiary-container": "#ffece5",
+                        "border-subtle": "#E5E7EB",
+                        "success-tint": "#EFF6FF",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "text-muted": "#9CA3AF",
+                        "surface-dim": "#d8dadd",
+                        "surface-container-low": "#F9FAFB" /* Ajustado para a sub-sidebar */
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "round-eight": "8px"
+                    },
+                    "spacing": {
+                        "section-gap": "14px",
+                        "container-gap": "10px",
+                        "topbar-height": "52px",
+                        "sidebar-width": "200px",
+                        "subsidebar-width": "200px",
+                        "card-padding": "16px",
+                        "nav-item-x": "12px",
+                        "page-padding": "18px",
+                        "nav-item-y": "7px"
+                    },
+                    "fontFamily": {
+                        "tag": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "title-card": ["Inter"],
+                        "caption": ["Inter"],
+                        "headline-page": ["Inter"],
+                        "display-kpi": ["Inter"],
+                        "body-secondary": ["Inter"],
+                        "body-main": ["Inter"]
+                    },
+                    "fontSize": {
+                        "tag": ["10.5px", {"lineHeight": "12px", "fontWeight": "500"}],
+                        "label-caps": ["9.5px", {"lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "title-card": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                        "caption": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "headline-page": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "display-kpi": ["22px", {"lineHeight": "1.1", "letterSpacing": "-0.5px", "fontWeight": "500"}],
+                        "body-secondary": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "body-main": ["13px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #2563EB;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #2563EB;
+        }
+        .toggle-checkbox {
+            right: 0;
+            z-index: 1;
+            border-color: #e5e7eb;
+            transition: all 0.3s;
+        }
+        .toggle-label {
+            width: 36px;
+            height: 20px;
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            transition: all 0.3s;
+        }
+        .toggle-dot {
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        .toggle-checkbox:checked ~ .toggle-dot {
+            transform: translateX(16px);
+        }
+
+        /* Drag Handle Hover */
+        .drag-handle:hover {
+            color: #4B5563;
+            cursor: grab;
+        }
+        .drag-handle:active {
+            cursor: grabbing;
+        }
+        
+        /* Hairline borders */
+        .hairline-b { border-bottom: 0.5px solid #E5E7EB; }
+        .hairline-r { border-right: 0.5px solid #E5E7EB; }
+        .hairline-l { border-left: 0.5px solid #E5E7EB; }
+        .hairline-t { border-top: 0.5px solid #E5E7EB; }
+        .hairline-all { border: 0.5px solid #E5E7EB; }
+        
+        .sidebar-hairline-r { border-right: 0.5px solid #1a1f2e; }
+    </style>
+</head>
+<body class="bg-background text-text-dark font-body-main text-body-main antialiased flex h-screen overflow-hidden">
+<!-- 1. SideNavBar (Shared Component JSON) -->
+<nav class="fixed h-full w-[200px] left-0 top-0 bg-sidebar-surface sidebar-hairline-r flex flex-col h-full p-section-gap z-20">
+<!-- Logo / Header -->
+<div class="mb-8 flex items-center gap-3 px-nav-item-x">
+<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold">
+<span class="material-symbols-outlined text-[18px]">atm</span>
+</div>
+<div>
+<h1 class="font-headline-page text-headline-page font-bold text-on-primary text-[15px] leading-tight">ProCRM Admin</h1>
+<p class="font-caption text-caption text-text-muted">Enterprise Plan</p>
+</div>
+</div>
+<!-- Main Navigation Tabs -->
+<div class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:scale-95 duration-150">dashboard</span>
+<span class="font-body-main text-body-main">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:scale-95 duration-150">person_search</span>
+<span class="font-body-main text-body-main">Leads</span>
+</a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:scale-95 duration-150">handshake</span>
+<span class="font-body-main text-body-main">Deals</span>
+</a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:scale-95 duration-150">group</span>
+<span class="font-body-main text-body-main">Customers</span>
+</a>
+<!-- ACTIVE NAV ITEM (Semantic Match for "Campos Personalizados") -->
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y bg-primary-container text-on-primary-container rounded-lg font-medium group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:scale-95 duration-150 filled">account_tree</span>
+<span class="font-body-main text-body-main font-medium">Custom Fields</span>
+</a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:scale-95 duration-150">settings</span>
+<span class="font-body-main text-body-main">Settings</span>
+</a>
+</div>
+<!-- CTA & Footer Tabs -->
+<div class="mt-auto flex flex-col gap-4">
+<button class="w-full bg-primary hover:bg-primary-fixed-variant text-on-primary py-2 rounded-lg font-body-main text-body-main font-medium transition-colors">
+                Upgrade Plan
+            </button>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:scale-95 duration-150">help</span>
+<span class="font-body-main text-body-main">Support</span>
+</a>
+<a class="flex items-center gap-3 px-nav-item-x py-nav-item-y text-on-surface-variant hover:text-on-primary hover:bg-surface-container-high transition-colors duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:scale-95 duration-150">logout</span>
+<span class="font-body-main text-body-main">Logout</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- 2. TopNavBar (Shared Component JSON) -->
+<header class="fixed top-0 right-0 w-[calc(100%-200px)] h-topbar-height bg-surface-container-lowest hairline-b flex items-center justify-between px-page-padding w-full z-10">
+<!-- Title & Navigation Links -->
+<div class="flex items-center gap-8">
+<h2 class="font-headline-page text-headline-page font-semibold text-text-dark">Campos personalizados</h2>
+<nav class="hidden md:flex items-center gap-6 h-full mt-[18px]">
+<a class="text-primary border-b-2 border-primary font-medium pb-3 px-1 transition-all" href="#">Entities</a>
+<a class="text-on-surface-variant hover:text-primary pb-3 px-1 transition-all" href="#">Global Rules</a>
+<a class="text-on-surface-variant hover:text-primary pb-3 px-1 transition-all" href="#">History</a>
+</nav>
+</div>
+<!-- Trailing Actions & Search -->
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-text-muted text-[16px]">search</span>
+<input class="bg-surface-container-low border-0 rounded-round-eight py-1.5 pl-8 pr-3 text-[11px] font-caption w-48 focus:ring-1 focus:ring-primary focus:bg-surface-container-lowest transition-colors" placeholder="Search fields..." type="text"/>
+</div>
+<div class="flex items-center gap-2 border-r border-border-subtle pr-4 mr-1">
+<button class="text-on-surface-variant hover:text-primary transition-all opacity-80 hover:opacity-100 p-1 rounded-md hover:bg-surface-container-low">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-all opacity-80 hover:opacity-100 p-1 rounded-md hover:bg-surface-container-low">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<button class="bg-primary text-on-primary px-3 py-1.5 rounded-round-eight font-body-main text-[13px] font-medium hover:bg-[#1D4ED8] transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                Create Field
+            </button>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-border-subtle ml-2">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Professional headshot portrait of a male corporate user in a modern office environment. Light, bright aesthetic consistent with high-end CRM interfaces. Natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDImlRN6ut8BMw8EmYHrSC_CIkLg3aL2XF4DTyKiDiZ2KYQNA6KVZ25MXkps7_2t4KIttzWSId2fOnMBoYbVODPvjxZf98lBD57epxNj9a0TNHTHKa8Fr-W-rRssWbKTUp6JQVFx4OFFkYedpYWzb4AofVUsfYHRMahAiIeTBxLGp1UVHusv1frBf1UFLOJSxdMJ53csOj9grlPhoMDd70_QTn1IQEsvXJZhhN6dn1yV4L0VwOe46mlBXyS-84hWJu10GsKF25YmFs"/>
+</div>
+</div>
+</header>
+<!-- Main Workspace Container -->
+<div class="flex-1 ml-[200px] mt-[52px] flex h-[calc(100vh-52px)]">
+<!-- Sub-sidebar de Entidades -->
+<aside class="w-[200px] bg-surface-container-low hairline-r flex flex-col py-4 overflow-y-auto hidden md:flex shrink-0">
+<div class="px-4 mb-3">
+<h3 class="font-label-caps text-label-caps text-text-muted uppercase tracking-wider">Entidades</h3>
+</div>
+<nav class="flex flex-col gap-0.5 px-2">
+<!-- Active Entity -->
+<button class="flex items-center justify-between w-full px-3 py-2 bg-success-tint text-primary rounded-md group text-left">
+<span class="font-body-main text-body-main font-medium">Leads</span>
+<span class="font-caption text-[10px] bg-primary/10 px-1.5 py-0.5 rounded-full text-primary font-medium">24</span>
+</button>
+<!-- Inactive Entities -->
+<button class="flex items-center justify-between w-full px-3 py-2 text-text-slate hover:bg-surface-variant rounded-md group text-left transition-colors">
+<span class="font-body-main text-body-main">Clientes</span>
+<span class="font-caption text-[10px] bg-border-subtle px-1.5 py-0.5 rounded-full text-text-muted font-medium">8</span>
+</button>
+<button class="flex items-center justify-between w-full px-3 py-2 text-text-slate hover:bg-surface-variant rounded-md group text-left transition-colors">
+<span class="font-body-main text-body-main">Contatos</span>
+<span class="font-caption text-[10px] bg-border-subtle px-1.5 py-0.5 rounded-full text-text-muted font-medium">5</span>
+</button>
+<button class="flex items-center justify-between w-full px-3 py-2 text-text-slate hover:bg-surface-variant rounded-md group text-left transition-colors">
+<span class="font-body-main text-body-main">Faturas</span>
+<span class="font-caption text-[10px] bg-border-subtle px-1.5 py-0.5 rounded-full text-text-muted font-medium">12</span>
+</button>
+<button class="flex items-center justify-between w-full px-3 py-2 text-text-slate hover:bg-surface-variant rounded-md group text-left transition-colors">
+<span class="font-body-main text-body-main">Projetos</span>
+<span class="font-caption text-[10px] bg-border-subtle px-1.5 py-0.5 rounded-full text-text-muted font-medium">6</span>
+</button>
+<button class="flex items-center justify-between w-full px-3 py-2 text-text-slate hover:bg-surface-variant rounded-md group text-left transition-colors">
+<span class="font-body-main text-body-main">Tarefas</span>
+<span class="font-caption text-[10px] bg-border-subtle px-1.5 py-0.5 rounded-full text-text-muted font-medium">15</span>
+</button>
+<button class="flex items-center justify-between w-full px-3 py-2 text-text-slate hover:bg-surface-variant rounded-md group text-left transition-colors">
+<span class="font-body-main text-body-main">Tickets</span>
+<span class="font-caption text-[10px] bg-border-subtle px-1.5 py-0.5 rounded-full text-text-muted font-medium">4</span>
+</button>
+<button class="flex items-center justify-between w-full px-3 py-2 text-text-slate hover:bg-surface-variant rounded-md group text-left transition-colors">
+<span class="font-body-main text-body-main">Contratos</span>
+<span class="font-caption text-[10px] bg-border-subtle px-1.5 py-0.5 rounded-full text-text-muted font-medium">3</span>
+</button>
+<button class="flex items-center justify-between w-full px-3 py-2 text-text-slate hover:bg-surface-variant rounded-md group text-left transition-colors">
+<span class="font-body-main text-body-main">Despesas</span>
+<span class="font-caption text-[10px] bg-border-subtle px-1.5 py-0.5 rounded-full text-text-muted font-medium">7</span>
+</button>
+</nav>
+</aside>
+<!-- Área Principal de Conteúdo -->
+<main class="flex-1 p-page-padding overflow-y-auto bg-background">
+<!-- Info Card Suave -->
+<div class="bg-[#EFF6FF] hairline-all border-[#BFDBFE] rounded-lg p-3 mb-4 flex items-start gap-3">
+<span class="material-symbols-outlined text-[#3B82F6] text-[20px] mt-0.5">info</span>
+<p class="font-body-main text-body-main text-[#1E3A8A] leading-relaxed">
+                    Campos criados aqui aparecem nos formulários, listas, filtros e exportações de Leads. Campos marcados como visíveis no portal são exibidos ao cliente.
+                </p>
+</div>
+<!-- Tabela de Campos Card -->
+<div class="bg-card-background rounded-lg hairline-all flex flex-col">
+<!-- Header da Tabela (Falso thead para layout) -->
+<div class="grid grid-cols-[40px_minmax(150px,1.5fr)_120px_100px_120px_120px_80px] gap-2 items-center px-4 py-3 bg-surface-container-low hairline-b rounded-t-lg">
+<div class="font-label-caps text-label-caps text-text-muted uppercase">Drag</div>
+<div class="font-label-caps text-label-caps text-text-muted uppercase">Nome do campo</div>
+<div class="font-label-caps text-label-caps text-text-muted uppercase">Tipo</div>
+<div class="font-label-caps text-label-caps text-text-muted uppercase text-center">Obrigatório</div>
+<div class="font-label-caps text-label-caps text-text-muted uppercase text-center">Visível no portal</div>
+<div class="font-label-caps text-label-caps text-text-muted uppercase text-center">Pesquisável</div>
+<div class="font-label-caps text-label-caps text-text-muted uppercase text-right">Ações</div>
+</div>
+<!-- Lista de Campos -->
+<div class="flex flex-col">
+<!-- Linha 1 -->
+<div class="grid grid-cols-[40px_minmax(150px,1.5fr)_120px_100px_120px_120px_80px] gap-2 items-center px-4 py-3 hairline-b hover:bg-surface transition-colors group">
+<div class="text-border-subtle drag-handle">
+<span class="material-symbols-outlined text-[18px]">drag_indicator</span>
+</div>
+<div class="font-body-main text-body-main font-medium text-text-dark">
+                            Idade
+                        </div>
+<div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-tag text-tag bg-surface-container-highest text-secondary border border-border-subtle">
+<span class="material-symbols-outlined text-[12px]">numbers</span>
+                                Número
+                            </span>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1 text-text-muted hover:text-primary rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-1 text-text-muted hover:text-error rounded hover:bg-error-container transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+<!-- Linha 2 -->
+<div class="grid grid-cols-[40px_minmax(150px,1.5fr)_120px_100px_120px_120px_80px] gap-2 items-center px-4 py-3 hairline-b hover:bg-surface transition-colors group">
+<div class="text-border-subtle drag-handle">
+<span class="material-symbols-outlined text-[18px]">drag_indicator</span>
+</div>
+<div class="font-body-main text-body-main font-medium text-text-dark">
+                            Segmento
+                        </div>
+<div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-tag text-tag bg-surface-container-highest text-secondary border border-border-subtle">
+<span class="material-symbols-outlined text-[12px]">arrow_drop_down_circle</span>
+                                Select
+                            </span>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1 text-text-muted hover:text-primary rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-1 text-text-muted hover:text-error rounded hover:bg-error-container transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+<!-- Linha 3 -->
+<div class="grid grid-cols-[40px_minmax(150px,1.5fr)_120px_100px_120px_120px_80px] gap-2 items-center px-4 py-3 hairline-b hover:bg-surface transition-colors group">
+<div class="text-border-subtle drag-handle">
+<span class="material-symbols-outlined text-[18px]">drag_indicator</span>
+</div>
+<div class="font-body-main text-body-main font-medium text-text-dark">
+                            Origem indicação
+                        </div>
+<div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-tag text-tag bg-surface-container-highest text-secondary border border-border-subtle">
+<span class="material-symbols-outlined text-[12px]">text_fields</span>
+                                Texto
+                            </span>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1 text-text-muted hover:text-primary rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-1 text-text-muted hover:text-error rounded hover:bg-error-container transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+<!-- Linha 4 -->
+<div class="grid grid-cols-[40px_minmax(150px,1.5fr)_120px_100px_120px_120px_80px] gap-2 items-center px-4 py-3 hover:bg-surface transition-colors group">
+<div class="text-border-subtle drag-handle">
+<span class="material-symbols-outlined text-[18px]">drag_indicator</span>
+</div>
+<div class="font-body-main text-body-main font-medium text-text-dark">
+                            Aceite LGPD
+                        </div>
+<div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded font-tag text-tag bg-surface-container-highest text-secondary border border-border-subtle">
+<span class="material-symbols-outlined text-[12px]">check_box</span>
+                                Checkbox
+                            </span>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1 text-text-muted hover:text-primary rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="p-1 text-text-muted hover:text-error rounded hover:bg-error-container transition-colors"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+<!-- Inline Add New Row form -->
+<div class="grid grid-cols-[40px_minmax(150px,1.5fr)_120px_100px_120px_120px_80px] gap-2 items-center px-4 py-2 bg-[#F8FAFC] hairline-t rounded-b-lg border-l-2 border-l-primary hidden" id="inline-add-row">
+<div class="text-border-subtle opacity-50 cursor-not-allowed">
+<span class="material-symbols-outlined text-[18px]">drag_indicator</span>
+</div>
+<div>
+<input class="w-full text-[12px] font-body-main py-1 px-2 border-border-subtle rounded focus:border-primary focus:ring-1 focus:ring-primary h-[28px] bg-white" placeholder="Nome do campo..." type="text"/>
+</div>
+<div>
+<select class="w-full text-[12px] font-body-main py-1 px-2 border-border-subtle rounded focus:border-primary focus:ring-1 focus:ring-primary h-[28px] bg-white">
+<option>Texto</option>
+<option>Número</option>
+<option>Data</option>
+<option>Select</option>
+<option>Checkbox</option>
+<option>Moeda</option>
+</select>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative scale-90">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative scale-90">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-center">
+<label class="relative flex items-center cursor-pointer">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label relative scale-90">
+<div class="toggle-dot absolute"></div>
+</div>
+</label>
+</div>
+<div class="flex justify-end gap-1">
+<button class="bg-primary text-white p-1 rounded hover:bg-[#1D4ED8] transition-colors h-[28px] w-[28px] flex items-center justify-center" onclick="document.getElementById('inline-add-row').classList.add('hidden'); document.getElementById('add-btn-container').classList.remove('hidden');">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</button>
+<button class="bg-surface-container-high text-secondary p-1 rounded hover:bg-surface-variant transition-colors h-[28px] w-[28px] flex items-center justify-center" onclick="document.getElementById('inline-add-row').classList.add('hidden'); document.getElementById('add-btn-container').classList.remove('hidden');">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Botão Adicionar -->
+<div class="mt-3" id="add-btn-container">
+<button class="flex items-center gap-2 text-primary font-body-main text-body-main font-medium hover:text-[#1D4ED8] transition-colors bg-white px-3 py-2 rounded border border-dashed border-border-subtle hover:border-primary hover:bg-success-tint w-full justify-center" onclick="document.getElementById('inline-add-row').classList.remove('hidden'); this.parentElement.classList.add('hidden');">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    Adicionar campo
+                </button>
+</div>
+</main>
+</div>
+</body></html>

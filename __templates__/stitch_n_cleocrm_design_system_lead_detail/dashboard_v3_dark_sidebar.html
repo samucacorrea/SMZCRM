@@ -1,0 +1,232 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.w{font-family:var(--font-sans);font-size:13px;display:flex;border-radius:14px;overflow:hidden;min-height:610px;border:0.5px solid #1a1f2e;background:#F0F2F5}
+.sb{width:200px;background:#0F1117;flex-shrink:0;display:flex;flex-direction:column;padding:16px 0}
+.logo{display:flex;align-items:center;gap:9px;padding:0 16px 18px}
+.logo-mark{width:26px;height:26px;border-radius:8px;background:#2563EB;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:500}
+.logo-name{font-size:13px;font-weight:500;color:#fff}
+.srch{margin:0 10px 16px;background:#1C2030;border-radius:8px;padding:7px 10px;display:flex;align-items:center;gap:7px;color:#6B7280;font-size:11px}
+.sec{font-size:9.5px;font-weight:500;color:#3D4455;text-transform:uppercase;letter-spacing:.08em;padding:10px 16px 5px}
+.ni{display:flex;align-items:center;gap:9px;padding:7px 12px;border-radius:8px;margin:1px 8px;color:#9CA3AF;font-size:12px;cursor:pointer;transition:background .15s}
+.ni i{font-size:15px}
+.ni.on{background:#1C2030;color:#fff}
+.ni.on i{color:#2563EB}
+.ni-dot{width:5px;height:5px;border-radius:50%;background:#F97316;margin-left:auto}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.top{height:52px;background:#fff;border-bottom:0.5px solid #E5E7EB;display:flex;align-items:center;padding:0 20px;gap:10px;flex-shrink:0}
+.greeting{font-size:14px;font-weight:500;color:#111827}
+.date-pill{font-size:11px;color:#6B7280;background:#F3F4F6;border-radius:20px;padding:3px 10px;margin-left:4px}
+.btn-p{background:#2563EB;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:500;display:flex;align-items:center;gap:5px;cursor:pointer}
+.av{width:28px;height:28px;border-radius:50%;background:#DBEAFE;color:#1D4ED8;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500}
+.body{padding:18px;display:flex;flex-direction:column;gap:14px}
+.krow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.k{background:#fff;border-radius:12px;border:0.5px solid #E5E7EB;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.k.accent-blue{border-left:3px solid #2563EB;border-radius:0 12px 12px 0}
+.k.accent-orange{border-left:3px solid #F97316;border-radius:0 12px 12px 0}
+.k-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;margin-bottom:8px}
+.k-lbl{font-size:11px;color:#6B7280}
+.k-val{font-size:22px;font-weight:500;color:#111827;letter-spacing:-.5px;line-height:1.1}
+.k-tag{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;padding:2px 8px;border-radius:20px;margin-top:5px;font-weight:500}
+.tup{background:#EFF6FF;color:#1D4ED8}
+.torn{background:#FFF7ED;color:#C2410C}
+.twarn{background:#FFFBEB;color:#B45309}
+.mid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:10px}
+.card{background:#fff;border-radius:12px;border:0.5px solid #E5E7EB;padding:16px}
+.ct{font-size:13px;font-weight:500;color:#111827;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.ct span{font-size:11px;font-weight:400;color:#9CA3AF}
+.bot{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.aitem{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #F3F4F6}
+.aitem:last-child{border-bottom:none;padding-bottom:0}
+.aico{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.witem{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:0.5px solid #F3F4F6}
+.witem:last-child{border-bottom:none}
+.wav{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0}
+.fbar{height:7px;border-radius:4px;background:#F3F4F6;overflow:hidden;margin-top:3px}
+.pbar{height:5px;border-radius:3px;background:#EFF6FF;overflow:hidden;margin-top:4px}
+</style>
+<h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Dashboard NúcleoCRM com sidebar escura, KPIs, gráfico de receita e funil</h2>
+
+<div class="w">
+  <div class="sb">
+    <div class="logo">
+      <div class="logo-mark">N</div>
+      <span class="logo-name">NúcleoCRM</span>
+    </div>
+    <div class="srch"><i class="ti ti-search" aria-hidden="true"></i><span style="color:#4B5563">Buscar</span><span style="margin-left:auto;font-size:10px;border:0.5px solid #2D3344;border-radius:4px;padding:1px 4px;color:#4B5563">⌘K</span></div>
+    <div class="ni on"><i class="ti ti-layout-dashboard" aria-hidden="true"></i>Dashboard</div>
+    <div class="ni"><i class="ti ti-filter" aria-hidden="true"></i>Leads<div class="ni-dot"></div></div>
+    <div class="ni"><i class="ti ti-users" aria-hidden="true"></i>Clientes</div>
+    <div class="ni"><i class="ti ti-file-invoice" aria-hidden="true"></i>Faturas</div>
+    <div class="ni"><i class="ti ti-briefcase" aria-hidden="true"></i>Projetos</div>
+    <div class="sec">Canais</div>
+    <div class="ni"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i>WhatsApp<div class="ni-dot"></div></div>
+    <div class="ni"><i class="ti ti-headset" aria-hidden="true"></i>Suporte</div>
+    <div class="sec">Mídia</div>
+    <div class="ni"><i class="ti ti-users-group" aria-hidden="true"></i>Públicos</div>
+    <div class="ni"><i class="ti ti-antenna" aria-hidden="true"></i>Conversões</div>
+    <div class="ni"><i class="ti ti-chart-bar" aria-hidden="true"></i>Relatórios</div>
+    <div style="margin-top:auto;padding:12px 8px 0;border-top:0.5px solid #1C2030">
+      <div class="ni"><i class="ti ti-settings" aria-hidden="true"></i>Configurações</div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin-top:4px">
+        <div style="width:26px;height:26px;border-radius:50%;background:#1C2030;color:#9CA3AF;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500">RA</div>
+        <div><div style="font-size:11.5px;color:#E5E7EB;font-weight:500">Rafael A.</div><div style="font-size:10px;color:#4B5563">Admin</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="top">
+      <span class="greeting">Bom dia, Rafael</span>
+      <span class="date-pill">quinta, 12 jun 2026</span>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+        <button class="btn-p"><i class="ti ti-plus" aria-hidden="true"></i>Novo lead</button>
+        <div style="position:relative">
+          <i class="ti ti-bell" style="font-size:18px;color:#6B7280" aria-label="Notificações"></i>
+          <span style="position:absolute;top:-2px;right:-3px;width:7px;height:7px;background:#F97316;border-radius:50%;border:1.5px solid #fff"></span>
+        </div>
+        <div class="av">RA</div>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="krow">
+        <div class="k accent-blue">
+          <div class="k-icon" style="background:#EFF6FF"><i class="ti ti-trending-up" style="color:#2563EB" aria-hidden="true"></i></div>
+          <div class="k-lbl">Receita do mês</div>
+          <div class="k-val">R$ 86.400</div>
+          <div class="k-tag tup"><i class="ti ti-arrow-up" style="font-size:10px" aria-hidden="true"></i>+12% vs. maio</div>
+        </div>
+        <div class="k accent-blue">
+          <div class="k-icon" style="background:#EFF6FF"><i class="ti ti-user-plus" style="color:#2563EB" aria-hidden="true"></i></div>
+          <div class="k-lbl">Leads novos</div>
+          <div class="k-val">142</div>
+          <div class="k-tag tup">+38 esta semana</div>
+        </div>
+        <div class="k accent-orange">
+          <div class="k-icon" style="background:#FFF7ED"><i class="ti ti-target" style="color:#F97316" aria-hidden="true"></i></div>
+          <div class="k-lbl">Taxa de conversão</div>
+          <div class="k-val">18%</div>
+          <div class="k-tag torn">meta: 22%</div>
+        </div>
+        <div class="k accent-orange">
+          <div class="k-icon" style="background:#FFFBEB"><i class="ti ti-alert-triangle" style="color:#F97316" aria-hidden="true"></i></div>
+          <div class="k-lbl">Faturas vencidas</div>
+          <div class="k-val">3</div>
+          <div class="k-tag twarn">R$ 6.800 pendentes</div>
+        </div>
+      </div>
+
+      <div class="mid">
+        <div class="card">
+          <div class="ct">
+            Receita — jan a jun 2026
+            <span>atualizado agora</span>
+          </div>
+          <div style="display:flex;gap:16px;font-size:11px;color:#6B7280;margin-bottom:12px">
+            <span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:2px;background:#2563EB;display:inline-block"></span>Receita mensal</span>
+            <span style="display:flex;align-items:center;gap:5px"><span style="width:14px;height:2px;background:#FCA5A5;display:inline-block;border-top:2px dashed #F97316"></span>Meta R$ 80k</span>
+          </div>
+          <div style="position:relative;width:100%;height:160px">
+            <canvas id="rc" role="img" aria-label="Receita mensal jan-jun 2026 comparada à meta de 80 mil reais">jan 62k, fev 71k, mar 68k, abr 79k, mai 77k, jun 86k. Meta: 80k.</canvas>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ct">Funil de vendas <span>junho · 142 leads</span></div>
+          <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:14px">
+            <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="color:#6B7280">Novo</span><span style="font-weight:500;color:#111827">64</span></div><div class="fbar"><div style="width:100%;height:100%;background:#BFDBFE;border-radius:4px"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="color:#6B7280">Contactado</span><span style="font-weight:500;color:#111827">38</span></div><div class="fbar"><div style="width:59%;height:100%;background:#93C5FD;border-radius:4px"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="color:#6B7280">Qualificado</span><span style="font-weight:500;color:#111827">22</span></div><div class="fbar"><div style="width:34%;height:100%;background:#60A5FA;border-radius:4px"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="color:#6B7280">Proposta</span><span style="font-weight:500;color:#111827">12</span></div><div class="fbar"><div style="width:19%;height:100%;background:#3B82F6;border-radius:4px"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="color:#6B7280">Fechado</span><span style="font-weight:500;color:#111827">6</span></div><div class="fbar"><div style="width:9%;height:100%;background:#2563EB;border-radius:4px"></div></div></div>
+          </div>
+          <div style="border-top:0.5px solid #F3F4F6;padding-top:12px;display:flex;flex-direction:column;gap:8px">
+            <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="color:#6B7280">Faturamento</span><span style="color:#2563EB;font-weight:500">72% · R$ 86k/120k</span></div><div class="pbar"><div style="width:72%;height:100%;background:#2563EB;border-radius:3px"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="color:#6B7280">Contratos</span><span style="color:#F97316;font-weight:500">4 de 6</span></div><div class="pbar"><div style="width:67%;height:100%;background:#F97316;border-radius:3px"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bot">
+        <div class="card" style="padding:14px 16px">
+          <div class="ct" style="margin-bottom:10px">Atividades de hoje <span>4 pendentes</span></div>
+          <div class="aitem">
+            <div class="aico" style="background:#EFF6FF"><i class="ti ti-phone" style="color:#2563EB" aria-hidden="true"></i></div>
+            <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:500;color:#111827">Ligar — Mariana Costa</div><div style="font-size:11px;color:#9CA3AF">Agência Vetor</div></div>
+            <span style="font-size:11px;color:#9CA3AF;flex-shrink:0">09:30</span>
+          </div>
+          <div class="aitem">
+            <div class="aico" style="background:#EFF6FF"><i class="ti ti-video" style="color:#2563EB" aria-hidden="true"></i></div>
+            <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:500;color:#111827">Reunião — TechSul Ltda</div><div style="font-size:11px;color:#9CA3AF">Apresentação de proposta</div></div>
+            <span style="font-size:11px;color:#9CA3AF;flex-shrink:0">11:00</span>
+          </div>
+          <div class="aitem">
+            <div class="aico" style="background:#FFF7ED"><i class="ti ti-receipt" style="color:#F97316" aria-hidden="true"></i></div>
+            <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:500;color:#111827">FAT-000231 vence hoje</div><div style="font-size:11px;color:#9CA3AF">R$ 4.200 · Dra. Paula Lima</div></div>
+            <span style="font-size:11px;font-weight:500;color:#F97316;flex-shrink:0">urgente</span>
+          </div>
+          <div class="aitem">
+            <div class="aico" style="background:#EFF6FF"><i class="ti ti-file-check" style="color:#2563EB" aria-hidden="true"></i></div>
+            <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:500;color:#111827">Enviar contrato — C. Mendes</div><div style="font-size:11px;color:#9CA3AF">Revisão finalizada</div></div>
+            <span style="font-size:11px;color:#9CA3AF;flex-shrink:0">16:00</span>
+          </div>
+        </div>
+
+        <div class="card" style="padding:14px 16px">
+          <div class="ct" style="margin-bottom:10px">WhatsApp <span style="color:#2563EB;cursor:pointer;font-weight:500">Abrir inbox →</span></div>
+          <div class="witem">
+            <div class="wav" style="background:#DBEAFE;color:#1D4ED8">CM</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;font-weight:500;color:#111827">Carlos Mendes</span><span style="background:#2563EB;color:#fff;font-size:9.5px;border-radius:9px;padding:1px 6px;font-weight:500">2</span></div>
+              <div style="font-size:11px;color:#6B7280;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Consigo parcelar em 3x?</div>
+            </div>
+          </div>
+          <div class="witem">
+            <div class="wav" style="background:#F3F4F6;color:#6B7280">AS</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;justify-content:space-between"><span style="font-size:12px;font-weight:500;color:#111827">Ana Souza</span><span style="font-size:10px;color:#9CA3AF">09:15</span></div>
+              <div style="font-size:11px;color:#6B7280;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Recebi a proposta, obrigada!</div>
+            </div>
+          </div>
+          <div class="witem">
+            <div class="wav" style="background:#F3F4F6;color:#6B7280">TS</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;justify-content:space-between"><span style="font-size:12px;font-weight:500;color:#111827">TechSul Ltda</span><span style="font-size:10px;color:#9CA3AF">ontem</span></div>
+              <div style="font-size:11px;color:#6B7280;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Podemos assinar o contrato amanhã</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;background:#FFF7ED;border-radius:8px;padding:9px 11px;display:flex;align-items:center;gap:8px;border-left:3px solid #F97316;border-radius:0 8px 8px 0">
+            <i class="ti ti-clock" style="font-size:14px;color:#F97316;flex-shrink:0" aria-hidden="true"></i>
+            <span style="font-size:11px;color:#92400E">Janela 24h expira em <strong>3h12</strong> — Carlos Mendes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const el=document.getElementById('rc');
+if(el){new Chart(el,{
+  data:{
+    labels:['Jan','Fev','Mar','Abr','Mai','Jun'],
+    datasets:[
+      {type:'bar',label:'Receita',data:[62000,71000,68000,79000,77000,86400],
+        backgroundColor:['#BFDBFE','#BFDBFE','#BFDBFE','#BFDBFE','#BFDBFE','#2563EB'],
+        hoverBackgroundColor:'#2563EB',borderRadius:6,borderSkipped:false,barPercentage:.6},
+      {type:'line',label:'Meta',data:[80000,80000,80000,80000,80000,80000],
+        borderColor:'#F97316',borderWidth:1.5,borderDash:[5,4],pointRadius:0,fill:false,tension:0,order:0}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'R$ '+c.parsed.y.toLocaleString('pt-BR')}}},
+    scales:{
+      x:{grid:{display:false},border:{display:false},ticks:{font:{size:11},color:'#9CA3AF',autoSkip:false}},
+      y:{grid:{color:'#F3F4F6'},border:{display:false},ticks:{font:{size:11},color:'#9CA3AF',callback:v=>'R$'+(v/1000)+'k'}}
+    }
+  }
+});}
+</script>

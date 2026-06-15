@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Preços - CRM Flow</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-on-surface": "#eff1f4",
+                      "tertiary-fixed-dim": "#ffb690",
+                      "primary": "#004ac6",
+                      "surface-bright": "#f7f9fc",
+                      "outline-variant": "#c3c6d7",
+                      "text-slate": "#4B5563",
+                      "tertiary-container": "#b54e00",
+                      "on-tertiary": "#ffffff",
+                      "text-muted": "#9CA3AF",
+                      "on-tertiary-fixed-variant": "#783200",
+                      "on-primary-fixed": "#00174b",
+                      "tertiary-fixed": "#ffdbca",
+                      "success-tint": "#EFF6FF",
+                      "on-primary-container": "#eeefff",
+                      "secondary-fixed-dim": "#c5c6ce",
+                      "card-background": "#FFFFFF",
+                      "on-tertiary-fixed": "#341100",
+                      "on-secondary-fixed": "#191b22",
+                      "sidebar-surface": "#1C2030",
+                      "primary-container": "#2563eb",
+                      "outline": "#737686",
+                      "surface-container": "#eceef1",
+                      "on-secondary-container": "#63646c",
+                      "text-dark": "#111827",
+                      "surface-variant": "#e0e3e6",
+                      "inverse-primary": "#b4c5ff",
+                      "on-background": "#191c1e",
+                      "surface-container-highest": "#e0e3e6",
+                      "secondary": "#5d5e65",
+                      "on-error-container": "#93000a",
+                      "surface": "#f7f9fc",
+                      "error-container": "#ffdad6",
+                      "background": "#f7f9fc",
+                      "on-surface": "#191c1e",
+                      "on-error": "#ffffff",
+                      "secondary-fixed": "#e2e2eb",
+                      "inverse-surface": "#2d3133",
+                      "surface-container-high": "#e6e8eb",
+                      "secondary-container": "#e2e2eb",
+                      "on-primary-fixed-variant": "#003ea8",
+                      "primary-fixed": "#dbe1ff",
+                      "surface-tint": "#0053db",
+                      "on-secondary": "#ffffff",
+                      "surface-dim": "#d8dadd",
+                      "on-surface-variant": "#434655",
+                      "border-subtle": "#E5E7EB",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed-variant": "#45464e",
+                      "primary-fixed-dim": "#b4c5ff",
+                      "error": "#ba1a1a",
+                      "tertiary": "#8e3c00",
+                      "warning-tint": "#FFF7ED",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-low": "#f2f4f7",
+                      "on-tertiary-container": "#ffece5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "page-padding": "18px",
+                      "container-gap": "10px",
+                      "card-padding": "16px",
+                      "nav-item-x": "12px",
+                      "nav-item-y": "7px",
+                      "topbar-height": "52px",
+                      "section-gap": "14px",
+                      "sidebar-width": "200px"
+              },
+              "fontFamily": {
+                      "title-card": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "body-secondary": ["Inter"],
+                      "body-main": ["Inter"],
+                      "tag": ["Inter"],
+                      "headline-page": ["Inter"],
+                      "display-kpi": ["Inter"],
+                      "caption": ["Inter"]
+              },
+              "fontSize": {
+                      "title-card": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                      "label-caps": ["9.5px", {"lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                      "body-secondary": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "body-main": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "tag": ["10.5px", {"lineHeight": "12px", "fontWeight": "500"}],
+                      "headline-page": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                      "display-kpi": ["22px", {"lineHeight": "1.1", "letterSpacing": "-0.5px", "fontWeight": "500"}],
+                      "caption": ["11px", {"lineHeight": "14px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { background-color: #F0F2F5; }
+        
+        /* Smooth height transition for accordion */
+        .accordion-content {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .accordion-content.open {
+            max-height: 500px; /* arbitrary large value */
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="font-body-main text-on-surface antialiased">
+<!-- TopNavBar -->
+<nav class="bg-surface-container-lowest fixed top-0 w-full z-50 border-b border-outline-variant flat no shadows">
+<div class="flex justify-between items-center h-[52px] px-page-padding max-w-full mx-auto">
+<div class="flex items-center gap-8">
+<a class="font-headline-page text-headline-page font-bold text-primary" href="#">CRM Flow</a>
+<div class="hidden md:flex gap-1">
+<a class="px-nav-item-x py-nav-item-y rounded-DEFAULT text-on-surface-variant hover:text-primary transition-colors" href="#">Produto</a>
+<a class="px-nav-item-x py-nav-item-y rounded-DEFAULT text-primary border-b-2 border-primary pb-1 scale-95 transition-transform duration-150" href="#">Preços</a>
+<a class="px-nav-item-x py-nav-item-y rounded-DEFAULT text-on-surface-variant hover:text-primary transition-colors" href="#">Blog</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<a class="text-on-surface-variant hover:text-primary font-body-main text-body-main transition-colors hidden sm:block" href="#">Entrar</a>
+<a class="bg-primary-container text-on-primary hover:bg-primary-container/90 px-4 py-2 rounded-lg font-body-main text-body-main font-medium transition-colors" href="#">Começar Agora</a>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-[92px] pb-24 px-page-padding max-w-6xl mx-auto flex flex-col gap-12">
+<!-- Header -->
+<section class="text-center flex flex-col items-center gap-4 pt-8">
+<h1 class="font-display-kpi text-display-kpi text-text-dark md:text-4xl md:leading-tight">Planos simples, sem surpresas.</h1>
+<p class="font-body-secondary text-body-secondary text-on-surface-variant max-w-xl mx-auto md:text-base">Todos os planos incluem 14 dias grátis, sem cartão de crédito.</p>
+<!-- Toggle -->
+<div class="mt-6 flex items-center bg-surface-container-highest p-1 rounded-full border border-border-subtle relative">
+<button class="px-6 py-2 rounded-full text-sm font-medium bg-surface-container-lowest text-text-dark shadow-sm z-10 transition-all">Mensal</button>
+<button class="px-6 py-2 rounded-full text-sm font-medium text-on-surface-variant hover:text-text-dark transition-all flex items-center gap-2">
+                    Anual
+                    <span class="bg-warning-tint text-tertiary-container font-tag text-tag px-2 py-0.5 rounded-full border border-tertiary-container/20">2 meses grátis</span>
+</button>
+</div>
+</section>
+<!-- Pricing Cards -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+<!-- STARTER -->
+<div class="bg-card-background border border-border-subtle rounded-xl p-card-padding flex flex-col gap-6 relative">
+<div class="flex flex-col gap-2">
+<span class="bg-surface-container-low text-on-surface-variant font-tag text-tag px-2.5 py-1 rounded-full w-max border border-border-subtle">Para começar</span>
+<h2 class="font-title-card text-title-card text-text-dark mt-2">STARTER</h2>
+<div class="flex items-baseline gap-1">
+<span class="text-text-dark font-medium">R$</span>
+<span class="font-display-kpi text-display-kpi text-text-dark text-3xl">97</span>
+<span class="font-body-secondary text-body-secondary text-on-surface-variant">/mês</span>
+</div>
+</div>
+<ul class="flex flex-col gap-3 font-body-secondary text-body-secondary text-on-surface-variant flex-grow">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">check</span>
+<span>Até 1.000 contatos</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">check</span>
+<span>Funil de Vendas Básico</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">check</span>
+<span>1 Usuário</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-outline mt-0.5">close</span>
+<span class="text-outline">WhatsApp Oficial</span>
+</li>
+</ul>
+<button class="w-full py-2.5 rounded-lg border border-border-subtle font-body-main text-body-main text-text-dark hover:bg-surface-container-low transition-colors mt-auto font-medium">Começar grátis</button>
+</div>
+<!-- PRO -->
+<div class="bg-card-background border-l-[3px] border-l-primary-container border-y border-r border-border-subtle rounded-xl p-card-padding flex flex-col gap-6 relative shadow-sm scale-105 z-10">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary-container text-on-primary font-tag text-tag px-3 py-1 rounded-full font-medium whitespace-nowrap">Mais popular</div>
+<div class="flex flex-col gap-2 mt-2">
+<h2 class="font-title-card text-title-card text-primary-container">PRO</h2>
+<div class="flex items-baseline gap-1">
+<span class="text-text-dark font-medium">R$</span>
+<span class="font-display-kpi text-display-kpi text-text-dark text-4xl">297</span>
+<span class="font-body-secondary text-body-secondary text-on-surface-variant">/mês</span>
+</div>
+</div>
+<ul class="flex flex-col gap-3 font-body-secondary text-body-secondary text-text-dark flex-grow font-medium">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">check</span>
+<span>Tudo do Starter, mais:</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary-container mt-0.5" style="font-variation-settings: 'FILL' 1;">star</span>
+<span>WhatsApp Oficial</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary-container mt-0.5" style="font-variation-settings: 'FILL' 1;">description</span>
+<span>Gestão de Contratos</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary-container mt-0.5" style="font-variation-settings: 'FILL' 1;">group</span>
+<span>Públicos de Mídia Automáticos</span>
+</li>
+<li class="flex items-start gap-2 font-normal text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">check</span>
+<span>Até 10.000 contatos</span>
+</li>
+<li class="flex items-start gap-2 font-normal text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">check</span>
+<span>5 Usuários</span>
+</li>
+</ul>
+<button class="w-full py-3 rounded-lg bg-primary-container text-on-primary font-body-main text-body-main hover:bg-primary-container/90 transition-colors mt-auto font-medium">Começar grátis</button>
+</div>
+<!-- BUSINESS -->
+<div class="bg-card-background border border-border-subtle rounded-xl p-card-padding flex flex-col gap-6 relative">
+<div class="flex flex-col gap-2">
+<span class="bg-surface-container-high text-on-surface-variant font-tag text-tag px-2.5 py-1 rounded-full w-max border border-border-subtle">Para equipes</span>
+<h2 class="font-title-card text-title-card text-text-dark mt-2">BUSINESS</h2>
+<div class="flex items-baseline gap-1">
+<span class="text-text-dark font-medium">R$</span>
+<span class="font-display-kpi text-display-kpi text-text-dark text-3xl">697</span>
+<span class="font-body-secondary text-body-secondary text-on-surface-variant">/mês</span>
+</div>
+</div>
+<ul class="flex flex-col gap-3 font-body-secondary text-body-secondary text-on-surface-variant flex-grow">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">check</span>
+<span>Contatos ilimitados</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">check</span>
+<span>Usuários ilimitados</span>
+</li>
+<li class="flex items-start gap-2 text-text-dark font-medium">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">check</span>
+<span>Domínio Próprio (White-label)</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5">check</span>
+<span>API Completa</span>
+</li>
+</ul>
+<button class="w-full py-2.5 rounded-lg border border-border-subtle font-body-main text-body-main text-text-dark hover:bg-surface-container-low transition-colors mt-auto font-medium">Falar com vendas</button>
+</div>
+</section>
+<!-- Detailed Comparison Toggle -->
+<div class="text-center mt-4 border-t border-border-subtle pt-8">
+<button class="text-primary-container font-body-main text-body-main font-medium hover:underline flex items-center gap-1 mx-auto">
+                Ver comparação detalhada
+                <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+<!-- FAQ Section -->
+<section class="max-w-3xl mx-auto w-full mt-12 flex flex-col gap-6">
+<h2 class="font-headline-page text-headline-page font-bold text-text-dark text-center mb-4">Perguntas Frequentes</h2>
+<div class="flex flex-col border border-border-subtle rounded-xl bg-card-background divide-y divide-border-subtle">
+<!-- FAQ Item 1 -->
+<div class="faq-item">
+<button class="w-full text-left px-card-padding py-4 flex justify-between items-center font-title-card text-title-card text-text-dark hover:bg-surface-container-low transition-colors rounded-t-xl focus:outline-none" onclick="toggleFaq(this)">
+                        Posso cancelar quando quiser?
+                        <span class="material-symbols-outlined text-outline-variant transition-transform duration-200">add</span>
+</button>
+<div class="accordion-content px-card-padding bg-surface-container-lowest">
+<p class="font-body-secondary text-body-secondary text-on-surface-variant py-4">Sim, não temos fidelidade. Você pode cancelar sua assinatura a qualquer momento e não será cobrado no mês seguinte.</p>
+</div>
+</div>
+<!-- FAQ Item 2 -->
+<div class="faq-item">
+<button class="w-full text-left px-card-padding py-4 flex justify-between items-center font-title-card text-title-card text-text-dark hover:bg-surface-container-low transition-colors focus:outline-none" onclick="toggleFaq(this)">
+                        O que é a API oficial do WhatsApp?
+                        <span class="material-symbols-outlined text-outline-variant transition-transform duration-200">add</span>
+</button>
+<div class="accordion-content px-card-padding bg-surface-container-lowest">
+<p class="font-body-secondary text-body-secondary text-on-surface-variant py-4">A API Oficial garante que seu número não será banido, permite disparo de mensagens em massa aprovadas pela Meta e integração fluida com bots e automações.</p>
+</div>
+</div>
+<!-- FAQ Item 3 -->
+<div class="faq-item">
+<button class="w-full text-left px-card-padding py-4 flex justify-between items-center font-title-card text-title-card text-text-dark hover:bg-surface-container-low transition-colors focus:outline-none" onclick="toggleFaq(this)">
+                        Como funciona o trial?
+                        <span class="material-symbols-outlined text-outline-variant transition-transform duration-200">add</span>
+</button>
+<div class="accordion-content px-card-padding bg-surface-container-lowest">
+<p class="font-body-secondary text-body-secondary text-on-surface-variant py-4">Você ganha 14 dias para testar todas as funcionalidades do plano Pro. Não pedimos cartão de crédito no cadastro.</p>
+</div>
+</div>
+<!-- FAQ Item 4 -->
+<div class="faq-item">
+<button class="w-full text-left px-card-padding py-4 flex justify-between items-center font-title-card text-title-card text-text-dark hover:bg-surface-container-low transition-colors focus:outline-none" onclick="toggleFaq(this)">
+                        Os dados ficam seguros?
+                        <span class="material-symbols-outlined text-outline-variant transition-transform duration-200">add</span>
+</button>
+<div class="accordion-content px-card-padding bg-surface-container-lowest">
+<p class="font-body-secondary text-body-secondary text-on-surface-variant py-4">Absolutamente. Utilizamos criptografia de ponta a ponta e servidores AWS de alta segurança. Seus dados e de seus clientes estão protegidos e em conformidade com a LGPD.</p>
+</div>
+</div>
+<!-- FAQ Item 5 -->
+<div class="faq-item">
+<button class="w-full text-left px-card-padding py-4 flex justify-between items-center font-title-card text-title-card text-text-dark hover:bg-surface-container-low transition-colors rounded-b-xl focus:outline-none" onclick="toggleFaq(this)">
+                        Tem suporte em português?
+                        <span class="material-symbols-outlined text-outline-variant transition-transform duration-200">add</span>
+</button>
+<div class="accordion-content px-card-padding bg-surface-container-lowest rounded-b-xl">
+<p class="font-body-secondary text-body-secondary text-on-surface-variant py-4">Sim, nossa equipe de suporte é 100% brasileira e atende via chat, e-mail e WhatsApp em horário comercial.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Final CTA -->
+<section class="bg-primary-container text-on-primary py-20 px-page-padding border-t border-border-subtle mt-12">
+<div class="max-w-4xl mx-auto text-center flex flex-col items-center gap-6">
+<h2 class="font-display-kpi text-display-kpi text-on-primary md:text-3xl">Pronto para transformar suas vendas?</h2>
+<p class="font-body-main text-body-main text-on-primary/80 max-w-lg">Junte-se a milhares de empresas que simplificaram sua gestão comercial com o CRM Flow.</p>
+<button class="bg-card-background text-primary-container hover:bg-surface-container-low px-8 py-3 rounded-lg font-title-card text-title-card shadow-sm transition-colors mt-4">Criar conta grátis</button>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant w-full flex flex-col items-center py-section-gap px-page-padding gap-4 flat no shadows">
+<div class="font-title-card text-title-card font-bold text-on-surface">CRM Flow</div>
+<div class="flex flex-wrap justify-center gap-4 text-secondary">
+<a class="font-caption text-caption hover:underline decoration-primary transition-opacity duration-200" href="#">Termos de Uso</a>
+<a class="font-caption text-caption hover:underline decoration-primary transition-opacity duration-200" href="#">Privacidade</a>
+<a class="font-caption text-caption hover:underline decoration-primary transition-opacity duration-200" href="#">Contato</a>
+<a class="font-caption text-caption hover:underline decoration-primary transition-opacity duration-200" href="#">Sobre Nós</a>
+</div>
+<div class="font-caption text-caption text-secondary mt-2">© 2024 CRM Flow. Todos os direitos reservados. CNPJ: 00.000.000/0001-00</div>
+</footer>
+<!-- FAQ Script -->
+<script>
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.material-symbols-outlined');
+            const isOpen = content.classList.contains('open');
+
+            // Close all
+            document.querySelectorAll('.accordion-content').forEach(el => {
+                el.classList.remove('open');
+                el.previousElementSibling.querySelector('.material-symbols-outlined').textContent = 'add';
+                el.previousElementSibling.querySelector('.material-symbols-outlined').style.transform = 'rotate(0deg)';
+            });
+
+            // If it wasn't open, open it
+            if (!isOpen) {
+                content.classList.add('open');
+                icon.textContent = 'remove';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+    </script>
+</body></html>

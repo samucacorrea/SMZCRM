@@ -5,9 +5,17 @@ dist
 coverage
 drizzle/*.sqlite
 *.log
+.DS_Store
+*.tsbuildinfo
+.turbo
+.vercel
+.idea
+.vscode
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.env.*
+!.env.example
 Dockerfile.*

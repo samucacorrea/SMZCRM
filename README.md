@@ -60,6 +60,11 @@ docker compose up --build
 http://localhost:3000
 ```
 
+Observação:
+
+- no container de produção, o Next standalone precisa subir com bind em `0.0.0.0`
+- isso já está coberto pelo `docker-compose.yml` via `HOSTNAME=${APP_HOST:-0.0.0.0}`
+
 ## Seed padrão
 
 Com `RUN_SEED=true`, o projeto cria um tenant demo e um usuário inicial:
@@ -108,6 +113,12 @@ Fluxo recomendado:
 
 ```text
 RUN_SEED=false
+```
+
+Também mantenha:
+
+```text
+APP_HOST=0.0.0.0
 ```
 
 ## Variáveis importantes em produção

@@ -1,4 +1,5 @@
 export const PUBLIC_ROUTE_ALLOWLIST = new Set([
+  "/",
   "/login",
   "/register",
   "/two-factor",

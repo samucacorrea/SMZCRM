@@ -25,6 +25,12 @@ Confirme que o repositório no GitHub está atualizado com:
 
 Configure no EasyPanel, no mínimo:
 
+Observação:
+
+- `.env.example` é apenas referência
+- no EasyPanel, você precisa cadastrar as variáveis no painel
+- o deploy não deve depender da existência de um arquivo `.env` no repositório
+
 ```text
 NODE_ENV=production
 APP_PORT=3000
@@ -96,10 +102,12 @@ Checklist:
 
 1. Verifique se `APP_HOST=0.0.0.0`
 2. Verifique se `NEXT_PUBLIC_APP_URL` e `BETTER_AUTH_URL` estão corretos
-3. Verifique se `DATABASE_URL` usa o host `postgres`
-4. Verifique se `REDIS_URL` usa o host `redis`
-5. Verifique se `RUN_SEED=false` em produção
-6. Abra os logs do serviço `app`
+3. Verifique se `DATABASE_URL` foi realmente injetada no container
+4. Verifique se `DATABASE_URL` usa o host `postgres`
+5. Verifique se `REDIS_URL` usa o host `redis`
+6. Verifique se `BETTER_AUTH_SECRET` e `ENCRYPTION_KEY` estão preenchidos
+7. Verifique se `RUN_SEED=false` em produção
+8. Abra os logs do serviço `app`
 
 ## Logs que indicam sucesso
 
@@ -119,9 +127,10 @@ Erros como:
 ```text
 ECONNREFUSED postgres
 ENOTFOUND redis
+Please provide required params for Postgres driver: url: ''
 ```
 
-indicam configuração incorreta de rede/hostname/variáveis.
+indicam configuração incorreta de rede/hostname/variáveis ou variável não injetada no container.
 
 ### Aplicação presa sem ficar pronta
 

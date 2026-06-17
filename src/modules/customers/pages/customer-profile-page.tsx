@@ -3,9 +3,13 @@ import { notFound } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { assertPermission } from "@/lib/rbac";
 import { getTenantContext } from "@/lib/tenant-context";
+import { CustomerContactAccessForm } from "@/modules/customers/components/customer-contact-access-form";
 import { CustomerContactForm } from "@/modules/customers/components/customer-contact-form";
+import { CustomerCustomDataForm } from "@/modules/customers/components/customer-custom-data-form";
+import { CustomerCustomFieldCreateForm } from "@/modules/customers/components/customer-custom-field-create-form";
 import { CustomerNoteForm } from "@/modules/customers/components/customer-note-form";
-import { getCustomerById } from "@/modules/customers/queries";
+import { getCustomerById, listCustomerCustomFieldsByTenant } from "@/modules/customers/queries";
+import { customerPortalPermissionLabels } from "@/modules/customers/validators";
 
 const tabs = [
   "Resumo",
@@ -23,7 +27,10 @@ const tabs = [
 export async function CustomerProfilePageView({ customerId }: { customerId: string }) {
   await assertPermission("customers", "view");
   const tenantContext = await getTenantContext();
-  const customer = await getCustomerById(tenantContext.tenantId, customerId);
+  const [customer, customFields] = await Promise.all([
+    getCustomerById(tenantContext.tenantId, customerId),
+    listCustomerCustomFieldsByTenant(tenantContext.tenantId),
+  ]);
 
   if (!customer) {
     notFound();
@@ -117,6 +124,34 @@ export async function CustomerProfilePageView({ customerId }: { customerId: stri
                   <p>{contact.email}</p>
                   <p>{contact.phone || contact.whatsapp}</p>
                 </div>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {contact.portalPermissions.length > 0 ? (
+                    contact.portalPermissions.map((permission) => (
+                      <span
+                        key={permission}
+                        className="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary"
+                      >
+                        {customerPortalPermissionLabels[
+                          permission as keyof typeof customerPortalPermissionLabels
+                        ] ?? permission}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="rounded-full bg-muted px-2 py-1 text-xs text-muted-foreground">
+                      Sem acesso ao portal
+                    </span>
+                  )}
+                </div>
+                <div className="mt-4">
+                  <CustomerContactAccessForm
+                    contact={{
+                      id: contact.id,
+                      customerId: customer.id,
+                      isPrimary: contact.isPrimary,
+                      portalPermissions: contact.portalPermissions,
+                    }}
+                  />
+                </div>
               </div>
             ))}
           </CardContent>
@@ -150,6 +185,36 @@ export async function CustomerProfilePageView({ customerId }: { customerId: stri
                 <p className="text-sm text-foreground">{note.body}</p>
               </div>
             ))
+          )}
+        </CardContent>
+      </Card>
+
+      <Card className="overflow-hidden">
+        <div className="h-1 bg-accent/80" />
+        <CardHeader>
+          <CardTitle>Campos extras</CardTitle>
+          <CardDescription>
+            Dados complementares do cliente definidos pelo proprio tenant.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-5">
+          <CustomerCustomFieldCreateForm customerId={customer.id} />
+          {customFields.length === 0 ? (
+            <p className="rounded-xl border border-dashed border-border bg-background px-4 py-8 text-center text-sm text-muted-foreground">
+              Nenhum campo extra criado ainda para clientes.
+            </p>
+          ) : (
+            <CustomerCustomDataForm
+              customerId={customer.id}
+              customFields={customFields.map((field) => ({
+                id: field.id,
+                key: field.key,
+                label: field.label,
+                dataType: field.dataType,
+                isRequired: field.isRequired,
+              }))}
+              customData={(customer.customData ?? {}) as Record<string, unknown>}
+            />
           )}
         </CardContent>
       </Card>

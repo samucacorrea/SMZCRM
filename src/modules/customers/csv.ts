@@ -6,6 +6,10 @@ const EXPECTED_HEADERS = [
   "email",
   "phone",
   "website",
+  "zipCode",
+  "addressLine1",
+  "addressLine2",
+  "neighborhood",
   "city",
   "state",
 ] as const;

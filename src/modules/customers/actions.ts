@@ -4,17 +4,21 @@ import { revalidatePath } from "next/cache";
 import { and, eq, inArray } from "drizzle-orm";
 
 import { db } from "@/lib/db";
-import { customerContacts, customerNotes, customers } from "@/lib/db/schema";
+import { customFields, customerContacts, customerNotes, customers } from "@/lib/db/schema";
 import { AppError } from "@/lib/errors";
 import { createId } from "@/lib/ids";
 import { assertPermission } from "@/lib/rbac";
 import { getTenantContext } from "@/lib/tenant-context";
 import { parseCustomerImportCsv } from "@/modules/customers/csv";
 import {
+  customerPortalPermissionValues,
   createCustomerContactSchema,
+  createCustomerCustomFieldSchema,
   createCustomerNoteSchema,
   createCustomerSchema,
   importCustomerRowSchema,
+  updateCustomerContactAccessSchema,
+  updateCustomerCustomDataSchema,
 } from "@/modules/customers/validators";
 
 export type CustomerActionState = {
@@ -27,6 +31,79 @@ export type CustomerImportActionState = CustomerActionState & {
   failed?: number;
   errors?: string[];
 };
+
+function getCustomerCustomFieldFormKey(fieldKey: string) {
+  return `custom:${fieldKey}`;
+}
+
+function normalizeCustomerCustomFieldValue(
+  field: {
+    key: string;
+    label: string;
+    dataType: "text" | "number" | "date" | "boolean";
+    isRequired: boolean;
+  },
+  formData: FormData,
+) {
+  if (field.dataType === "boolean") {
+    return {
+      ok: true as const,
+      value: formData.get(getCustomerCustomFieldFormKey(field.key)) === "on",
+    };
+  }
+
+  const rawValue = formData.get(getCustomerCustomFieldFormKey(field.key));
+  const value = typeof rawValue === "string" ? rawValue.trim() : "";
+
+  if (!value) {
+    if (field.isRequired) {
+      return {
+        ok: false as const,
+        error: `O campo ${field.label} e obrigatorio.`,
+      };
+    }
+
+    return {
+      ok: true as const,
+      value: null,
+    };
+  }
+
+  if (field.dataType === "number") {
+    const parsedNumber = Number(value.replace(",", "."));
+
+    if (Number.isNaN(parsedNumber)) {
+      return {
+        ok: false as const,
+        error: `O campo ${field.label} precisa ser numerico.`,
+      };
+    }
+
+    return {
+      ok: true as const,
+      value: parsedNumber,
+    };
+  }
+
+  if (field.dataType === "date") {
+    if (Number.isNaN(Date.parse(value))) {
+      return {
+        ok: false as const,
+        error: `O campo ${field.label} precisa ser uma data valida.`,
+      };
+    }
+
+    return {
+      ok: true as const,
+      value,
+    };
+  }
+
+  return {
+    ok: true as const,
+    value,
+  };
+}
 
 export async function createCustomerAction(
   _previousState: CustomerActionState,
@@ -43,6 +120,10 @@ export async function createCustomerAction(
     contactName: formData.get("contactName"),
     phone: formData.get("phone"),
     website: formData.get("website"),
+    zipCode: formData.get("zipCode"),
+    addressLine1: formData.get("addressLine1"),
+    addressLine2: formData.get("addressLine2"),
+    neighborhood: formData.get("neighborhood"),
     city: formData.get("city"),
     state: formData.get("state"),
   });
@@ -74,6 +155,10 @@ export async function createCustomerAction(
       legalName: parsed.data.legalName,
       tradeName: parsed.data.tradeName || parsed.data.legalName,
       taxId: parsed.data.taxId,
+      zipCode: parsed.data.zipCode || null,
+      addressLine1: parsed.data.addressLine1 || null,
+      addressLine2: parsed.data.addressLine2 || null,
+      neighborhood: parsed.data.neighborhood || null,
       city: parsed.data.city,
       state: parsed.data.state.toUpperCase(),
       country: "BR",
@@ -120,6 +205,13 @@ export async function createCustomerContactAction(
     phone: formData.get("phone"),
     whatsapp: formData.get("whatsapp"),
     jobTitle: formData.get("jobTitle"),
+    isPrimary: formData.get("isPrimary") === "on",
+    portalPermissions: formData
+      .getAll("portalPermissions")
+      .filter((value): value is string =>
+        typeof value === "string" &&
+        customerPortalPermissionValues.includes(value as (typeof customerPortalPermissionValues)[number]),
+      ),
   });
 
   if (!parsed.success) {
@@ -154,23 +246,258 @@ export async function createCustomerContactAction(
     };
   }
 
-  await db.insert(customerContacts).values({
-    id: createId(),
-    tenantId: tenantContext.tenantId,
-    customerId: parsed.data.customerId,
-    name: parsed.data.name,
-    email: parsed.data.email,
-    phone: parsed.data.phone,
-    whatsapp: parsed.data.whatsapp || parsed.data.phone,
-    jobTitle: parsed.data.jobTitle || "Contato",
-    isPrimary: false,
-    portalPermissions: [],
+  const existingContacts = await db.query.customerContacts.findMany({
+    where: and(
+      eq(customerContacts.tenantId, tenantContext.tenantId),
+      eq(customerContacts.customerId, parsed.data.customerId),
+    ),
+  });
+
+  const shouldBePrimary = parsed.data.isPrimary || existingContacts.length === 0;
+
+  await db.transaction(async (tx) => {
+    if (shouldBePrimary) {
+      await tx
+        .update(customerContacts)
+        .set({
+          isPrimary: false,
+        })
+        .where(
+          and(
+            eq(customerContacts.tenantId, tenantContext.tenantId),
+            eq(customerContacts.customerId, parsed.data.customerId),
+          ),
+        );
+    }
+
+    await tx.insert(customerContacts).values({
+      id: createId(),
+      tenantId: tenantContext.tenantId,
+      customerId: parsed.data.customerId,
+      name: parsed.data.name,
+      email: parsed.data.email,
+      phone: parsed.data.phone,
+      whatsapp: parsed.data.whatsapp || parsed.data.phone,
+      jobTitle: parsed.data.jobTitle || "Contato",
+      isPrimary: shouldBePrimary,
+      portalPermissions: parsed.data.portalPermissions,
+    });
   });
 
   revalidatePath(`/customers/${customerId}`);
 
   return {
     success: "Contato criado com sucesso.",
+  };
+}
+
+export async function updateCustomerContactAccessAction(
+  contactId: string,
+  _previousState: CustomerActionState,
+  formData: FormData,
+): Promise<CustomerActionState> {
+  await assertPermission("customers", "edit");
+  const tenantContext = await getTenantContext();
+
+  const parsed = updateCustomerContactAccessSchema.safeParse({
+    contactId,
+    customerId: formData.get("customerId"),
+    isPrimary: formData.get("isPrimary") === "on",
+    portalPermissions: formData
+      .getAll("portalPermissions")
+      .filter((value): value is string =>
+        typeof value === "string" &&
+        customerPortalPermissionValues.includes(value as (typeof customerPortalPermissionValues)[number]),
+      ),
+  });
+
+  if (!parsed.success) {
+    return {
+      error: parsed.error.issues[0]?.message ?? "Dados invalidos",
+    };
+  }
+
+  const contact = await db.query.customerContacts.findFirst({
+    where: and(
+      eq(customerContacts.id, parsed.data.contactId),
+      eq(customerContacts.tenantId, tenantContext.tenantId),
+      eq(customerContacts.customerId, parsed.data.customerId),
+    ),
+  });
+
+  if (!contact) {
+    return {
+      error: "Contato nao encontrado.",
+    };
+  }
+
+  await db.transaction(async (tx) => {
+    if (parsed.data.isPrimary) {
+      await tx
+        .update(customerContacts)
+        .set({
+          isPrimary: false,
+        })
+        .where(
+          and(
+            eq(customerContacts.tenantId, tenantContext.tenantId),
+            eq(customerContacts.customerId, parsed.data.customerId),
+          ),
+        );
+    }
+
+    await tx
+      .update(customerContacts)
+      .set({
+        isPrimary: parsed.data.isPrimary,
+        portalPermissions: parsed.data.portalPermissions,
+      })
+      .where(eq(customerContacts.id, parsed.data.contactId));
+  });
+
+  revalidatePath(`/customers/${parsed.data.customerId}`);
+
+  return {
+    success: "Acesso do contato atualizado.",
+  };
+}
+
+export async function createCustomerCustomFieldAction(
+  customerId: string,
+  _previousState: CustomerActionState,
+  formData: FormData,
+): Promise<CustomerActionState> {
+  await assertPermission("customers", "edit");
+  const tenantContext = await getTenantContext();
+
+  const parsed = createCustomerCustomFieldSchema.safeParse({
+    customerId,
+    label: formData.get("label"),
+    key: formData.get("key"),
+    dataType: formData.get("dataType"),
+  });
+
+  if (!parsed.success) {
+    return {
+      error: parsed.error.issues[0]?.message ?? "Dados invalidos",
+    };
+  }
+
+  const customer = await db.query.customers.findFirst({
+    where: and(
+      eq(customers.id, parsed.data.customerId),
+      eq(customers.tenantId, tenantContext.tenantId),
+    ),
+  });
+
+  if (!customer) {
+    return {
+      error: "Cliente nao encontrado.",
+    };
+  }
+
+  const existingField = await db.query.customFields.findFirst({
+    where: and(
+      eq(customFields.tenantId, tenantContext.tenantId),
+      eq(customFields.entity, "customer"),
+      eq(customFields.key, parsed.data.key),
+    ),
+  });
+
+  if (existingField) {
+    return {
+      error: "Ja existe um campo extra com esta chave.",
+    };
+  }
+
+  await db.insert(customFields).values({
+    id: createId(),
+    tenantId: tenantContext.tenantId,
+    entity: "customer",
+    key: parsed.data.key,
+    label: parsed.data.label,
+    dataType: parsed.data.dataType,
+    isRequired: false,
+  });
+
+  revalidatePath(`/customers/${parsed.data.customerId}`);
+
+  return {
+    success: "Campo extra criado com sucesso.",
+  };
+}
+
+export async function updateCustomerCustomDataAction(
+  customerId: string,
+  _previousState: CustomerActionState,
+  formData: FormData,
+): Promise<CustomerActionState> {
+  await assertPermission("customers", "edit");
+  const tenantContext = await getTenantContext();
+
+  const parsed = updateCustomerCustomDataSchema.safeParse({
+    customerId,
+  });
+
+  if (!parsed.success) {
+    return {
+      error: parsed.error.issues[0]?.message ?? "Dados invalidos",
+    };
+  }
+
+  const [customer, fields] = await Promise.all([
+    db.query.customers.findFirst({
+      where: and(
+        eq(customers.id, parsed.data.customerId),
+        eq(customers.tenantId, tenantContext.tenantId),
+      ),
+    }),
+    db.query.customFields.findMany({
+      where: and(
+        eq(customFields.tenantId, tenantContext.tenantId),
+        eq(customFields.entity, "customer"),
+      ),
+      orderBy: (table, { asc }) => [asc(table.label)],
+    }),
+  ]);
+
+  if (!customer) {
+    return {
+      error: "Cliente nao encontrado.",
+    };
+  }
+
+  const nextCustomData = { ...(customer.customData ?? {}) } as Record<string, unknown>;
+
+  for (const field of fields) {
+    const normalized = normalizeCustomerCustomFieldValue(field, formData);
+
+    if (!normalized.ok) {
+      return {
+        error: normalized.error,
+      };
+    }
+
+    if (normalized.value === null) {
+      delete nextCustomData[field.key];
+      continue;
+    }
+
+    nextCustomData[field.key] = normalized.value;
+  }
+
+  await db
+    .update(customers)
+    .set({
+      customData: nextCustomData,
+      updatedAt: new Date(),
+    })
+    .where(eq(customers.id, parsed.data.customerId));
+
+  revalidatePath(`/customers/${parsed.data.customerId}`);
+
+  return {
+    success: "Campos extras atualizados.",
   };
 }
 
@@ -313,6 +640,10 @@ export async function importCustomersCsvAction(
           country: "BR",
           phone: row.phone,
           website: row.website || null,
+          zipCode: row.zipCode || null,
+          addressLine1: row.addressLine1 || null,
+          addressLine2: row.addressLine2 || null,
+          neighborhood: row.neighborhood || null,
           currency: "BRL",
           tags: [],
           createdByStaffMemberId: tenantContext.staffMemberId,

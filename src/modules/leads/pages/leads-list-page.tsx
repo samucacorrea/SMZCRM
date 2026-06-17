@@ -117,6 +117,7 @@ export async function LeadsListPageView({
                   <tr>
                     <th className="px-4 py-3 font-medium">Lead</th>
                     <th className="px-4 py-3 font-medium">Estágio</th>
+                    <th className="px-4 py-3 font-medium">Status</th>
                     <th className="px-4 py-3 font-medium">Origem</th>
                     <th className="px-4 py-3 font-medium">Responsável</th>
                     <th className="px-4 py-3 font-medium">Valor</th>
@@ -134,6 +135,15 @@ export async function LeadsListPageView({
                         </p>
                       </td>
                       <td className="px-4 py-3">{lead.stage.name}</td>
+                      <td className="px-4 py-3">
+                        {lead.qualification === "qualified"
+                          ? "Qualificado"
+                          : lead.qualification === "won"
+                            ? "Ganho"
+                            : lead.qualification === "lost"
+                              ? "Perdido"
+                              : "Em aberto"}
+                      </td>
                       <td className="px-4 py-3">{lead.source}</td>
                       <td className="px-4 py-3">{lead.assignee?.displayName || "Sem dono"}</td>
                       <td className="px-4 py-3">

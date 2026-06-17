@@ -22,6 +22,21 @@ export const moveLeadStageSchema = z.object({
   stageId: z.string().uuid("Estagio invalido"),
 });
 
+export const qualifyLeadSchema = z.object({
+  leadId: z.string().uuid("Lead invalido"),
+});
+
+export const markLeadLostSchema = z.object({
+  leadId: z.string().uuid("Lead invalido"),
+  reason: z.string().min(3, "Motivo da perda obrigatorio").max(500, "Motivo muito longo"),
+});
+
+export const closeWonLeadSchema = z.object({
+  leadId: z.string().uuid("Lead invalido"),
+  saleValue: z.coerce.number().min(0.01, "Valor da venda obrigatorio"),
+  currency: z.string().min(3, "Moeda obrigatoria").max(3, "Moeda invalida"),
+});
+
 export const importLeadRowSchema = z.object({
   name: z.string().min(3, "Nome obrigatorio"),
   company: z.string().optional().default(""),

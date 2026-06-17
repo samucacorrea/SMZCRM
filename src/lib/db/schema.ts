@@ -33,6 +33,12 @@ export const staffStatusEnum = pgEnum("staff_status", [
 
 export const roleScopeEnum = pgEnum("role_scope", ["system", "tenant"]);
 export const customerTypeEnum = pgEnum("customer_type", ["person", "company"]);
+export const leadQualificationEnum = pgEnum("lead_qualification", [
+  "none",
+  "qualified",
+  "won",
+  "lost",
+]);
 export const leadActivityTypeEnum = pgEnum("lead_activity_type", [
   "created",
   "note",
@@ -60,7 +66,7 @@ export const webhookMappingTargetTypeEnum = pgEnum("webhook_mapping_target_type"
   "attribution_field",
   "custom_field",
 ]);
-export const customFieldEntityEnum = pgEnum("custom_field_entity", ["lead"]);
+export const customFieldEntityEnum = pgEnum("custom_field_entity", ["lead", "customer"]);
 export const customFieldDataTypeEnum = pgEnum("custom_field_data_type", [
   "text",
   "number",
@@ -316,6 +322,7 @@ export const customers = pgTable(
     website: text("website"),
     currency: text("currency").default("BRL").notNull(),
     tags: jsonb("tags").$type<string[]>().default([]).notNull(),
+    customData: jsonb("custom_data").$type<Record<string, unknown>>().default({}).notNull(),
     createdByStaffMemberId: uuid("created_by_staff_member_id").references(
       () => staffMembers.id,
       { onDelete: "set null" },
@@ -461,6 +468,10 @@ export const leads = pgTable(
     phone: text("phone"),
     source: text("source").notNull(),
     estimatedValueInCents: integer("estimated_value_in_cents").default(0).notNull(),
+    qualification: leadQualificationEnum("qualification").default("none").notNull(),
+    saleValueInCents: integer("sale_value_in_cents"),
+    saleCurrency: text("sale_currency").default("BRL"),
+    lostReason: text("lost_reason"),
     tags: jsonb("tags").$type<string[]>().default([]).notNull(),
     customData: jsonb("custom_data").$type<Record<string, unknown>>().default({}).notNull(),
     description: text("description"),
@@ -477,6 +488,32 @@ export const leads = pgTable(
     tenantAssignedIdx: index("leads_tenant_assigned_idx").on(
       table.tenantId,
       table.assignedStaffMemberId,
+    ),
+  }),
+).enableRLS();
+
+export const conversionEvents = pgTable(
+  "conversion_events",
+  {
+    id: uuid("id").$defaultFn(createId).primaryKey(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    leadId: uuid("lead_id")
+      .notNull()
+      .references(() => leads.id, { onDelete: "cascade" }),
+    milestone: text("milestone").notNull(),
+    valueInCents: integer("value_in_cents"),
+    currency: text("currency"),
+    eventId: text("event_id").notNull(),
+    eventTime: timestamp("event_time", { withTimezone: true }).defaultNow().notNull(),
+    ...timestamps,
+  },
+  (table) => ({
+    leadEventIdx: index("conversion_events_lead_idx").on(table.leadId, table.eventTime),
+    tenantEventIdIdx: uniqueIndex("conversion_events_tenant_event_id_idx").on(
+      table.tenantId,
+      table.eventId,
     ),
   }),
 ).enableRLS();
@@ -671,6 +708,7 @@ export const tenantScopedTables = {
   inboundWebhooks,
   webhookFieldMappings,
   webhookRequestLogs,
+  conversionEvents,
   queueJobs,
 } as const;
 
@@ -784,6 +822,7 @@ export const leadsRelations = relations(leads, ({ one, many }) => ({
   activities: many(leadActivities),
   attribution: many(leadAttributions),
   webhookLogs: many(webhookRequestLogs),
+  conversionEvents: many(conversionEvents),
 }));
 
 export const leadActivitiesRelations = relations(leadActivities, ({ one }) => ({
@@ -858,6 +897,17 @@ export const webhookRequestLogsRelations = relations(webhookRequestLogs, ({ one 
   }),
 }));
 
+export const conversionEventsRelations = relations(conversionEvents, ({ one }) => ({
+  tenant: one(tenants, {
+    fields: [conversionEvents.tenantId],
+    references: [tenants.id],
+  }),
+  lead: one(leads, {
+    fields: [conversionEvents.leadId],
+    references: [leads.id],
+  }),
+}));
+
 export const rolePermissionsRelations = relations(rolePermissions, ({ one }) => ({
   tenant: one(tenants, {
     fields: [rolePermissions.tenantId],
@@ -904,6 +954,7 @@ export const schema = {
   inboundWebhooks,
   webhookFieldMappings,
   webhookRequestLogs,
+  conversionEvents,
   queueJobs,
 };
 

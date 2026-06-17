@@ -9,6 +9,7 @@ import {
   createCustomerContactAction,
   type CustomerActionState,
 } from "@/modules/customers/actions";
+import { customerPortalPermissionLabels, customerPortalPermissionValues } from "@/modules/customers/validators";
 
 const initialState: CustomerActionState = {};
 
@@ -48,6 +49,23 @@ export function CustomerContactForm({ customerId }: { customerId: string }) {
         <div className="space-y-2 md:col-span-2">
           <Label htmlFor="whatsapp">WhatsApp</Label>
           <Input id="whatsapp" name="whatsapp" placeholder="(11) 99999-9999" />
+        </div>
+        <div className="space-y-2 md:col-span-2">
+          <Label>Permissões do portal</Label>
+          <div className="grid gap-2 rounded-xl border border-border bg-background p-3 sm:grid-cols-2">
+            {customerPortalPermissionValues.map((permission) => (
+              <label key={permission} className="flex items-center gap-2 text-sm text-foreground">
+                <input name="portalPermissions" type="checkbox" value={permission} />
+                <span>{customerPortalPermissionLabels[permission]}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+        <div className="md:col-span-2">
+          <label className="flex items-center gap-2 text-sm text-foreground">
+            <input name="isPrimary" type="checkbox" />
+            <span>Definir como contato principal</span>
+          </label>
         </div>
       </div>
       <div className="flex items-center gap-3">

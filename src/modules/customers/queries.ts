@@ -1,7 +1,7 @@
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 
 import { db } from "@/lib/db";
-import { customerContacts, customerNotes, customers } from "@/lib/db/schema";
+import { customFields, customerContacts, customerNotes, customers } from "@/lib/db/schema";
 
 export async function listCustomersByTenant(tenantId: string) {
   return db.query.customers.findMany({
@@ -28,5 +28,12 @@ export async function getCustomerById(tenantId: string, customerId: string) {
         },
       },
     },
+  });
+}
+
+export async function listCustomerCustomFieldsByTenant(tenantId: string) {
+  return db.query.customFields.findMany({
+    where: and(eq(customFields.tenantId, tenantId), eq(customFields.entity, "customer")),
+    orderBy: (fields, { asc }) => [asc(fields.label)],
   });
 }

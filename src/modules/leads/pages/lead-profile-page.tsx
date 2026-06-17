@@ -6,6 +6,7 @@ import { assertPermission } from "@/lib/rbac";
 import { getTenantContext } from "@/lib/tenant-context";
 import { LeadConvertButton } from "@/modules/leads/components/lead-convert-button";
 import { LeadNoteForm } from "@/modules/leads/components/lead-note-form";
+import { LeadQualificationPanel } from "@/modules/leads/components/lead-qualification-panel";
 import { LeadStagePicker } from "@/modules/leads/components/lead-stage-picker";
 import { getLeadById, listLeadStagesByTenant } from "@/modules/leads/queries";
 
@@ -135,6 +136,16 @@ export async function LeadProfilePageView({ leadId }: { leadId: string }) {
           <CardContent className="grid gap-3 sm:grid-cols-2 text-sm text-muted-foreground">
             <p>Estágio atual: {lead.stage.name}</p>
             <p>Origem: {lead.source}</p>
+            <p>
+              Qualificação:{" "}
+              {lead.qualification === "qualified"
+                ? "Qualificado"
+                : lead.qualification === "won"
+                  ? "Ganho"
+                  : lead.qualification === "lost"
+                    ? "Perdido"
+                    : "Em aberto"}
+            </p>
             <p>Telefone: {lead.phone || "Não informado"}</p>
             <p>
               Valor estimado:{" "}
@@ -143,8 +154,18 @@ export async function LeadProfilePageView({ leadId }: { leadId: string }) {
                 currency: "BRL",
               }).format(lead.estimatedValueInCents / 100)}
             </p>
+            <p>
+              Valor fechado:{" "}
+              {lead.saleValueInCents
+                ? new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: lead.saleCurrency || "BRL",
+                  }).format(lead.saleValueInCents / 100)
+                : "Nao informado"}
+            </p>
             <p>Responsável: {lead.assignee?.displayName || "Sem dono"}</p>
             <p>Etiquetas: {lead.tags.length ? lead.tags.join(", ") : "Nenhuma"}</p>
+            <p>Motivo de perda: {lead.lostReason || "Nao informado"}</p>
             <p className="sm:col-span-2">Descrição: {lead.description || "Sem descrição"}</p>
           </CardContent>
         </Card>
@@ -183,6 +204,24 @@ export async function LeadProfilePageView({ leadId }: { leadId: string }) {
           </CardContent>
         </Card>
       </div>
+
+      <Card className="overflow-hidden">
+        <div className="h-1 bg-primary/70" />
+        <CardHeader>
+          <CardTitle>Qualificação e fechamento</CardTitle>
+          <CardDescription>
+            Controle do avanço comercial e registro de venda fechada.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <LeadQualificationPanel
+            leadId={lead.id}
+            qualification={lead.qualification}
+            saleCurrency={lead.saleCurrency}
+            lostReason={lead.lostReason}
+          />
+        </CardContent>
+      </Card>
 
       <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
         <Card className="overflow-hidden">

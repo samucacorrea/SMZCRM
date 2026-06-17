@@ -1,156 +1,138 @@
 # Deploy no EasyPanel
 
-Este projeto sobe via `docker-compose.yml` e depende de Docker já disponível no host do EasyPanel.
+## Conclusão prática
 
-## Visão geral
+Este projeto **não deve ser tratado no EasyPanel como um único serviço esperando que o `docker-compose.yml` orquestre tudo internamente**.
 
-O compose sobe:
+O caminho alinhado com a documentação oficial do EasyPanel é:
 
-- `app` — aplicação Next.js
-- `worker` — jobs BullMQ
-- `postgres` — banco
-- `redis` — filas e rate limit
-- `minio` — storage S3 compatível
+1. **1 App Service** para o web app
+2. **1 App Service** separado para o worker
+3. **1 Postgres Service**
+4. **1 Redis Service**
+5. **1 serviço de storage** separado para MinIO/S3
 
-## Antes do deploy
+## Por que esse é o caminho correto
 
-Confirme que o repositório no GitHub está atualizado com:
+Pela documentação oficial do EasyPanel:
 
-- `docker-compose.yml`
-- `Dockerfile`
-- `.dockerignore`
-- `.env.example`
-- `.env.easypanel.example`
+- se o repositório tem `Dockerfile`, o **App Service** usa esse `Dockerfile` para buildar a imagem
+- as variáveis de ambiente ficam disponíveis **em build-time e run-time**
+- o **proxy port** precisa apontar para a porta em que a app realmente escuta
+- os logs do serviço ficam no **Logs stream**
+- o terminal do container fica no **Console / Launcher**
 
-## Variáveis obrigatórias
+Além disso, a própria seção de serviços mostra que o **Compose Service** ainda está sem documentação detalhada pública, enquanto `App Service`, `Postgres Service` e `Redis Service` estão documentados.
 
-Configure no EasyPanel, no mínimo:
+## Arquitetura recomendada no EasyPanel
 
-Observação:
+### Serviço 1: `crm-web`
 
-- `.env.example` é apenas referência
-- `.env.easypanel.example` é a referência recomendada para produção/EasyPanel
-- no EasyPanel, você precisa cadastrar as variáveis no painel
-- o deploy não deve depender da existência de um arquivo `.env` no repositório
+- tipo: `App Service`
+- source: GitHub repo
+- builder: `Dockerfile`
+- domínio: `https://seu-dominio`
+- proxy port: `3000`
+- variáveis:
+  - `SERVICE_MODE=app`
+  - `RUN_MIGRATIONS=true`
+  - `RUN_SEED=false`
+
+### Serviço 2: `crm-worker`
+
+- tipo: `App Service`
+- source: mesmo GitHub repo
+- builder: `Dockerfile`
+- sem domínio público
+- variáveis:
+  - `SERVICE_MODE=worker`
+  - `RUN_MIGRATIONS=false`
+  - `RUN_SEED=false`
+
+### Serviço 3: `postgres`
+
+- tipo: `Postgres Service`
+- use o host/usuário/senha gerados pelo EasyPanel
+
+### Serviço 4: `redis`
+
+- tipo: `Redis Service`
+- use o host/senha gerados pelo EasyPanel
+
+### Serviço 5: `minio` ou storage compatível S3
+
+- use host interno do serviço no `S3_ENDPOINT`
+
+## Variáveis obrigatórias do `crm-web`
+
+Use [`.env.easypanel.example`](/Users/user/Documents/Pessoal/CRM/.env.easypanel.example) como base.
+
+Campos críticos:
 
 ```text
 NODE_ENV=production
 APP_PORT=3000
 APP_HOST=0.0.0.0
-NEXT_PUBLIC_APP_URL=https://seu-dominio
-BETTER_AUTH_URL=https://seu-dominio
+NEXT_PUBLIC_APP_URL=https://$(PRIMARY_DOMAIN)
+BETTER_AUTH_URL=https://$(PRIMARY_DOMAIN)
+SERVICE_MODE=app
 
-POSTGRES_DB=nucleocrm
-POSTGRES_USER=nucleocrm
-POSTGRES_PASSWORD=<senha-forte>
-DATABASE_URL=postgresql://nucleocrm:<senha-forte>@postgres:5432/nucleocrm
+DATABASE_URL=postgresql://USUARIO:SENHA@HOST_INTERNO_POSTGRES:5432/NOME_DO_BANCO
+REDIS_URL=redis://:SENHA@HOST_INTERNO_REDIS:6379
 
-REDIS_PASSWORD=<senha-forte>
-REDIS_URL=redis://:<senha-forte>@redis:6379
+S3_ENDPOINT=http://HOST_INTERNO_MINIO:9000
+S3_ACCESS_KEY=...
+S3_SECRET_KEY=...
 
-MINIO_ROOT_USER=minioadmin
-MINIO_ROOT_PASSWORD=<senha-forte>
-MINIO_BUCKET=uploads
-S3_ENDPOINT=http://minio:9000
-S3_REGION=us-east-1
-S3_ACCESS_KEY=minioadmin
-S3_SECRET_KEY=<senha-forte>
-S3_FORCE_PATH_STYLE=true
-
-BETTER_AUTH_SECRET=<segredo-forte-com-32+-chars>
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-ENCRYPTION_KEY=<chave-com-32+-chars>
+BETTER_AUTH_SECRET=...  # mínimo 32 caracteres
+ENCRYPTION_KEY=...      # mínimo 32 caracteres
 
 RUN_MIGRATIONS=true
 RUN_SEED=false
 ```
 
-## Importante
+## Variáveis do `crm-worker`
 
-Em produção:
-
-- `RUN_SEED=false`
-- `APP_HOST=0.0.0.0`
-- `NEXT_PUBLIC_APP_URL` e `BETTER_AUTH_URL` devem apontar para o domínio final
-
-## Fluxo recomendado
-
-1. Conecte o repositório no EasyPanel.
-2. Use o `docker-compose.yml` do projeto.
-3. Preencha as variáveis de ambiente.
-4. Faça o deploy.
-5. Aguarde o serviço `app` ficar saudável.
-
-## Healthcheck
-
-O serviço `app` usa healthcheck interno em:
+As mesmas variáveis de conexão do web app, mudando:
 
 ```text
-http://127.0.0.1:3000/healthz
+SERVICE_MODE=worker
+RUN_MIGRATIONS=false
+RUN_SEED=false
 ```
 
-Resposta esperada:
+## O que não fazer no EasyPanel App Service
 
-```json
-{"ok":true}
+- não presumir que o host do banco é `postgres` a menos que esse seja realmente o hostname interno do serviço
+- não presumir que o host do Redis é `redis` a menos que esse seja realmente o hostname interno do serviço
+- não usar `docker-compose.yml` como se o EasyPanel App Service fosse levantar toda a stack por você
+- não deixar `BETTER_AUTH_SECRET` com menos de 32 caracteres
+- não usar senha com `@` na URL sem escapar como `%40`
+
+## Diagnóstico oficial
+
+### Logs
+
+O EasyPanel documenta que os logs aparecem no stream do serviço. Use isso no:
+
+- `crm-web` para erros HTTP / auth / DB
+- `crm-worker` para jobs / filas
+
+### Console
+
+Use o `Console` / `Launcher` do serviço `crm-web` para validar:
+
+```sh
+printenv | sort
+wget -qO- http://127.0.0.1:3000/healthz
 ```
 
-## Quando aparecer "Waiting for service ... to start..."
+Se o `healthz` falhar **dentro** do container, o problema é boot da app.
+Se o `healthz` responder dentro do container e externamente der `502`, o problema é proxy port, healthcheck ou restart do serviço.
 
-Esse sintoma normalmente significa que o container não ficou saudável.
+### Logging estruturado
 
-Checklist:
-
-1. Verifique se `APP_HOST=0.0.0.0`
-2. Verifique se `NEXT_PUBLIC_APP_URL` e `BETTER_AUTH_URL` estão corretos
-3. Verifique se `DATABASE_URL` foi realmente injetada no container
-4. Verifique se `DATABASE_URL` usa o host `postgres`
-5. Verifique se `REDIS_URL` usa o host `redis`
-6. Verifique se `BETTER_AUTH_SECRET` e `ENCRYPTION_KEY` estão preenchidos
-7. Verifique se `RUN_SEED=false` em produção
-8. Abra os logs do serviço `app`
-
-## Logs que indicam sucesso
-
-Você deve ver algo próximo de:
-
-```text
-✓ Starting...
-✓ Ready in ...
-```
-
-## Logs que merecem atenção
-
-### Banco ou Redis
-
-Erros como:
-
-```text
-ECONNREFUSED postgres
-ENOTFOUND redis
-Please provide required params for Postgres driver: url: ''
-```
-
-indicam configuração incorreta de rede/hostname/variáveis ou variável não injetada no container.
-
-### Aplicação presa sem ficar pronta
-
-Se o healthcheck falhar, o EasyPanel pode ficar em loop com:
-
-```text
-Waiting for service crm_crm to start...
-```
-
-Nesse caso, revise primeiro:
-
-- `APP_HOST=0.0.0.0`
-- `PORT=3000` no compose
-- logs do serviço `app`
-
-## Logging de diagnóstico
-
-As rotas de auth agora geram logs estruturados em JSON com:
+As rotas de auth agora emitem logs JSON com:
 
 - `event`
 - `requestId`
@@ -159,7 +141,7 @@ As rotas de auth agora geram logs estruturados em JSON com:
 - `status`
 - `durationMs`
 
-Eventos principais:
+Procure por:
 
 ```text
 http.request.started
@@ -169,33 +151,28 @@ runtime.uncaught_exception
 runtime.unhandled_rejection
 ```
 
-Quando uma rota `/api/auth/*` falhar, procure no log do serviço `app` pelo mesmo `requestId`
-retornado na resposta HTTP.
+## Evidência da pesquisa
 
-Exemplo de resposta de erro:
+Documentação oficial consultada:
 
-```json
-{
-  "error": "internal_server_error",
-  "requestId": "..."
-}
-```
+- Easypanel App Service: https://easypanel.io/docs/services/app
+- Easypanel Services: https://easypanel.io/docs/services
+- Easypanel Postgres Service: https://easypanel.io/docs/services/postgres
+- Easypanel Redis Service: https://easypanel.io/docs/services/redis
 
-## Pós-deploy
+Pontos relevantes da documentação:
 
-Depois do primeiro deploy:
+- App Service usa o `Dockerfile` do repo quando ele existe
+- variáveis de ambiente existem em build-time e run-time
+- web app precisa de `proxy port` correto
+- logs e console são as ferramentas oficiais de diagnóstico
 
-1. acesse `/healthz`
-2. teste `/login`
-3. confirme login do admin real
-4. crie um webhook e teste um POST
-5. confira se lead e cliente aparecem no sistema
+## Próximo passo objetivo
 
-## Segurança mínima antes de produção real
+Para eu fechar isso com você, eu preciso só de **uma** informação concreta:
 
-- trocar todas as senhas padrão
-- usar `BETTER_AUTH_SECRET` forte
-- usar `ENCRYPTION_KEY` forte
-- não deixar `.env` no GitHub
-- não publicar `postgres` e `redis`
-- manter `RUN_SEED=false`
+1. o hostname interno do seu serviço Postgres no EasyPanel
+2. o hostname interno do seu serviço Redis no EasyPanel
+3. o hostname interno do seu serviço MinIO/S3 no EasyPanel
+
+Se você me mandar isso, eu te devolvo o bloco final de variáveis pronto para colar no `crm-web` e no `crm-worker`.

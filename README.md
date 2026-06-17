@@ -111,12 +111,13 @@ git diff
 Fluxo recomendado:
 
 1. Suba este repositório para o GitHub.
-2. No EasyPanel, crie um app a partir do repositório.
-3. Use `docker-compose.yml` como base do deploy.
-4. Configure todas as variáveis do `.env.example` no painel do EasyPanel.
-   Você pode usar `.env.easypanel.example` como referência pronta para produção.
-5. Mantenha `RUN_MIGRATIONS=true` no serviço `app`.
-6. Em produção, desative seed:
+2. No EasyPanel, crie um `App Service` para o web app usando este repositório e o `Dockerfile`.
+3. Crie um segundo `App Service` para o worker usando o mesmo repositório e o mesmo `Dockerfile`.
+4. Crie serviços separados no EasyPanel para `Postgres`, `Redis` e `MinIO/S3`.
+5. Configure todas as variáveis do painel usando `.env.easypanel.example` como base.
+6. No web app, mantenha `SERVICE_MODE=app` e `RUN_MIGRATIONS=true`.
+7. No worker, use `SERVICE_MODE=worker` e `RUN_MIGRATIONS=false`.
+8. Em produção, desative seed:
 
 ```text
 RUN_SEED=false

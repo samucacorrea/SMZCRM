@@ -13,4 +13,7 @@ if [ "${RUN_SEED:-false}" = "true" ]; then
   npm run db:seed
 fi
 
+export HOSTNAME="${HOSTNAME:-${APP_HOST:-0.0.0.0}}"
+export PORT="${PORT:-${APP_PORT:-3000}}"
+
 exec node server.js

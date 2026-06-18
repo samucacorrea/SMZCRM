@@ -21,4 +21,4 @@ echo "[entrypoint] RUN_MIGRATIONS=${RUN_MIGRATIONS:-true}"
 echo "[entrypoint] HOSTNAME=${HOSTNAME}"
 echo "[entrypoint] PORT=${PORT}"
 
-exec node server.js
+exec env HOSTNAME="${HOSTNAME}" PORT="${PORT}" node server.js

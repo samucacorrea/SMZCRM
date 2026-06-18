@@ -13,8 +13,8 @@ if [ "${RUN_SEED:-false}" = "true" ]; then
   npm run db:seed
 fi
 
-export HOSTNAME="${HOSTNAME:-${APP_HOST:-0.0.0.0}}"
-export PORT="${PORT:-${APP_PORT:-3000}}"
+export HOSTNAME="${APP_HOST:-0.0.0.0}"
+export PORT="${APP_PORT:-3000}"
 
 echo "[entrypoint] SERVICE_MODE=${SERVICE_MODE:-app}"
 echo "[entrypoint] RUN_MIGRATIONS=${RUN_MIGRATIONS:-true}"

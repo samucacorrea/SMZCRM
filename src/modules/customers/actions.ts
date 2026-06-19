@@ -16,9 +16,12 @@ import {
   createCustomerCustomFieldSchema,
   createCustomerNoteSchema,
   createCustomerSchema,
+  deleteCustomerContactSchema,
+  deleteCustomerNoteSchema,
   importCustomerRowSchema,
   updateCustomerContactAccessSchema,
   updateCustomerCustomDataSchema,
+  updateCustomerSchema,
 } from "@/modules/customers/validators";
 
 export type CustomerActionState = {
@@ -105,6 +108,40 @@ function normalizeCustomerCustomFieldValue(
   };
 }
 
+async function assertCustomerBelongsToTenant(tenantId: string, customerId: string) {
+  return db.query.customers.findFirst({
+    where: and(eq(customers.id, customerId), eq(customers.tenantId, tenantId)),
+  });
+}
+
+async function assertCustomerContactBelongsToCustomer(
+  tenantId: string,
+  customerId: string,
+  contactId: string,
+) {
+  return db.query.customerContacts.findFirst({
+    where: and(
+      eq(customerContacts.id, contactId),
+      eq(customerContacts.tenantId, tenantId),
+      eq(customerContacts.customerId, customerId),
+    ),
+  });
+}
+
+async function assertCustomerNoteBelongsToCustomer(
+  tenantId: string,
+  customerId: string,
+  noteId: string,
+) {
+  return db.query.customerNotes.findFirst({
+    where: and(
+      eq(customerNotes.id, noteId),
+      eq(customerNotes.tenantId, tenantId),
+      eq(customerNotes.customerId, customerId),
+    ),
+  });
+}
+
 export async function createCustomerAction(
   _previousState: CustomerActionState,
   formData: FormData,
@@ -187,6 +224,83 @@ export async function createCustomerAction(
 
   return {
     success: "Cliente criado com sucesso.",
+  };
+}
+
+export async function updateCustomerAction(
+  customerId: string,
+  _previousState: CustomerActionState,
+  formData: FormData,
+): Promise<CustomerActionState> {
+  await assertPermission("customers", "edit");
+  const tenantContext = await getTenantContext();
+
+  const parsed = updateCustomerSchema.safeParse({
+    customerId,
+    legalName: formData.get("legalName"),
+    tradeName: formData.get("tradeName"),
+    taxId: formData.get("taxId"),
+    phone: formData.get("phone"),
+    website: formData.get("website"),
+    zipCode: formData.get("zipCode"),
+    addressLine1: formData.get("addressLine1"),
+    addressLine2: formData.get("addressLine2"),
+    neighborhood: formData.get("neighborhood"),
+    city: formData.get("city"),
+    state: formData.get("state"),
+  });
+
+  if (!parsed.success) {
+    return {
+      error: parsed.error.issues[0]?.message ?? "Dados invalidos",
+    };
+  }
+
+  const [customer, duplicatedTaxId] = await Promise.all([
+    assertCustomerBelongsToTenant(tenantContext.tenantId, parsed.data.customerId),
+    db.query.customers.findFirst({
+      where: and(
+        eq(customers.tenantId, tenantContext.tenantId),
+        eq(customers.taxId, parsed.data.taxId),
+      ),
+    }),
+  ]);
+
+  if (!customer) {
+    return {
+      error: "Cliente nao encontrado.",
+    };
+  }
+
+  if (duplicatedTaxId && duplicatedTaxId.id !== customer.id) {
+    return {
+      error: "Ja existe outro cliente com este CPF/CNPJ neste tenant.",
+    };
+  }
+
+  await db
+    .update(customers)
+    .set({
+      legalName: parsed.data.legalName,
+      tradeName: parsed.data.tradeName || parsed.data.legalName,
+      taxId: parsed.data.taxId,
+      phone: parsed.data.phone,
+      website: parsed.data.website || null,
+      zipCode: parsed.data.zipCode || null,
+      addressLine1: parsed.data.addressLine1 || null,
+      addressLine2: parsed.data.addressLine2 || null,
+      neighborhood: parsed.data.neighborhood || null,
+      city: parsed.data.city,
+      state: parsed.data.state.toUpperCase(),
+      updatedAt: new Date(),
+    })
+    .where(eq(customers.id, customer.id));
+
+  revalidatePath(`/customers/${customer.id}`);
+  revalidatePath("/customers");
+
+  return {
+    success: "Cliente atualizado.",
   };
 }
 
@@ -359,6 +473,77 @@ export async function updateCustomerContactAccessAction(
 
   return {
     success: "Acesso do contato atualizado.",
+  };
+}
+
+export async function deleteCustomerContactAction(
+  customerId: string,
+  contactId: string,
+): Promise<CustomerActionState> {
+  await assertPermission("customers", "edit");
+  const tenantContext = await getTenantContext();
+
+  const parsed = deleteCustomerContactSchema.safeParse({
+    customerId,
+    contactId,
+  });
+
+  if (!parsed.success) {
+    return {
+      error: parsed.error.issues[0]?.message ?? "Dados invalidos",
+    };
+  }
+
+  const [customer, contact, contacts] = await Promise.all([
+    assertCustomerBelongsToTenant(tenantContext.tenantId, parsed.data.customerId),
+    assertCustomerContactBelongsToCustomer(
+      tenantContext.tenantId,
+      parsed.data.customerId,
+      parsed.data.contactId,
+    ),
+    db.query.customerContacts.findMany({
+      where: and(
+        eq(customerContacts.tenantId, tenantContext.tenantId),
+        eq(customerContacts.customerId, parsed.data.customerId),
+      ),
+      orderBy: (fields, { asc }) => [asc(fields.createdAt)],
+    }),
+  ]);
+
+  if (!customer || !contact) {
+    return {
+      error: "Cliente ou contato nao encontrado.",
+    };
+  }
+
+  if (contacts.length <= 1) {
+    return {
+      error: "O cliente precisa manter ao menos um contato.",
+    };
+  }
+
+  const replacementPrimary = contact.isPrimary
+    ? contacts.find((item) => item.id !== contact.id) ?? null
+    : null;
+
+  await db.transaction(async (tx) => {
+    await tx.delete(customerContacts).where(eq(customerContacts.id, contact.id));
+
+    if (replacementPrimary) {
+      await tx
+        .update(customerContacts)
+        .set({
+          isPrimary: true,
+        })
+        .where(eq(customerContacts.id, replacementPrimary.id));
+    }
+  });
+
+  revalidatePath(`/customers/${customer.id}`);
+  revalidatePath("/customers");
+
+  return {
+    success: "Contato removido.",
   };
 }
 
@@ -545,6 +730,48 @@ export async function createCustomerNoteAction(
 
   return {
     success: "Nota registrada com sucesso.",
+  };
+}
+
+export async function deleteCustomerNoteAction(
+  customerId: string,
+  noteId: string,
+): Promise<CustomerActionState> {
+  await assertPermission("customers", "edit");
+  const tenantContext = await getTenantContext();
+
+  const parsed = deleteCustomerNoteSchema.safeParse({
+    customerId,
+    noteId,
+  });
+
+  if (!parsed.success) {
+    return {
+      error: parsed.error.issues[0]?.message ?? "Dados invalidos",
+    };
+  }
+
+  const [customer, note] = await Promise.all([
+    assertCustomerBelongsToTenant(tenantContext.tenantId, parsed.data.customerId),
+    assertCustomerNoteBelongsToCustomer(
+      tenantContext.tenantId,
+      parsed.data.customerId,
+      parsed.data.noteId,
+    ),
+  ]);
+
+  if (!customer || !note) {
+    return {
+      error: "Cliente ou nota nao encontrada.",
+    };
+  }
+
+  await db.delete(customerNotes).where(eq(customerNotes.id, note.id));
+
+  revalidatePath(`/customers/${customer.id}`);
+
+  return {
+    success: "Nota removida.",
   };
 }
 

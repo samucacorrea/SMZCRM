@@ -1,7 +1,20 @@
 import { and, asc, desc, eq, ilike, or } from "drizzle-orm";
 
 import { db } from "@/lib/db";
-import { leadActivities, leadStages, leads, webhookRequestLogs } from "@/lib/db/schema";
+import {
+  leadActivities,
+  leadAttachments,
+  leadFollowUps,
+  proposalItems,
+  proposals,
+  leadStages,
+  leads,
+  reminders,
+  taskAssignees,
+  tasks,
+  staffMembers,
+  webhookRequestLogs,
+} from "@/lib/db/schema";
 
 export async function listLeadStagesByTenant(tenantId: string) {
   return db.query.leadStages.findMany({
@@ -53,6 +66,53 @@ export async function getLeadById(tenantId: string, leadId: string) {
         },
         orderBy: [desc(leadActivities.createdAt)],
       },
+      reminders: {
+        with: {
+          createdBy: true,
+          completedBy: true,
+        },
+        orderBy: [asc(reminders.status), asc(reminders.remindAt)],
+      },
+      tasks: {
+        with: {
+          createdBy: true,
+          assignees: {
+            with: {
+              staff: true,
+            },
+            orderBy: [asc(taskAssignees.createdAt)],
+          },
+        },
+        orderBy: [asc(tasks.status), asc(tasks.dueDate), desc(tasks.createdAt)],
+      },
+      proposals: {
+        with: {
+          createdBy: true,
+          items: {
+            orderBy: [asc(proposalItems.sortOrder)],
+          },
+        },
+        orderBy: [desc(proposals.createdAt)],
+      },
+      attachments: {
+        with: {
+          uploadedBy: true,
+        },
+        orderBy: [desc(leadAttachments.createdAt)],
+      },
+      followUps: {
+        with: {
+          createdBy: true,
+        },
+        orderBy: [desc(leadFollowUps.happenedAt), desc(leadFollowUps.createdAt)],
+      },
     },
+  });
+}
+
+export async function listLeadOwnersByTenant(tenantId: string) {
+  return db.query.staffMembers.findMany({
+    where: eq(staffMembers.tenantId, tenantId),
+    orderBy: (fields, { asc }) => [asc(fields.displayName)],
   });
 }

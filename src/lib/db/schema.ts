@@ -45,6 +45,45 @@ export const leadActivityTypeEnum = pgEnum("lead_activity_type", [
   "stage_changed",
   "converted",
 ]);
+export const reminderStatusEnum = pgEnum("reminder_status", [
+  "pending",
+  "completed",
+  "canceled",
+]);
+export const taskPriorityEnum = pgEnum("task_priority", [
+  "low",
+  "medium",
+  "high",
+  "urgent",
+]);
+export const taskStatusEnum = pgEnum("task_status", ["todo", "in_progress", "done"]);
+export const proposalStatusEnum = pgEnum("proposal_status", [
+  "draft",
+  "sent",
+  "accepted",
+  "rejected",
+  "expired",
+]);
+export const leadAttachmentKindEnum = pgEnum("lead_attachment_kind", [
+  "file",
+  "image",
+  "document",
+]);
+export const leadFollowUpChannelEnum = pgEnum("lead_follow_up_channel", [
+  "call",
+  "whatsapp",
+  "email",
+  "meeting",
+  "other",
+]);
+export const leadFollowUpOutcomeEnum = pgEnum("lead_follow_up_outcome", [
+  "pending",
+  "answered",
+  "no_answer",
+  "interested",
+  "not_interested",
+  "scheduled",
+]);
 export const webhookStatusEnum = pgEnum("webhook_status", ["active", "paused"]);
 export const webhookDedupKeyEnum = pgEnum("webhook_dedup_key", [
   "email",
@@ -582,6 +621,224 @@ export const leadAttributions = pgTable(
   }),
 ).enableRLS();
 
+export const reminders = pgTable(
+  "reminders",
+  {
+    id: uuid("id").$defaultFn(createId).primaryKey(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    relatedType: text("related_type").notNull(),
+    relatedId: uuid("related_id").notNull(),
+    description: text("description").notNull(),
+    remindAt: timestamp("remind_at", { withTimezone: true }).notNull(),
+    status: reminderStatusEnum("status").default("pending").notNull(),
+    recipients: jsonb("recipients").$type<string[]>().default([]).notNull(),
+    channels: jsonb("channels").$type<string[]>().default([]).notNull(),
+    notifyCustomer: boolean("notify_customer").default(false).notNull(),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+    createdByStaffMemberId: uuid("created_by_staff_member_id").references(
+      () => staffMembers.id,
+      { onDelete: "set null" },
+    ),
+    completedByStaffMemberId: uuid("completed_by_staff_member_id").references(
+      () => staffMembers.id,
+      { onDelete: "set null" },
+    ),
+    ...timestamps,
+  },
+  (table) => ({
+    tenantRelatedIdx: index("reminders_tenant_related_idx").on(
+      table.tenantId,
+      table.relatedType,
+      table.relatedId,
+    ),
+    tenantStatusRemindAtIdx: index("reminders_tenant_status_remind_at_idx").on(
+      table.tenantId,
+      table.status,
+      table.remindAt,
+    ),
+  }),
+).enableRLS();
+
+export const tasks = pgTable(
+  "tasks",
+  {
+    id: uuid("id").$defaultFn(createId).primaryKey(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    relatedType: text("related_type").notNull(),
+    relatedId: uuid("related_id").notNull(),
+    name: text("name").notNull(),
+    description: text("description"),
+    priority: taskPriorityEnum("priority").default("medium").notNull(),
+    status: taskStatusEnum("status").default("todo").notNull(),
+    startDate: timestamp("start_date", { withTimezone: true }),
+    dueDate: timestamp("due_date", { withTimezone: true }),
+    tags: jsonb("tags").$type<string[]>().default([]).notNull(),
+    recurring: jsonb("recurring").$type<Record<string, unknown>>().default({}).notNull(),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+    createdByStaffMemberId: uuid("created_by_staff_member_id").references(
+      () => staffMembers.id,
+      { onDelete: "set null" },
+    ),
+    ...timestamps,
+  },
+  (table) => ({
+    tenantRelatedIdx: index("tasks_tenant_related_idx").on(
+      table.tenantId,
+      table.relatedType,
+      table.relatedId,
+    ),
+    tenantStatusDueDateIdx: index("tasks_tenant_status_due_date_idx").on(
+      table.tenantId,
+      table.status,
+      table.dueDate,
+    ),
+  }),
+).enableRLS();
+
+export const taskAssignees = pgTable(
+  "task_assignees",
+  {
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    taskId: uuid("task_id")
+      .notNull()
+      .references(() => tasks.id, { onDelete: "cascade" }),
+    staffId: uuid("staff_id")
+      .notNull()
+      .references(() => staffMembers.id, { onDelete: "cascade" }),
+    ...timestamps,
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.taskId, table.staffId] }),
+    tenantTaskIdx: index("task_assignees_tenant_task_idx").on(table.tenantId, table.taskId),
+    tenantStaffIdx: index("task_assignees_tenant_staff_idx").on(table.tenantId, table.staffId),
+  }),
+).enableRLS();
+
+export const proposals = pgTable(
+  "proposals",
+  {
+    id: uuid("id").$defaultFn(createId).primaryKey(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    leadId: uuid("lead_id")
+      .notNull()
+      .references(() => leads.id, { onDelete: "cascade" }),
+    customerId: uuid("customer_id").references(() => customers.id, { onDelete: "set null" }),
+    number: text("number").notNull(),
+    title: text("title").notNull(),
+    status: proposalStatusEnum("status").default("draft").notNull(),
+    content: jsonb("content").$type<Record<string, unknown>>().default({}).notNull(),
+    validUntil: timestamp("valid_until", { withTimezone: true }),
+    publicToken: text("public_token").notNull(),
+    acceptedAt: timestamp("accepted_at", { withTimezone: true }),
+    acceptIp: text("accept_ip"),
+    signature: jsonb("signature").$type<Record<string, unknown>>().default({}).notNull(),
+    subtotalInCents: integer("subtotal_in_cents").default(0).notNull(),
+    totalInCents: integer("total_in_cents").default(0).notNull(),
+    currency: text("currency").default("BRL").notNull(),
+    createdByStaffMemberId: uuid("created_by_staff_member_id").references(
+      () => staffMembers.id,
+      { onDelete: "set null" },
+    ),
+    ...timestamps,
+  },
+  (table) => ({
+    tenantLeadIdx: index("proposals_tenant_lead_idx").on(table.tenantId, table.leadId),
+    tenantStatusIdx: index("proposals_tenant_status_idx").on(table.tenantId, table.status),
+    tenantNumberIdx: uniqueIndex("proposals_tenant_number_idx").on(table.tenantId, table.number),
+    publicTokenIdx: uniqueIndex("proposals_public_token_idx").on(table.publicToken),
+  }),
+).enableRLS();
+
+export const proposalItems = pgTable(
+  "proposal_items",
+  {
+    id: uuid("id").$defaultFn(createId).primaryKey(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    proposalId: uuid("proposal_id")
+      .notNull()
+      .references(() => proposals.id, { onDelete: "cascade" }),
+    description: text("description").notNull(),
+    quantity: integer("quantity").default(1).notNull(),
+    unitPriceInCents: integer("unit_price_in_cents").default(0).notNull(),
+    totalInCents: integer("total_in_cents").default(0).notNull(),
+    sortOrder: integer("sort_order").default(0).notNull(),
+    ...timestamps,
+  },
+  (table) => ({
+    tenantProposalIdx: index("proposal_items_tenant_proposal_idx").on(
+      table.tenantId,
+      table.proposalId,
+    ),
+  }),
+).enableRLS();
+
+export const leadAttachments = pgTable(
+  "lead_attachments",
+  {
+    id: uuid("id").$defaultFn(createId).primaryKey(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    leadId: uuid("lead_id")
+      .notNull()
+      .references(() => leads.id, { onDelete: "cascade" }),
+    fileName: text("file_name").notNull(),
+    contentType: text("content_type").notNull(),
+    sizeInBytes: integer("size_in_bytes").notNull(),
+    storageKey: text("storage_key").notNull(),
+    kind: leadAttachmentKindEnum("kind").default("file").notNull(),
+    uploadedByStaffMemberId: uuid("uploaded_by_staff_member_id").references(
+      () => staffMembers.id,
+      { onDelete: "set null" },
+    ),
+    ...timestamps,
+  },
+  (table) => ({
+    tenantLeadIdx: index("lead_attachments_tenant_lead_idx").on(table.tenantId, table.leadId),
+    storageKeyIdx: uniqueIndex("lead_attachments_storage_key_idx").on(table.storageKey),
+  }),
+).enableRLS();
+
+export const leadFollowUps = pgTable(
+  "lead_follow_ups",
+  {
+    id: uuid("id").$defaultFn(createId).primaryKey(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    leadId: uuid("lead_id")
+      .notNull()
+      .references(() => leads.id, { onDelete: "cascade" }),
+    channel: leadFollowUpChannelEnum("channel").default("other").notNull(),
+    outcome: leadFollowUpOutcomeEnum("outcome").default("pending").notNull(),
+    happenedAt: timestamp("happened_at", { withTimezone: true }).notNull(),
+    summary: text("summary").notNull(),
+    nextAction: text("next_action"),
+    createdByStaffMemberId: uuid("created_by_staff_member_id").references(
+      () => staffMembers.id,
+      { onDelete: "set null" },
+    ),
+    ...timestamps,
+  },
+  (table) => ({
+    tenantLeadIdx: index("lead_follow_ups_tenant_lead_idx").on(table.tenantId, table.leadId),
+    tenantHappenedAtIdx: index("lead_follow_ups_tenant_happened_at_idx").on(
+      table.tenantId,
+      table.happenedAt,
+    ),
+  }),
+).enableRLS();
+
 export const inboundWebhooks = pgTable(
   "inbound_webhooks",
   {
@@ -709,7 +966,13 @@ export const tenantScopedTables = {
   webhookFieldMappings,
   webhookRequestLogs,
   conversionEvents,
+  reminders,
+  tasks,
   queueJobs,
+  proposals,
+  proposalItems,
+  leadAttachments,
+  leadFollowUps,
 } as const;
 
 export type TenantScopedTableName = keyof typeof tenantScopedTables;
@@ -823,6 +1086,11 @@ export const leadsRelations = relations(leads, ({ one, many }) => ({
   attribution: many(leadAttributions),
   webhookLogs: many(webhookRequestLogs),
   conversionEvents: many(conversionEvents),
+  reminders: many(reminders),
+  tasks: many(tasks),
+  proposals: many(proposals),
+  attachments: many(leadAttachments),
+  followUps: many(leadFollowUps),
 }));
 
 export const leadActivitiesRelations = relations(leadActivities, ({ one }) => ({
@@ -905,6 +1173,117 @@ export const conversionEventsRelations = relations(conversionEvents, ({ one }) =
   lead: one(leads, {
     fields: [conversionEvents.leadId],
     references: [leads.id],
+  }),
+}));
+
+export const remindersRelations = relations(reminders, ({ one }) => ({
+  tenant: one(tenants, {
+    fields: [reminders.tenantId],
+    references: [tenants.id],
+  }),
+  createdBy: one(staffMembers, {
+    fields: [reminders.createdByStaffMemberId],
+    references: [staffMembers.id],
+  }),
+  completedBy: one(staffMembers, {
+    fields: [reminders.completedByStaffMemberId],
+    references: [staffMembers.id],
+  }),
+  lead: one(leads, {
+    fields: [reminders.relatedId],
+    references: [leads.id],
+  }),
+}));
+
+export const tasksRelations = relations(tasks, ({ one, many }) => ({
+  tenant: one(tenants, {
+    fields: [tasks.tenantId],
+    references: [tenants.id],
+  }),
+  createdBy: one(staffMembers, {
+    fields: [tasks.createdByStaffMemberId],
+    references: [staffMembers.id],
+  }),
+  lead: one(leads, {
+    fields: [tasks.relatedId],
+    references: [leads.id],
+  }),
+  assignees: many(taskAssignees),
+}));
+
+export const taskAssigneesRelations = relations(taskAssignees, ({ one }) => ({
+  tenant: one(tenants, {
+    fields: [taskAssignees.tenantId],
+    references: [tenants.id],
+  }),
+  task: one(tasks, {
+    fields: [taskAssignees.taskId],
+    references: [tasks.id],
+  }),
+  staff: one(staffMembers, {
+    fields: [taskAssignees.staffId],
+    references: [staffMembers.id],
+  }),
+}));
+
+export const proposalsRelations = relations(proposals, ({ one, many }) => ({
+  tenant: one(tenants, {
+    fields: [proposals.tenantId],
+    references: [tenants.id],
+  }),
+  lead: one(leads, {
+    fields: [proposals.leadId],
+    references: [leads.id],
+  }),
+  customer: one(customers, {
+    fields: [proposals.customerId],
+    references: [customers.id],
+  }),
+  createdBy: one(staffMembers, {
+    fields: [proposals.createdByStaffMemberId],
+    references: [staffMembers.id],
+  }),
+  items: many(proposalItems),
+}));
+
+export const proposalItemsRelations = relations(proposalItems, ({ one }) => ({
+  tenant: one(tenants, {
+    fields: [proposalItems.tenantId],
+    references: [tenants.id],
+  }),
+  proposal: one(proposals, {
+    fields: [proposalItems.proposalId],
+    references: [proposals.id],
+  }),
+}));
+
+export const leadAttachmentsRelations = relations(leadAttachments, ({ one }) => ({
+  tenant: one(tenants, {
+    fields: [leadAttachments.tenantId],
+    references: [tenants.id],
+  }),
+  lead: one(leads, {
+    fields: [leadAttachments.leadId],
+    references: [leads.id],
+  }),
+  uploadedBy: one(staffMembers, {
+    fields: [leadAttachments.uploadedByStaffMemberId],
+    references: [staffMembers.id],
+  }),
+}));
+
+export const leadFollowUpsRelations = relations(leadFollowUps, ({ one }) => ({
+  tenant: one(tenants, {
+    fields: [leadFollowUps.tenantId],
+    references: [tenants.id],
+  }),
+  lead: one(leads, {
+    fields: [leadFollowUps.leadId],
+    references: [leads.id],
+  }),
+  createdBy: one(staffMembers, {
+    fields: [leadFollowUps.createdByStaffMemberId],
+    references: [staffMembers.id],
   }),
 }));
 

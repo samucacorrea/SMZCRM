@@ -3,13 +3,12 @@ import { notFound } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { assertPermission } from "@/lib/rbac";
 import { getTenantContext } from "@/lib/tenant-context";
-import { CustomerContactAccessForm } from "@/modules/customers/components/customer-contact-access-form";
-import { CustomerContactForm } from "@/modules/customers/components/customer-contact-form";
+import { CustomerContactsPanel } from "@/modules/customers/components/customer-contacts-panel";
 import { CustomerCustomDataForm } from "@/modules/customers/components/customer-custom-data-form";
 import { CustomerCustomFieldCreateForm } from "@/modules/customers/components/customer-custom-field-create-form";
-import { CustomerNoteForm } from "@/modules/customers/components/customer-note-form";
+import { CustomerDetailsForm } from "@/modules/customers/components/customer-details-form";
+import { CustomerNotesPanel } from "@/modules/customers/components/customer-notes-panel";
 import { getCustomerById, listCustomerCustomFieldsByTenant } from "@/modules/customers/queries";
-import { customerPortalPermissionLabels } from "@/modules/customers/validators";
 
 const tabs = [
   "Resumo",
@@ -100,94 +99,40 @@ export async function CustomerProfilePageView({ customerId }: { customerId: stri
         </Card>
 
         <Card className="overflow-hidden">
-          <div className="h-1 bg-accent" />
+          <div className="h-1 bg-primary/70" />
           <CardHeader>
-            <CardTitle>Contatos</CardTitle>
-            <CardDescription>Contato primário e equipe ligada ao cliente.</CardDescription>
+            <CardTitle>Dados do cliente</CardTitle>
+            <CardDescription>
+              Atualize cadastro, endereço e dados fiscais sem sair do perfil.
+            </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <CustomerContactForm customerId={customer.id} />
-            {customer.contacts.map((contact) => (
-              <div key={contact.id} className="rounded-xl border border-border bg-background p-4 text-sm">
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className="font-medium text-foreground">{contact.name}</p>
-                    <p className="text-muted-foreground">{contact.jobTitle || "Sem cargo"}</p>
-                  </div>
-                  {contact.isPrimary ? (
-                    <span className="rounded-full bg-accent px-2 py-1 text-xs text-accent-foreground">
-                      Principal
-                    </span>
-                  ) : null}
-                </div>
-                <div className="mt-3 space-y-1 text-muted-foreground">
-                  <p>{contact.email}</p>
-                  <p>{contact.phone || contact.whatsapp}</p>
-                </div>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {contact.portalPermissions.length > 0 ? (
-                    contact.portalPermissions.map((permission) => (
-                      <span
-                        key={permission}
-                        className="rounded-full bg-primary/10 px-2 py-1 text-xs text-primary"
-                      >
-                        {customerPortalPermissionLabels[
-                          permission as keyof typeof customerPortalPermissionLabels
-                        ] ?? permission}
-                      </span>
-                    ))
-                  ) : (
-                    <span className="rounded-full bg-muted px-2 py-1 text-xs text-muted-foreground">
-                      Sem acesso ao portal
-                    </span>
-                  )}
-                </div>
-                <div className="mt-4">
-                  <CustomerContactAccessForm
-                    contact={{
-                      id: contact.id,
-                      customerId: customer.id,
-                      isPrimary: contact.isPrimary,
-                      portalPermissions: contact.portalPermissions,
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
+          <CardContent>
+            <CustomerDetailsForm customer={customer} />
           </CardContent>
         </Card>
       </div>
 
       <Card className="overflow-hidden">
-        <div className="h-1 bg-primary/80" />
+        <div className="h-1 bg-accent" />
         <CardHeader>
-          <CardTitle>Notas internas</CardTitle>
-          <CardDescription>Registro comercial com autor e data.</CardDescription>
+          <CardTitle>Contatos</CardTitle>
+          <CardDescription>Contato primário e equipe ligada ao cliente.</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <CustomerNoteForm customerId={customer.id} />
-          {customer.notes.length === 0 ? (
-            <p className="rounded-xl border border-dashed border-border bg-background px-4 py-8 text-center text-sm text-muted-foreground">
-              Nenhuma nota registrada ainda.
-            </p>
-          ) : (
-            customer.notes.map((note) => (
-              <div key={note.id} className="rounded-xl border border-border bg-background p-4">
-                <div className="mb-2 flex items-center justify-between gap-3 text-xs text-muted-foreground">
-                  <span>{note.author?.displayName || "Sistema"}</span>
-                  <span>
-                    {new Intl.DateTimeFormat("pt-BR", {
-                      dateStyle: "short",
-                      timeStyle: "short",
-                    }).format(note.createdAt)}
-                  </span>
-                </div>
-                <p className="text-sm text-foreground">{note.body}</p>
-              </div>
-            ))
-          )}
+        <CardContent>
+          <CustomerContactsPanel customerId={customer.id} contacts={customer.contacts} />
         </CardContent>
       </Card>
+
+      <Card className="overflow-hidden">
+          <div className="h-1 bg-accent" />
+          <CardHeader>
+            <CardTitle>Notas internas</CardTitle>
+            <CardDescription>Registro comercial com autor e data.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <CustomerNotesPanel customerId={customer.id} notes={customer.notes} />
+          </CardContent>
+        </Card>
 
       <Card className="overflow-hidden">
         <div className="h-1 bg-accent/80" />

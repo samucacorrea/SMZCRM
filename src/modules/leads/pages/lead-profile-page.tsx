@@ -5,10 +5,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { assertPermission } from "@/lib/rbac";
 import { getTenantContext } from "@/lib/tenant-context";
 import { LeadConvertButton } from "@/modules/leads/components/lead-convert-button";
+import { LeadAttachmentsPanel } from "@/modules/leads/components/lead-attachments-panel";
+import { LeadDetailsForm } from "@/modules/leads/components/lead-details-form";
+import { LeadFollowUpsPanel } from "@/modules/leads/components/lead-follow-ups-panel";
 import { LeadNoteForm } from "@/modules/leads/components/lead-note-form";
+import { LeadProposalsPanel } from "@/modules/leads/components/lead-proposals-panel";
 import { LeadQualificationPanel } from "@/modules/leads/components/lead-qualification-panel";
+import { LeadRemindersPanel } from "@/modules/leads/components/lead-reminders-panel";
 import { LeadStagePicker } from "@/modules/leads/components/lead-stage-picker";
-import { getLeadById, listLeadStagesByTenant } from "@/modules/leads/queries";
+import { LeadTasksPanel } from "@/modules/leads/components/lead-tasks-panel";
+import { getLeadById, listLeadOwnersByTenant, listLeadStagesByTenant } from "@/modules/leads/queries";
 
 const tabs = [
   "Resumo",
@@ -44,9 +50,10 @@ function formatAttributionLabel(key: string) {
 export async function LeadProfilePageView({ leadId }: { leadId: string }) {
   await assertPermission("leads", "view");
   const tenantContext = await getTenantContext();
-  const [lead, stages] = await Promise.all([
+  const [lead, stages, owners] = await Promise.all([
     getLeadById(tenantContext.tenantId, leadId),
     listLeadStagesByTenant(tenantContext.tenantId),
+    listLeadOwnersByTenant(tenantContext.tenantId),
   ]);
 
   if (!lead) {
@@ -208,6 +215,19 @@ export async function LeadProfilePageView({ leadId }: { leadId: string }) {
       <Card className="overflow-hidden">
         <div className="h-1 bg-primary/70" />
         <CardHeader>
+          <CardTitle>Dados do lead</CardTitle>
+          <CardDescription>
+            Atualize cadastro, origem, valor estimado, etiquetas e contexto comercial.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <LeadDetailsForm lead={lead} />
+        </CardContent>
+      </Card>
+
+      <Card className="overflow-hidden">
+        <div className="h-1 bg-primary/70" />
+        <CardHeader>
           <CardTitle>Qualificação e fechamento</CardTitle>
           <CardDescription>
             Controle do avanço comercial e registro de venda fechada.
@@ -220,6 +240,78 @@ export async function LeadProfilePageView({ leadId }: { leadId: string }) {
             saleCurrency={lead.saleCurrency}
             lostReason={lead.lostReason}
           />
+        </CardContent>
+      </Card>
+
+      <Card className="overflow-hidden">
+        <div className="h-1 bg-primary/60" />
+        <CardHeader>
+          <CardTitle>Tarefas</CardTitle>
+          <CardDescription>
+            Organize entregas vinculadas ao lead e distribua responsáveis.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <LeadTasksPanel
+            leadId={lead.id}
+            owners={owners.map((owner) => ({
+              id: owner.id,
+              displayName: owner.displayName,
+            }))}
+            tasks={lead.tasks}
+          />
+        </CardContent>
+      </Card>
+
+      <Card className="overflow-hidden">
+        <div className="h-1 bg-accent/70" />
+        <CardHeader>
+          <CardTitle>Lembretes</CardTitle>
+          <CardDescription>
+            Agende próximos contatos e marque o que já foi executado.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <LeadRemindersPanel leadId={lead.id} reminders={lead.reminders} />
+        </CardContent>
+      </Card>
+
+      <Card className="overflow-hidden">
+        <div className="h-1 bg-accent/60" />
+        <CardHeader>
+          <CardTitle>Anexos</CardTitle>
+          <CardDescription>
+            Centralize contratos, briefings, documentos e criativos vinculados ao lead.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <LeadAttachmentsPanel leadId={lead.id} attachments={lead.attachments} />
+        </CardContent>
+      </Card>
+
+      <Card className="overflow-hidden">
+        <div className="h-1 bg-primary/50" />
+        <CardHeader>
+          <CardTitle>Propostas</CardTitle>
+          <CardDescription>
+            Monte propostas comerciais com itens, validade e status de negociação.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <LeadProposalsPanel leadId={lead.id} proposals={lead.proposals} />
+        </CardContent>
+      </Card>
+
+      <Card className="overflow-hidden">
+        <div className="h-1 bg-primary/40" />
+        <CardHeader>
+          <CardTitle>Follow-ups</CardTitle>
+          <CardDescription>
+            Registre tentativas de contato, retorno do lead e próximos passos.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <LeadFollowUpsPanel leadId={lead.id} followUps={lead.followUps} />
         </CardContent>
       </Card>
 

@@ -6,4 +6,4 @@ export const PUBLIC_ROUTE_ALLOWLIST = new Set([
   "/healthz",
 ]);
 
-export const PUBLIC_ROUTE_PREFIXES = ["/api/auth", "/api/in"];
+export const PUBLIC_ROUTE_PREFIXES = ["/api/auth", "/api/in", "/proposals"];

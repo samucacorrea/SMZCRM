@@ -11,8 +11,11 @@ import {
   createCustomerCustomFieldSchema,
   createCustomerNoteSchema,
   createCustomerSchema,
+  deleteCustomerContactSchema,
+  deleteCustomerNoteSchema,
   updateCustomerContactAccessSchema,
   updateCustomerCustomDataSchema,
+  updateCustomerSchema,
 } from "@/modules/customers/validators";
 
 describe("createCustomerSchema", () => {
@@ -73,6 +76,24 @@ describe("createCustomerSchema", () => {
     expect(result.success).toBe(true);
   });
 
+  it("accepts updating a customer", () => {
+    const result = updateCustomerSchema.safeParse({
+      customerId: "019770f6-9c67-776d-aed2-d1775ff0dbf7",
+      legalName: "Acme LTDA",
+      tradeName: "Acme",
+      taxId: "11.444.777/0001-61",
+      phone: "11999999999",
+      website: "https://acme.com",
+      zipCode: "01001-000",
+      addressLine1: "Rua A",
+      neighborhood: "Centro",
+      city: "Sao Paulo",
+      state: "SP",
+    });
+
+    expect(result.success).toBe(true);
+  });
+
   it("accepts updating portal access for a contact", () => {
     const result = updateCustomerContactAccessSchema.safeParse({
       contactId: "019770f6-9c67-776d-aed2-d1775ff0dbf7",
@@ -110,5 +131,23 @@ describe("createCustomerSchema", () => {
     });
 
     expect(result.success).toBe(false);
+  });
+
+  it("accepts deleting a contact", () => {
+    const result = deleteCustomerContactSchema.safeParse({
+      customerId: "019770f6-9c67-776d-aed2-d1775ff0dbf7",
+      contactId: "019770f6-9c67-776d-aed2-d1775ff0dbf8",
+    });
+
+    expect(result.success).toBe(true);
+  });
+
+  it("accepts deleting a note", () => {
+    const result = deleteCustomerNoteSchema.safeParse({
+      customerId: "019770f6-9c67-776d-aed2-d1775ff0dbf7",
+      noteId: "019770f6-9c67-776d-aed2-d1775ff0dbf8",
+    });
+
+    expect(result.success).toBe(true);
   });
 });

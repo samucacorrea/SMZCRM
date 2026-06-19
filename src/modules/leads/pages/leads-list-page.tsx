@@ -4,7 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { assertPermission } from "@/lib/rbac";
 import { getTenantContext } from "@/lib/tenant-context";
-import { listLeadsByTenant, listLeadStagesByTenant } from "@/modules/leads/queries";
+import { LeadsBulkTable } from "@/modules/leads/components/leads-bulk-table";
+import {
+  listLeadOwnersByTenant,
+  listLeadsByTenant,
+  listLeadStagesByTenant,
+} from "@/modules/leads/queries";
 
 export async function LeadsListPageView({
   searchParams,
@@ -13,12 +18,13 @@ export async function LeadsListPageView({
 }) {
   await assertPermission("leads", "view");
   const tenantContext = await getTenantContext();
-  const [stages, leads] = await Promise.all([
+  const [stages, leads, owners] = await Promise.all([
     listLeadStagesByTenant(tenantContext.tenantId),
     listLeadsByTenant(tenantContext.tenantId, {
       query: searchParams.q,
       stageId: searchParams.stage,
     }),
+    listLeadOwnersByTenant(tenantContext.tenantId),
   ]);
 
   return (
@@ -111,52 +117,27 @@ export async function LeadsListPageView({
               Nenhum lead encontrado.
             </p>
           ) : (
-            <div className="overflow-x-auto rounded-xl border border-border">
-              <table className="min-w-full text-left text-sm">
-                <thead className="bg-background text-muted-foreground">
-                  <tr>
-                    <th className="px-4 py-3 font-medium">Lead</th>
-                    <th className="px-4 py-3 font-medium">Estágio</th>
-                    <th className="px-4 py-3 font-medium">Status</th>
-                    <th className="px-4 py-3 font-medium">Origem</th>
-                    <th className="px-4 py-3 font-medium">Responsável</th>
-                    <th className="px-4 py-3 font-medium">Valor</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {leads.map((lead) => (
-                    <tr key={lead.id} className="border-t border-border">
-                      <td className="px-4 py-3">
-                        <Link href={`/leads/${lead.id}`} className="font-medium text-foreground">
-                          {lead.name}
-                        </Link>
-                        <p className="text-xs text-muted-foreground">
-                          {lead.company || "Sem empresa"} · {lead.email}
-                        </p>
-                      </td>
-                      <td className="px-4 py-3">{lead.stage.name}</td>
-                      <td className="px-4 py-3">
-                        {lead.qualification === "qualified"
-                          ? "Qualificado"
-                          : lead.qualification === "won"
-                            ? "Ganho"
-                            : lead.qualification === "lost"
-                              ? "Perdido"
-                              : "Em aberto"}
-                      </td>
-                      <td className="px-4 py-3">{lead.source}</td>
-                      <td className="px-4 py-3">{lead.assignee?.displayName || "Sem dono"}</td>
-                      <td className="px-4 py-3">
-                        {new Intl.NumberFormat("pt-BR", {
-                          style: "currency",
-                          currency: "BRL",
-                        }).format(lead.estimatedValueInCents / 100)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <LeadsBulkTable
+              leads={leads.map((lead) => ({
+                id: lead.id,
+                name: lead.name,
+                company: lead.company,
+                email: lead.email,
+                source: lead.source,
+                qualification: lead.qualification,
+                estimatedValueInCents: lead.estimatedValueInCents,
+                assigneeName: lead.assignee?.displayName ?? null,
+                stageName: lead.stage.name,
+              }))}
+              stages={stages.map((stage) => ({
+                id: stage.id,
+                name: stage.name,
+              }))}
+              owners={owners.map((owner) => ({
+                id: owner.id,
+                displayName: owner.displayName,
+              }))}
+            />
           )}
         </CardContent>
       </Card>

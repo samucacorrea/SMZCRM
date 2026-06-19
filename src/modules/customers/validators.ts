@@ -39,6 +39,25 @@ export const createCustomerSchema = z.object({
   state: z.string().min(2, "UF obrigatoria").max(2, "UF invalida"),
 });
 
+export const updateCustomerSchema = z.object({
+  customerId: z.string().uuid("Cliente invalido"),
+  legalName: z.string().min(3, "Razao social obrigatoria"),
+  tradeName: z.string().optional(),
+  taxId: z
+    .string()
+    .transform(normalizeCpfCnpj)
+    .refine((value) => value.length > 0, "CPF ou CNPJ obrigatorio")
+    .refine(isValidCpfCnpj, "CPF/CNPJ invalido"),
+  phone: z.string().min(8, "Telefone obrigatorio"),
+  website: z.union([z.literal(""), z.string().url("Site invalido")]).optional(),
+  zipCode: z.string().optional().default("").transform(normalizeCep),
+  addressLine1: z.string().optional().default(""),
+  addressLine2: z.string().optional().default(""),
+  neighborhood: z.string().optional().default(""),
+  city: z.string().min(2, "Cidade obrigatoria"),
+  state: z.string().min(2, "UF obrigatoria").max(2, "UF invalida"),
+});
+
 export const createCustomerContactSchema = z.object({
   customerId: z.string().uuid("Cliente invalido"),
   name: z.string().min(3, "Nome do contato obrigatorio"),
@@ -76,6 +95,16 @@ export const createCustomerNoteSchema = z.object({
   body: z.string().min(3, "Nota obrigatoria").max(5000, "Nota muito longa"),
 });
 
+export const deleteCustomerContactSchema = z.object({
+  customerId: z.string().uuid("Cliente invalido"),
+  contactId: z.string().uuid("Contato invalido"),
+});
+
+export const deleteCustomerNoteSchema = z.object({
+  customerId: z.string().uuid("Cliente invalido"),
+  noteId: z.string().uuid("Nota invalida"),
+});
+
 export const importCustomerRowSchema = createCustomerSchema.extend({
   tradeName: z.string().optional().default(""),
   website: z.string().optional().default(""),
@@ -86,9 +115,12 @@ export const importCustomerRowSchema = createCustomerSchema.extend({
 });
 
 export type CreateCustomerInput = z.infer<typeof createCustomerSchema>;
+export type UpdateCustomerInput = z.infer<typeof updateCustomerSchema>;
 export type CreateCustomerContactInput = z.infer<typeof createCustomerContactSchema>;
 export type CreateCustomerCustomFieldInput = z.infer<typeof createCustomerCustomFieldSchema>;
 export type UpdateCustomerContactAccessInput = z.infer<typeof updateCustomerContactAccessSchema>;
 export type UpdateCustomerCustomDataInput = z.infer<typeof updateCustomerCustomDataSchema>;
 export type CreateCustomerNoteInput = z.infer<typeof createCustomerNoteSchema>;
+export type DeleteCustomerContactInput = z.infer<typeof deleteCustomerContactSchema>;
+export type DeleteCustomerNoteInput = z.infer<typeof deleteCustomerNoteSchema>;
 export type ImportCustomerRowInput = z.infer<typeof importCustomerRowSchema>;

@@ -1,7 +1,7 @@
 import { and, desc, eq } from "drizzle-orm";
 
 import { db } from "@/lib/db";
-import { customFields, customerContacts, customerNotes, customers } from "@/lib/db/schema";
+import { customFields, customerContacts, customerNotes, customers, invoices, projects } from "@/lib/db/schema";
 
 export async function listCustomersByTenant(tenantId: string) {
   return db.query.customers.findMany({
@@ -20,6 +20,18 @@ export async function getCustomerById(tenantId: string, customerId: string) {
     with: {
       contacts: {
         orderBy: [desc(customerContacts.isPrimary), desc(customerContacts.createdAt)],
+      },
+      invoices: {
+        with: {
+          createdBy: true,
+        },
+        orderBy: [desc(invoices.dueDate), desc(invoices.createdAt)],
+      },
+      projects: {
+        with: {
+          createdBy: true,
+        },
+        orderBy: [desc(projects.updatedAt), desc(projects.createdAt)],
       },
       notes: {
         orderBy: [desc(customerNotes.createdAt)],

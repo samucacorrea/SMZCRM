@@ -8,6 +8,10 @@ import { CustomerCustomDataForm } from "@/modules/customers/components/customer-
 import { CustomerCustomFieldCreateForm } from "@/modules/customers/components/customer-custom-field-create-form";
 import { CustomerDetailsForm } from "@/modules/customers/components/customer-details-form";
 import { CustomerNotesPanel } from "@/modules/customers/components/customer-notes-panel";
+import { InvoiceCreateForm } from "@/modules/billing/components/invoice-create-form";
+import { InvoicesPanel } from "@/modules/billing/components/invoices-panel";
+import { ProjectCreateForm } from "@/modules/projects/components/project-create-form";
+import { ProjectsPanel } from "@/modules/projects/components/projects-panel";
 import { getCustomerById, listCustomerCustomFieldsByTenant } from "@/modules/customers/queries";
 
 const tabs = [
@@ -124,15 +128,57 @@ export async function CustomerProfilePageView({ customerId }: { customerId: stri
       </Card>
 
       <Card className="overflow-hidden">
-          <div className="h-1 bg-accent" />
-          <CardHeader>
-            <CardTitle>Notas internas</CardTitle>
-            <CardDescription>Registro comercial com autor e data.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <CustomerNotesPanel customerId={customer.id} notes={customer.notes} />
-          </CardContent>
-        </Card>
+        <div className="h-1 bg-primary/70" />
+        <CardHeader>
+          <CardTitle>Faturas</CardTitle>
+          <CardDescription>Cobranças emitidas para este cliente.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <InvoiceCreateForm
+            customers={[
+              {
+                id: customer.id,
+                legalName: customer.legalName,
+                tradeName: customer.tradeName,
+              },
+            ]}
+            defaultCustomerId={customer.id}
+          />
+          <InvoicesPanel invoices={customer.invoices} />
+        </CardContent>
+      </Card>
+
+      <Card className="overflow-hidden">
+        <div className="h-1 bg-primary/50" />
+        <CardHeader>
+          <CardTitle>Projetos</CardTitle>
+          <CardDescription>Operação ativa deste cliente com orçamento e progresso.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <ProjectCreateForm
+            customers={[
+              {
+                id: customer.id,
+                legalName: customer.legalName,
+                tradeName: customer.tradeName,
+              },
+            ]}
+            defaultCustomerId={customer.id}
+          />
+          <ProjectsPanel projects={customer.projects} />
+        </CardContent>
+      </Card>
+
+      <Card className="overflow-hidden">
+        <div className="h-1 bg-accent" />
+        <CardHeader>
+          <CardTitle>Notas internas</CardTitle>
+          <CardDescription>Registro comercial com autor e data.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <CustomerNotesPanel customerId={customer.id} notes={customer.notes} />
+        </CardContent>
+      </Card>
 
       <Card className="overflow-hidden">
         <div className="h-1 bg-accent/80" />

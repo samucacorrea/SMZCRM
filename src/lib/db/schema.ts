@@ -84,6 +84,30 @@ export const leadFollowUpOutcomeEnum = pgEnum("lead_follow_up_outcome", [
   "not_interested",
   "scheduled",
 ]);
+export const invoiceStatusEnum = pgEnum("invoice_status", [
+  "draft",
+  "issued",
+  "paid",
+  "overdue",
+  "canceled",
+]);
+export const projectBillingTypeEnum = pgEnum("project_billing_type", [
+  "fixed",
+  "project_hour",
+  "task_hour",
+]);
+export const projectStatusEnum = pgEnum("project_status", [
+  "planning",
+  "active",
+  "on_hold",
+  "completed",
+  "canceled",
+]);
+export const projectHealthEnum = pgEnum("project_health", [
+  "healthy",
+  "attention",
+  "critical",
+]);
 export const webhookStatusEnum = pgEnum("webhook_status", ["active", "paused"]);
 export const webhookDedupKeyEnum = pgEnum("webhook_dedup_key", [
   "email",
@@ -433,6 +457,168 @@ export const customerNotes = pgTable(
       table.tenantId,
       table.customerId,
     ),
+  }),
+).enableRLS();
+
+export const invoices = pgTable(
+  "invoices",
+  {
+    id: uuid("id").$defaultFn(createId).primaryKey(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    customerId: uuid("customer_id")
+      .notNull()
+      .references(() => customers.id, { onDelete: "cascade" }),
+    projectId: uuid("project_id").references(() => projects.id, { onDelete: "set null" }),
+    number: text("number").notNull(),
+    status: invoiceStatusEnum("status").default("draft").notNull(),
+    description: text("description").notNull(),
+    issueDate: timestamp("issue_date", { withTimezone: true }).notNull(),
+    dueDate: timestamp("due_date", { withTimezone: true }).notNull(),
+    paidAt: timestamp("paid_at", { withTimezone: true }),
+    currency: text("currency").default("BRL").notNull(),
+    amountInCents: integer("amount_in_cents").default(0).notNull(),
+    externalReference: text("external_reference"),
+    notes: text("notes"),
+    createdByStaffMemberId: uuid("created_by_staff_member_id").references(
+      () => staffMembers.id,
+      { onDelete: "set null" },
+    ),
+    ...timestamps,
+  },
+  (table) => ({
+    tenantNumberIdx: uniqueIndex("invoices_tenant_number_idx").on(table.tenantId, table.number),
+    tenantCustomerIdx: index("invoices_tenant_customer_idx").on(table.tenantId, table.customerId),
+    tenantProjectIdx: index("invoices_tenant_project_idx").on(table.tenantId, table.projectId),
+    tenantStatusIdx: index("invoices_tenant_status_idx").on(table.tenantId, table.status),
+    tenantDueDateIdx: index("invoices_tenant_due_date_idx").on(table.tenantId, table.dueDate),
+  }),
+).enableRLS();
+
+export const projects = pgTable(
+  "projects",
+  {
+    id: uuid("id").$defaultFn(createId).primaryKey(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    customerId: uuid("customer_id")
+      .notNull()
+      .references(() => customers.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    description: text("description"),
+    billingType: projectBillingTypeEnum("billing_type").default("fixed").notNull(),
+    status: projectStatusEnum("status").default("planning").notNull(),
+    health: projectHealthEnum("health").default("healthy").notNull(),
+    currency: text("currency").default("BRL").notNull(),
+    rateInCents: integer("rate_in_cents").default(0).notNull(),
+    budgetInCents: integer("budget_in_cents").default(0).notNull(),
+    progress: integer("progress").default(0).notNull(),
+    startDate: timestamp("start_date", { withTimezone: true }),
+    dueDate: timestamp("due_date", { withTimezone: true }),
+    portalVisibility: jsonb("portal_visibility")
+      .$type<Record<string, unknown>>()
+      .default({})
+      .notNull(),
+    createdByStaffMemberId: uuid("created_by_staff_member_id").references(
+      () => staffMembers.id,
+      { onDelete: "set null" },
+    ),
+    ...timestamps,
+  },
+  (table) => ({
+    tenantCustomerIdx: index("projects_tenant_customer_idx").on(table.tenantId, table.customerId),
+    tenantStatusIdx: index("projects_tenant_status_idx").on(table.tenantId, table.status),
+    tenantDueDateIdx: index("projects_tenant_due_date_idx").on(table.tenantId, table.dueDate),
+  }),
+).enableRLS();
+
+export const projectTimeEntries = pgTable(
+  "project_time_entries",
+  {
+    id: uuid("id").$defaultFn(createId).primaryKey(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    projectId: uuid("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    taskId: uuid("task_id").references(() => tasks.id, { onDelete: "set null" }),
+    staffId: uuid("staff_id")
+      .notNull()
+      .references(() => staffMembers.id, { onDelete: "cascade" }),
+    workedAt: timestamp("worked_at", { withTimezone: true }).notNull(),
+    durationMinutes: integer("duration_minutes").notNull(),
+    billable: boolean("billable").default(true).notNull(),
+    rateInCents: integer("rate_in_cents").default(0).notNull(),
+    amountInCents: integer("amount_in_cents").default(0).notNull(),
+    invoiceId: uuid("invoice_id").references(() => invoices.id, { onDelete: "set null" }),
+    billedAt: timestamp("billed_at", { withTimezone: true }),
+    notes: text("notes"),
+    createdByStaffMemberId: uuid("created_by_staff_member_id").references(
+      () => staffMembers.id,
+      { onDelete: "set null" },
+    ),
+    ...timestamps,
+  },
+  (table) => ({
+    tenantProjectWorkedIdx: index("project_time_entries_tenant_project_worked_idx").on(
+      table.tenantId,
+      table.projectId,
+      table.workedAt,
+    ),
+    tenantStaffWorkedIdx: index("project_time_entries_tenant_staff_worked_idx").on(
+      table.tenantId,
+      table.staffId,
+      table.workedAt,
+    ),
+    tenantTaskIdx: index("project_time_entries_tenant_task_idx").on(
+      table.tenantId,
+      table.taskId,
+    ),
+    tenantInvoiceIdx: index("project_time_entries_tenant_invoice_idx").on(
+      table.tenantId,
+      table.invoiceId,
+    ),
+  }),
+).enableRLS();
+
+export const projectActiveTimers = pgTable(
+  "project_active_timers",
+  {
+    id: uuid("id").$defaultFn(createId).primaryKey(),
+    tenantId: uuid("tenant_id")
+      .notNull()
+      .references(() => tenants.id, { onDelete: "cascade" }),
+    projectId: uuid("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    taskId: uuid("task_id")
+      .notNull()
+      .references(() => tasks.id, { onDelete: "cascade" }),
+    staffId: uuid("staff_id")
+      .notNull()
+      .references(() => staffMembers.id, { onDelete: "cascade" }),
+    startedAt: timestamp("started_at", { withTimezone: true }).notNull(),
+    billable: boolean("billable").default(true).notNull(),
+    notes: text("notes"),
+    createdByStaffMemberId: uuid("created_by_staff_member_id").references(
+      () => staffMembers.id,
+      { onDelete: "set null" },
+    ),
+    ...timestamps,
+  },
+  (table) => ({
+    tenantStaffIdx: uniqueIndex("project_active_timers_tenant_staff_idx").on(
+      table.tenantId,
+      table.staffId,
+    ),
+    tenantProjectIdx: index("project_active_timers_tenant_project_idx").on(
+      table.tenantId,
+      table.projectId,
+    ),
+    tenantTaskIdx: index("project_active_timers_tenant_task_idx").on(table.tenantId, table.taskId),
   }),
 ).enableRLS();
 
@@ -957,6 +1143,10 @@ export const tenantScopedTables = {
   customers,
   customerContacts,
   customerNotes,
+  invoices,
+  projects,
+  projectTimeEntries,
+  projectActiveTimers,
   leadStages,
   customFields,
   leads,
@@ -1018,6 +1208,8 @@ export const customersRelations = relations(customers, ({ one, many }) => ({
   }),
   contacts: many(customerContacts),
   notes: many(customerNotes),
+  invoices: many(invoices),
+  projects: many(projects),
 }));
 
 export const customerContactsRelations = relations(customerContacts, ({ one }) => ({
@@ -1042,6 +1234,93 @@ export const customerNotesRelations = relations(customerNotes, ({ one }) => ({
   }),
   author: one(staffMembers, {
     fields: [customerNotes.authorStaffMemberId],
+    references: [staffMembers.id],
+  }),
+}));
+
+export const invoicesRelations = relations(invoices, ({ one }) => ({
+  tenant: one(tenants, {
+    fields: [invoices.tenantId],
+    references: [tenants.id],
+  }),
+  customer: one(customers, {
+    fields: [invoices.customerId],
+    references: [customers.id],
+  }),
+  project: one(projects, {
+    fields: [invoices.projectId],
+    references: [projects.id],
+  }),
+  createdBy: one(staffMembers, {
+    fields: [invoices.createdByStaffMemberId],
+    references: [staffMembers.id],
+  }),
+}));
+
+export const projectsRelations = relations(projects, ({ one, many }) => ({
+  tenant: one(tenants, {
+    fields: [projects.tenantId],
+    references: [tenants.id],
+  }),
+  customer: one(customers, {
+    fields: [projects.customerId],
+    references: [customers.id],
+  }),
+  createdBy: one(staffMembers, {
+    fields: [projects.createdByStaffMemberId],
+    references: [staffMembers.id],
+  }),
+  invoices: many(invoices),
+  timeEntries: many(projectTimeEntries),
+  activeTimers: many(projectActiveTimers),
+}));
+
+export const projectTimeEntriesRelations = relations(projectTimeEntries, ({ one }) => ({
+  tenant: one(tenants, {
+    fields: [projectTimeEntries.tenantId],
+    references: [tenants.id],
+  }),
+  project: one(projects, {
+    fields: [projectTimeEntries.projectId],
+    references: [projects.id],
+  }),
+  task: one(tasks, {
+    fields: [projectTimeEntries.taskId],
+    references: [tasks.id],
+  }),
+  invoice: one(invoices, {
+    fields: [projectTimeEntries.invoiceId],
+    references: [invoices.id],
+  }),
+  staff: one(staffMembers, {
+    fields: [projectTimeEntries.staffId],
+    references: [staffMembers.id],
+  }),
+  createdBy: one(staffMembers, {
+    fields: [projectTimeEntries.createdByStaffMemberId],
+    references: [staffMembers.id],
+  }),
+}));
+
+export const projectActiveTimersRelations = relations(projectActiveTimers, ({ one }) => ({
+  tenant: one(tenants, {
+    fields: [projectActiveTimers.tenantId],
+    references: [tenants.id],
+  }),
+  project: one(projects, {
+    fields: [projectActiveTimers.projectId],
+    references: [projects.id],
+  }),
+  task: one(tasks, {
+    fields: [projectActiveTimers.taskId],
+    references: [tasks.id],
+  }),
+  staff: one(staffMembers, {
+    fields: [projectActiveTimers.staffId],
+    references: [staffMembers.id],
+  }),
+  createdBy: one(staffMembers, {
+    fields: [projectActiveTimers.createdByStaffMemberId],
     references: [staffMembers.id],
   }),
 }));
@@ -1325,6 +1604,10 @@ export const schema = {
   customers,
   customerContacts,
   customerNotes,
+  invoices,
+  projects,
+  projectTimeEntries,
+  projectActiveTimers,
   leadStages,
   customFields,
   leads,

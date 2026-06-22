@@ -20,6 +20,9 @@ const sections: Array<{ label: string; items: NavItem[] }> = [
       { href: "/customers", label: "Clientes", hint: "11" },
       { href: "/leads", label: "Leads", hint: "14" },
       { href: "/leads/kanban", label: "Kanban", hint: "KB" },
+      { href: "/projects", label: "Projetos", hint: "PJ" },
+      { href: "/timesheets", label: "Timesheets", hint: "TS" },
+      { href: "/billing", label: "Faturas", hint: "R$" },
       { href: "/webhooks", label: "Webhooks", hint: "IN" },
     ],
   },
@@ -46,6 +49,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       ? "Clientes"
       : pathname.startsWith("/leads")
         ? "Leads"
+        : pathname.startsWith("/projects")
+          ? "Projetos"
+        : pathname.startsWith("/timesheets")
+          ? "Timesheets"
+        : pathname.startsWith("/billing")
+          ? "Faturas"
         : pathname.startsWith("/dashboard")
           ? "Visão geral"
           : "Workspace";
